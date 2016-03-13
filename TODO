@@ -5,3 +5,4 @@ Things to do:
 - Create a Map class that is responsible for showing the map. Figure out where the entity manager fits into that.
 - Figure out whether to do regular components or real ECS : http://www.gamedev.net/page/resources/_/technical/game-programming/understanding-component-entity-systems-r3013
 - Dialog box
+- Implement TaskQueue - this can do things like play spell animations, move npcs, etc.
