@@ -13,6 +13,7 @@ public abstract class Entity {
 	protected Rectangle bounds;
 	protected String entityName = this.getClass().getSimpleName();
 	protected boolean canTalk = false;
+	private Integer currentDialog;
 
 	public String getEntityName() {
 		return entityName;
@@ -36,6 +37,7 @@ public abstract class Entity {
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.setCurrentDialog(0); //DBC
 
 		bounds = new Rectangle(0, 0, width, height);
 	}
@@ -96,4 +98,12 @@ public abstract class Entity {
 	public abstract void update();
 
 	public abstract void render(Graphics g);
+
+	public Integer getCurrentDialog() {
+		return currentDialog;
+	}
+
+	public void setCurrentDialog(Integer currentDialog) {
+		this.currentDialog = currentDialog;
+	}
 }
