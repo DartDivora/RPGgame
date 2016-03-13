@@ -111,8 +111,15 @@ public class Player extends Creature {
 		if (handler.getKeyManager().right) {
 			xMove = +speed;
 		}
-		if(handler.getKeyManager().space){
+		if (handler.getKeyManager().space) {
 			this.setTalk(true);
+		}
+		if (handler.getKeyManager().m) {
+			if (handler.getAudioManager().isMute()) {
+				handler.getAudioManager().setMute(false);
+			} else {
+				handler.getAudioManager().setMute(true);
+			}
 		}
 	}
 

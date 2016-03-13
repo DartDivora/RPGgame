@@ -106,6 +106,7 @@ public class Game implements Runnable {
 	private void update() {
 		keyManager.update();
 		mouseManager.update();
+		handler.getAudioManager().update();
 		if (!menuState.isInMenu() && !isLeftMenu()) {
 			Utilities.Debug("Leaving menu!");
 			leftMenu = true;

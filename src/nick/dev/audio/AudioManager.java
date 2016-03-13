@@ -27,9 +27,7 @@ public class AudioManager {
 	}
 
 	public void play() {
-		if (!mute) {
 			mp.play();
-		}
 	}
 
 	public void stop() {
@@ -48,6 +46,12 @@ public class AudioManager {
 
 	public void setMute(boolean mute) {
 		this.mute = mute;
+	}
+	
+	public void update(){
+		if(mp != null){
+			mp.setMute(this.mute);
+		}
 	}
 
 }
