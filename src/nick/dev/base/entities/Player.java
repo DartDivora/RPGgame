@@ -5,6 +5,7 @@ import java.util.Arrays;
 import nick.dev.base.Handler;
 import nick.dev.gfx.Animation;
 import nick.dev.gfx.Assets;
+import nick.dev.input.KeyManager.Keys;
 import nick.dev.utilities.Utilities;
 
 public class Player extends Creature {
@@ -99,19 +100,19 @@ public class Player extends Creature {
 		xMove = 0;
 		yMove = 0;
 
-		if (handler.getKeyManager().up) {
+		if (handler.getKeyManager().keyIsDown(Keys.Up)) {
 			yMove = -speed;
 		}
-		if (handler.getKeyManager().down) {
+		if (handler.getKeyManager().keyIsDown(Keys.Down)) {
 			yMove = +speed;
 		}
-		if (handler.getKeyManager().left) {
+		if (handler.getKeyManager().keyIsDown(Keys.Left)) {
 			xMove = -speed;
 		}
-		if (handler.getKeyManager().right) {
+		if (handler.getKeyManager().keyIsDown(Keys.Right)) {
 			xMove = +speed;
 		}
-		if (handler.getKeyManager().space) {
+		if (handler.getKeyManager().keyIsPressed(Keys.Space)) {
 			this.setTalk(true);
 		}
 	}

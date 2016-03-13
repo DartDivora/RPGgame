@@ -46,9 +46,6 @@ public abstract class Entity {
 				continue;
 			}
 			if (e.getCollisionBounds(0, 0).intersects(getCollisionBounds(xOffset, yOffset))) {
-				if (e.canTalk && handler.getPlayer().isTalk()) {
-					e.talkAction();
-				}
 				return true;
 			}
 		}

@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import nick.dev.base.Handler;
+import nick.dev.input.KeyManager.Keys;
 import nick.dev.utilities.Utilities;
 import nick.dev.worlds.World;
 
@@ -37,7 +38,7 @@ public class GameState extends State {
 			f = new Font("arial", Font.BOLD, 25);
 			g.setFont(f);
 			g.drawString(this.getDialog(), 100, 100);
-			if (handler.getKeyManager().space) {
+			if (handler.getKeyManager().keyIsPressed(Keys.Space)) {
 				this.setDialog(null);
 			}
 		}

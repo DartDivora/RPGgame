@@ -6,6 +6,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import nick.dev.base.Handler;
+import nick.dev.input.KeyManager.Keys;
 import nick.dev.utilities.Utilities;
 
 public class AudioManager {
@@ -53,7 +54,7 @@ public class AudioManager {
 	}
 
 	public void update() {
-		if (mp != null && handler.getKeyManager().m) {
+		if (mp != null && handler.getKeyManager().keyIsPressed(Keys.Mute)) {
 			mp.setMute(!mp.isMute());
 		}
 	}
