@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.Arrays;
 
+import nick.dev.audio.AudioManager;
 import nick.dev.display.Display;
 import nick.dev.gfx.Assets;
 import nick.dev.gfx.GameCamera;
@@ -48,6 +49,8 @@ public class Game implements Runnable {
 
 	private GameCamera gameCamera;
 
+	// Audio
+	private AudioManager audioManager;
 	// Handler
 	private Handler handler;
 
@@ -57,6 +60,7 @@ public class Game implements Runnable {
 		this.title = title;
 		keyManager = new KeyManager();
 		mouseManager = new MouseManager();
+		audioManager = new AudioManager();
 	}
 
 	private void init() {
@@ -70,6 +74,8 @@ public class Game implements Runnable {
 		Assets.init();
 		handler = new Handler(this);
 		handler.setSaveManager(new SaveManager());
+		handler.setAudioManager(audioManager);
+		handler.getAudioManager().setHandler(handler);
 		handler.setDisplay(display);
 		gameCamera = new GameCamera(handler, 0, 0);
 
@@ -79,7 +85,7 @@ public class Game implements Runnable {
 		battleState = new BattleState(handler);
 
 		State.setState(menuState);
-
+		
 		// testImage = loadImage.loadImages("/textures/sheet.png");
 		// sheet = new SpriteSheet(testImage);
 	}
@@ -106,7 +112,7 @@ public class Game implements Runnable {
 	private void update() {
 		keyManager.update();
 		mouseManager.update();
-		handler.getAudioManager().update();
+		audioManager.update();
 		if (!menuState.isInMenu() && !isLeftMenu()) {
 			Utilities.Debug("Leaving menu!");
 			leftMenu = true;

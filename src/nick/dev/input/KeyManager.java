@@ -12,7 +12,6 @@ public class KeyManager implements KeyListener {
 
 	public KeyManager() {
 		keys = new boolean[256];
-
 	}
 
 	public void update() {
