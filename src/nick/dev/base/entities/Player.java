@@ -12,7 +12,6 @@ public class Player extends Creature {
 	private Integer battleChance, currentExperience;
 	private boolean goToBattle = false;
 	private int[] levelArray = new int[100];
-	private boolean talk = false;
 
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -112,9 +111,6 @@ public class Player extends Creature {
 		if (handler.getKeyManager().keyIsDown(Keys.Right)) {
 			xMove = +speed;
 		}
-		if (handler.getKeyManager().keyIsPressed(Keys.Space)) {
-			this.setTalk(true);
-		}
 	}
 
 	public Integer getBattleChance() {
@@ -131,14 +127,6 @@ public class Player extends Creature {
 
 	public void setGoToBattle(boolean goToBattle) {
 		this.goToBattle = goToBattle;
-	}
-
-	public boolean isTalk() {
-		return talk;
-	}
-
-	public void setTalk(boolean talk) {
-		this.talk = talk;
 	}
 
 }

@@ -15,15 +15,6 @@ public abstract class State {
 
 	private static State currentState = null;
 	private static State returnState = null;
-	private String dialog = null;
-
-	public String getDialog() {
-		return dialog;
-	}
-
-	public void setDialog(String dialog) {
-		this.dialog = dialog;
-	}
 
 	public static void setState(State state) {
 		currentState = state;
