@@ -91,10 +91,12 @@ public class AudioManager {
 	// Unmutes all tracks.
 	public void unmute() {
 		this.isMuted = false;
+		this.resumeCurrentTrack();
 	}
 	
 	// Mutes all tracks.
 	public void mute() {
 		this.isMuted = true;
+		this.pauseCurrentTrack();
 	}
 }
