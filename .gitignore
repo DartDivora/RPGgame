@@ -1,1 +1,7 @@
 /bin/
+
+.classpath
+
+jars/commons-io-2.4.jar
+
+jars/java-json.jar
