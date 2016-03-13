@@ -5,6 +5,7 @@ import java.net.URL;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import nick.dev.utilities.Utilities;
 
 public class AudioManager {
 
@@ -16,7 +17,7 @@ public class AudioManager {
 
 	public AudioManager() {
 		fxPanel = new JFXPanel();
-		mute = true; //DBC
+		mute = Boolean.parseBoolean(Utilities.getPropValue("mute", Utilities.getPropFile()));
 	}
 
 	public void Track(String path) {
@@ -26,8 +27,8 @@ public class AudioManager {
 	}
 
 	public void play() {
-		if(!mute){
-		mp.play();
+		if (!mute) {
+			mp.play();
 		}
 	}
 
