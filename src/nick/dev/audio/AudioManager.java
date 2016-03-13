@@ -43,7 +43,11 @@ public class AudioManager {
 	// Called every frame. Currently only checks to see if we try to mute audio.
 	public void update() {
 		if (handler.getKeyManager().keyIsPressed(Keys.Mute)) {
-			this.isMuted = !this.isMuted;
+			if (this.isMuted) {
+				this.unmute();
+			} else {
+				this.mute();
+			}
 		}
 	}
 	
@@ -95,6 +99,7 @@ public class AudioManager {
 	}
 	
 	// Mutes all tracks.
+	// TODO: Make all tracks mute, just need to iterate through all tracks and pause them.
 	public void mute() {
 		this.isMuted = true;
 		this.pauseCurrentTrack();
