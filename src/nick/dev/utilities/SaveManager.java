@@ -14,8 +14,10 @@ import nick.dev.base.Handler;
 public class SaveManager {
 
 	public static String[] saveFileKeys;
+	@SuppressWarnings("unused")
+	private Handler handler;
 
-	public SaveManager() {
+	public SaveManager(Handler handler) {
 		saveFileKeys = new String[7];
 		saveFileKeys[0] = "CharacterName";
 		saveFileKeys[1] = "Attack";

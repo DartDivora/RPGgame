@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import nick.dev.base.Handler;
 import nick.dev.utilities.Utilities;
 
 public class MouseManager implements MouseListener, MouseMotionListener {
@@ -12,8 +13,11 @@ public class MouseManager implements MouseListener, MouseMotionListener {
 	public boolean[] mouseClicks;
 	public boolean leftClick, rightClick;
 	private Integer x, y;
+	@SuppressWarnings("unused")
+	private Handler handler;
 
-	public MouseManager() {
+	public MouseManager(Handler handler) {
+		this.handler = handler;
 		mouseClicks = new boolean[MouseInfo.getNumberOfButtons()];
 	}
 

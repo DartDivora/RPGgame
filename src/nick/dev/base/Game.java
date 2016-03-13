@@ -44,6 +44,7 @@ public class Game implements Runnable {
 
 	private KeyManager keyManager;
 	private MouseManager mouseManager;
+	private SaveManager saveManager;
 
 	// Camera
 
@@ -58,9 +59,11 @@ public class Game implements Runnable {
 		this.width = width;
 		this.height = height;
 		this.title = title;
-		keyManager = new KeyManager();
-		mouseManager = new MouseManager();
-		audioManager = new AudioManager();
+		handler = new Handler(this);
+		keyManager = new KeyManager(handler);
+		mouseManager = new MouseManager(handler);
+		audioManager = new AudioManager(handler);
+		saveManager = new SaveManager(handler);
 	}
 
 	private void init() {
@@ -72,10 +75,8 @@ public class Game implements Runnable {
 		// display.getCanvas().addMouseMotionListener(mouseManager);
 		Utilities.Debug(Arrays.toString(display.getCanvas().getMouseListeners()));
 		Assets.init();
-		handler = new Handler(this);
-		handler.setSaveManager(new SaveManager());
+		handler.setSaveManager(saveManager);
 		handler.setAudioManager(audioManager);
-		handler.getAudioManager().setHandler(handler);
 		handler.setDisplay(display);
 		gameCamera = new GameCamera(handler, 0, 0);
 
@@ -85,7 +86,7 @@ public class Game implements Runnable {
 		battleState = new BattleState(handler);
 
 		State.setState(menuState);
-		
+
 		// testImage = loadImage.loadImages("/textures/sheet.png");
 		// sheet = new SpriteSheet(testImage);
 	}

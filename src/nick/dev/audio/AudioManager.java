@@ -24,17 +24,10 @@ public class AudioManager {
 		mp = new MediaPlayer(m);
 	}
 
-	public AudioManager() {
+	public AudioManager(Handler handler) {
+		this.handler = handler;
 		fxPanel = new JFXPanel();
 		mute = Boolean.parseBoolean(Utilities.getPropValue("mute", Utilities.getPropFile()));
-	}
-
-	public Handler getHandler() {
-		return handler;
-	}
-
-	public void setHandler(Handler handler) {
-		this.handler = handler;
 	}
 
 	public void play() {

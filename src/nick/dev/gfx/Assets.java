@@ -1,13 +1,7 @@
 package nick.dev.gfx;
 
-import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
-import nick.dev.input.MouseManager;
 import nick.dev.utilities.Utilities;
 
 public class Assets {
@@ -70,19 +64,6 @@ public class Assets {
 		tree = tileSheet.crop(208, 144, width, height * 2);
 		sand = tileSheet.crop(208, 0, width, height);
 		town = tileSheet.crop(416, 16, width, height);
-	}
-
-	@SuppressWarnings("static-access")
-	public static void main(String[] args) {
-		Assets a = new Assets();
-		a.init();
-		JFrame frame = new JFrame();
-		frame.getContentPane().setLayout(new FlowLayout());
-		frame.getContentPane().add(new JLabel(new ImageIcon(a.player_left[0])));
-		frame.getContentPane().add(new JLabel(new ImageIcon(a.player_left[1])));
-		frame.addMouseListener(new MouseManager());
-		frame.pack();
-		frame.setVisible(true);
 	}
 
 }
