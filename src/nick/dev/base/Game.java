@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 import java.util.Arrays;
 
 import nick.dev.audio.AudioManager;
+import nick.dev.dialog.DialogManager;
 import nick.dev.display.Display;
 import nick.dev.gfx.Assets;
 import nick.dev.gfx.GameCamera;
@@ -45,6 +46,7 @@ public class Game implements Runnable {
 	private KeyManager keyManager;
 	private MouseManager mouseManager;
 	private SaveManager saveManager;
+	private DialogManager dialogManager;
 
 	// Camera
 
@@ -64,6 +66,7 @@ public class Game implements Runnable {
 		mouseManager = new MouseManager(handler);
 		audioManager = new AudioManager(handler);
 		saveManager = new SaveManager(handler);
+		dialogManager = new DialogManager(handler);
 	}
 
 	private void init() {
@@ -77,6 +80,7 @@ public class Game implements Runnable {
 		Assets.init();
 		handler.setSaveManager(saveManager);
 		handler.setAudioManager(audioManager);
+		handler.setDialogManager(dialogManager);
 		handler.setDisplay(display);
 		gameCamera = new GameCamera(handler, 0, 0);
 

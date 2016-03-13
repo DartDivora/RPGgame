@@ -2,6 +2,7 @@ package nick.dev.base;
 
 import nick.dev.audio.AudioManager;
 import nick.dev.base.entities.Player;
+import nick.dev.dialog.DialogManager;
 import nick.dev.display.Display;
 import nick.dev.gfx.GameCamera;
 import nick.dev.input.KeyManager;
@@ -15,6 +16,7 @@ public class Handler {
 	private World world;
 	private AudioManager audioManager;
 	private SaveManager saveManager;
+	private DialogManager dialogManager;
 	private Display display;
 
 	public Handler(Game game) {
@@ -83,6 +85,14 @@ public class Handler {
 
 	public void setDisplay(Display display) {
 		this.display = display;
+	}
+
+	public DialogManager getDialogManager() {
+		return dialogManager;
+	}
+
+	public void setDialogManager(DialogManager dialogManager) {
+		this.dialogManager = dialogManager;
 	}
 
 }
