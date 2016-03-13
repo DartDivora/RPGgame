@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.Arrays;
 
+import nick.dev.audio.AudioManager.Tracks;
 import nick.dev.base.Handler;
 import nick.dev.base.entities.Creature;
 import nick.dev.base.entities.Gnoll;
@@ -108,9 +109,8 @@ public class BattleState extends State {
 		Utilities.Debug("Leaving battle!");
 		handler.getWorld().getEntityManager().getPlayer().setGoToBattle(false);
 		State.setState(getReturnState());
-		handler.getAudioManager().stop();
-		handler.getAudioManager().Track(Utilities.getPropValue("musicOverworld", Utilities.getPropFile()));
-		handler.getAudioManager().play();
+		handler.getAudioManager().stopCurrentTrack();
+		handler.getAudioManager().playTrack(Tracks.Overworld);
 		handler.getGame().setInBattle(false);
 		handler.getWorld().getEntityManager().getPlayer().setGoToBattle(false);
 

@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 import java.util.Arrays;
 
 import nick.dev.audio.AudioManager;
+import nick.dev.audio.AudioManager.Tracks;
 import nick.dev.display.Display;
 import nick.dev.gfx.Assets;
 import nick.dev.gfx.GameCamera;
@@ -106,8 +107,7 @@ public class Game implements Runnable {
 	public void leaveMenu() {
 		Utilities.Debug("Setting state to gameState!");
 		State.setState(gameState);
-		handler.getAudioManager().Track(Utilities.getPropValue("musicOverworld", Utilities.getPropFile()));
-		handler.getAudioManager().play();
+		handler.getAudioManager().playTrack(Tracks.Overworld);
 	}
 
 	private void update() {
@@ -133,9 +133,7 @@ public class Game implements Runnable {
 			Utilities.Debug("Battle!!!!");
 			this.setInBattle(true);
 			handler.getMouseManager().resetXY();
-			handler.getAudioManager().stop();
-			handler.getAudioManager().Track(Utilities.getPropValue("musicBattle", Utilities.getPropFile()));
-			handler.getAudioManager().play();
+			handler.getAudioManager().playTrack(Tracks.Battle);
 			battleState.setReturnState(gameState);
 			State.setState(battleState);
 		}
