@@ -9,6 +9,9 @@ import nick.dev.base.Handler;
 import nick.dev.utilities.Utilities;
 
 public abstract class State {
+	
+	public enum Types { Title, Overworld, Localworld, Battle, Menu };
+	
 	public boolean inMenu = true;
 	public Graphics2D g2d;
 	public Font f;
