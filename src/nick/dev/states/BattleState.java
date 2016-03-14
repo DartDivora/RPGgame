@@ -15,7 +15,6 @@ import nick.dev.utilities.Utilities;
 public class BattleState extends State {
 	private Gnoll creature;
 	private String[] actions;
-	public int mainButtonWidth, mainButtonHeight, attackButtonX, attackButtonY, defendButtonX, defendButtonY;
 	public Rectangle attackButton, defendButton;
 	int healthBarWidth, healthBarHeight, creatureDisplayWidth, creatureDisplayHeight;
 	String playerAction = null;
@@ -38,21 +37,24 @@ public class BattleState extends State {
 		creatureDisplayHeight = Integer
 				.parseInt(Utilities.getPropValue("createDisplayHeight", Utilities.getPropFile()));
 
-		mainButtonWidth = Handler.getWidth() / 4;
-		mainButtonHeight = Handler.getHeight() / 5;
-		attackButtonX = 0;
-		attackButtonY = Handler.getHeight() - (Handler.getHeight() / 4);
-		defendButtonX = mainButtonWidth;
-		defendButtonY = attackButtonY;
+		Integer mainButtonWidth = Handler.getWidth() / 4;
+		Integer mainButtonHeight = Handler.getHeight() / 5;
+		Integer attackButtonX = 0;
+		Integer attackButtonY = Handler.getHeight() - (Handler.getHeight() / 4);
+		Integer defendButtonX = mainButtonWidth;
+		Integer defendButtonY = attackButtonY;
 
 		attackButton = new Rectangle(attackButtonX, attackButtonY, mainButtonWidth, mainButtonHeight);
 		defendButton = new Rectangle(defendButtonX, defendButtonY, mainButtonWidth, mainButtonHeight);
 
-		//creature = new Gnoll(Handler, 0, 0, 0, 0);
+		creature = new Gnoll(0, 0, 0, 0);
 	}
 
 	@Override
 	public void update() {
+		// Eventually the player won't carry over to the battle state.
+		// We can keep the stats and sprite visible to it, but the player class
+		// should only be for the maps, not battles.
 		Handler.getWorld().getEntityManager().getPlayer().update();
 		creature.update();
 		playerAction = null;
@@ -82,6 +84,16 @@ public class BattleState extends State {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public void onEnter() {
+		Handler.getAudioManager().playTrack(Tracks.Battle);
+	}
+	
+	@Override
+	public void onExit() {
+		Handler.getAudioManager().stopCurrentTrack();
 	}
 
 	public String[] doAction(String playerAction, String enemyAction) {

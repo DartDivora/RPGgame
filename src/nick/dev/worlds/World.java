@@ -44,14 +44,6 @@ public class World {
 		entityManager.getPlayer().setBattleChance(Integer.parseInt(worldResults[6]));
 	}
 
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
-
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
-
 	public void update() {
 		entityManager.update();
 	}
@@ -59,17 +51,19 @@ public class World {
 	public void render(Graphics g) {
 		// This calculation ensures that only tiles in the camera view are
 		// rendered.
-		int xStart = (int) Math.max(0, Handler.getGameCamera().getxOffset() / Tile.TILEWIDTH);
-		int xEnd = (int) Math.min(width,
-				(Handler.getGameCamera().getxOffset() + Handler.getWidth()) / Tile.TILEWIDTH + 1);
-		int yStart = (int) Math.max(0, Handler.getGameCamera().getyOffset() / Tile.TILEHEIGHT);
-		int yEnd = (int) Math.min(height,
-				(Handler.getGameCamera().getyOffset() + Handler.getHeight()) / Tile.TILEHEIGHT + 1);
+		
+		float xOff = Handler.getGameCamera().getxOffset();
+		float yOff = Handler.getGameCamera().getyOffset();
+		
+		int xStart = (int) Math.max(0, xOff / Tile.TILEWIDTH);
+		int xEnd = (int) Math.min(width, (xOff + Handler.getWidth()) / Tile.TILEWIDTH + 1);
+		int yStart = (int) Math.max(0, yOff / Tile.TILEHEIGHT);
+		int yEnd = (int) Math.min(height, (yOff + Handler.getHeight()) / Tile.TILEHEIGHT + 1);
 
 		for (int y = yStart; y < yEnd; y++) {
 			for (int x = xStart; x < xEnd; x++) {
-				getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - Handler.getGameCamera().getxOffset()),
-						(int) (y * Tile.TILEHEIGHT - Handler.getGameCamera().getyOffset()));
+				getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - xOff),
+						(int) (y * Tile.TILEHEIGHT - yOff));
 			}
 		}
 
@@ -112,8 +106,6 @@ public class World {
 			// entityManager.addEntity(new Tree(Handler,
 			// Integer.parseInt(entity[1]), Integer.parseInt(entity[2])));
 		}
-
-		Handler.setWorld(this);
 	}
 
 	public int getWidth() {
@@ -122,5 +114,9 @@ public class World {
 
 	public int getHeight() {
 		return height;
+	}
+
+	public EntityManager getEntityManager() {
+		return entityManager;
 	}
 }

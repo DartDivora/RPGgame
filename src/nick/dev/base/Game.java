@@ -4,22 +4,11 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.Arrays;
 
-import nick.dev.audio.AudioManager;
-import nick.dev.audio.AudioManager.Tracks;
 import nick.dev.base.Handler;
-import nick.dev.dialog.DialogManager;
 import nick.dev.display.Display;
 import nick.dev.gfx.Assets;
 import nick.dev.gfx.GameCamera;
-import nick.dev.input.KeyManager;
-import nick.dev.input.MouseManager;
-import nick.dev.states.BattleState;
-import nick.dev.states.GameState;
-import nick.dev.states.MenuState;
-import nick.dev.states.SettingsState;
-import nick.dev.states.State;
 import nick.dev.states.StateManager;
-import nick.dev.utilities.SaveManager;
 import nick.dev.utilities.Utilities;
 
 public class Game implements Runnable {
@@ -31,23 +20,14 @@ public class Game implements Runnable {
 	private boolean running = false;
 	private BufferStrategy bs;
 	private Graphics g;
-	private boolean leftMenu = false;
-	private boolean inBattle = false;
 	// private BufferedImage testImage;
 	// private SpriteSheet sheet;
-
-	private KeyManager keyManager = new KeyManager();
-	private MouseManager mouseManager = new MouseManager();
-	private SaveManager saveManager;
-	private DialogManager dialogManager;
 	private StateManager stateManager;
 
 	// Camera
 
 	private GameCamera gameCamera;
 
-	// Audio
-	private AudioManager audioManager;
 	// Handler
 	//private Handler handler;
 
