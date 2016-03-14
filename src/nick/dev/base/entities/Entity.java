@@ -7,7 +7,6 @@ import nick.dev.base.Handler;
 
 public abstract class Entity {
 
-	protected Handler handler;
 	protected float x, y;
 	protected int width, height;
 	protected Rectangle bounds;
@@ -31,8 +30,7 @@ public abstract class Entity {
 		this.canTalk = canTalk;
 	}
 
-	public Entity(Handler handler, float x, float y, int width, int height) {
-		this.handler = handler;
+	public Entity(float x, float y, int width, int height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -43,7 +41,7 @@ public abstract class Entity {
 	}
 
 	public boolean checkEntityCollisions(float xOffset, float yOffset) {
-		for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
+		for (Entity e : Handler.getWorld().getEntityManager().getEntities()) {
 			if (e.equals(this)) {
 				continue;
 			}

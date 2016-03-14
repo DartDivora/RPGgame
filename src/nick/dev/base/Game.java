@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import nick.dev.audio.AudioManager;
 import nick.dev.audio.AudioManager.Tracks;
+import nick.dev.base.Handler;
 import nick.dev.dialog.DialogManager;
 import nick.dev.display.Display;
 import nick.dev.gfx.Assets;
@@ -17,6 +18,7 @@ import nick.dev.states.GameState;
 import nick.dev.states.MenuState;
 import nick.dev.states.SettingsState;
 import nick.dev.states.State;
+import nick.dev.states.StateManager;
 import nick.dev.utilities.SaveManager;
 import nick.dev.utilities.Utilities;
 
@@ -34,20 +36,11 @@ public class Game implements Runnable {
 	// private BufferedImage testImage;
 	// private SpriteSheet sheet;
 
-	// States
-
-	private State gameState;
-	private State menuState;
-	@SuppressWarnings("unused")
-	private State settingsState;
-	private State battleState;
-
-	// Input
-
-	private KeyManager keyManager;
-	private MouseManager mouseManager;
+	private KeyManager keyManager = new KeyManager();
+	private MouseManager mouseManager = new MouseManager();
 	private SaveManager saveManager;
 	private DialogManager dialogManager;
+	private StateManager stateManager;
 
 	// Camera
 
@@ -56,103 +49,37 @@ public class Game implements Runnable {
 	// Audio
 	private AudioManager audioManager;
 	// Handler
-	private Handler handler;
+	//private Handler handler;
 
 	public Game(String title, int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.title = title;
-		handler = new Handler(this);
-		keyManager = new KeyManager(handler);
-		mouseManager = new MouseManager(handler);
-		audioManager = new AudioManager(handler);
-		saveManager = new SaveManager(handler);
-		dialogManager = new DialogManager(handler);
 	}
 
 	private void init() {
+		
+
+		Handler.init(this);
+		
 		display = new Display(title, width, height);
-		display.getFrame().addKeyListener(keyManager);
-		display.getFrame().addMouseListener(mouseManager);
-		display.getCanvas().addMouseListener(mouseManager);
-		// display.getFrame().addMouseMotionListener(mouseManager);
-		// display.getCanvas().addMouseMotionListener(mouseManager);
+		display.getFrame().addKeyListener(Handler.getKeyManager());
+		display.getFrame().addMouseListener(Handler.getMouseManager());
+		display.getCanvas().addMouseListener(Handler.getMouseManager());
+		
+		Handler.setDisplay(display);
+		
 		Utilities.Debug(Arrays.toString(display.getCanvas().getMouseListeners()));
 		Assets.init();
-		handler.setSaveManager(saveManager);
-		handler.setAudioManager(audioManager);
-		handler.setDialogManager(dialogManager);
-		handler.setDisplay(display);
-		gameCamera = new GameCamera(handler, 0, 0);
-
-		gameState = new GameState(handler);
-		menuState = new MenuState(handler);
-		settingsState = new SettingsState(handler);
-		battleState = new BattleState(handler);
-
-		State.setState(menuState);
-
-		// testImage = loadImage.loadImages("/textures/sheet.png");
-		// sheet = new SpriteSheet(testImage);
-	}
-
-	public State getGameState() {
-		return gameState;
-	}
-
-	public State getMenuState() {
-		return menuState;
-	}
-
-	public State getBattleState() {
-		return battleState;
-	}
-
-	public void leaveMenu() {
-		Utilities.Debug("Setting state to gameState!");
-		State.setState(gameState);
-		handler.getAudioManager().playTrack(Tracks.Overworld);
+		
+		stateManager = new StateManager();
+		
+		gameCamera = new GameCamera(0, 0);
 	}
 
 	private void update() {
-		keyManager.update();
-		mouseManager.update();
-		audioManager.update();
-		if (!menuState.isInMenu() && !isLeftMenu()) {
-			Utilities.Debug("Leaving menu!");
-			leftMenu = true;
-			this.leaveMenu();
-		}
-
-		if (handler.getDisplay().isSaveGame()) {
-			handler.getDisplay().setSaveGame(false);
-			handler.getSaveManager().saveGame(handler, "res/saves/AlexSave.json");
-		}
-		if (handler.getDisplay().isLoadGame()) {
-			handler.getDisplay().setLoadGame(false);
-			handler.getSaveManager().loadGame(handler, "res/saves/AlexLoad.json");
-		}
-
-		if (handler.getWorld().getEntityManager().getPlayer().isGoToBattle() && !this.isInBattle()) {
-			Utilities.Debug("Battle!!!!");
-			this.setInBattle(true);
-			handler.getMouseManager().resetXY();
-			handler.getAudioManager().playTrack(Tracks.Battle);
-			battleState.setReturnState(gameState);
-			State.setState(battleState);
-		}
-
-		if (State.getState() != null) {
-			State.getState().update();
-		}
-	}
-
-	public Display getDisplay() {
-		return display;
-	}
-
-	public void setDisplay(Display display) {
-		this.display = display;
+		Handler.update();
+		stateManager.update();
 	}
 
 	private void render() {
@@ -162,30 +89,14 @@ public class Game implements Runnable {
 			return;
 		}
 		g = bs.getDrawGraphics();
+		
 		// Clear Screen
 		g.clearRect(0, 0, width, height);
 
-		if (State.getState() != null) {
-			State.getState().render(g);
-		}
-
-		// Draw here!
-		// g.fillRect(0, 0, width, height);
-		// g.drawRect(10, 50, 50, 70);
-		// g.drawImage(sheet.crop(0, 0, 32, 32), 5, 5, null);
-		// g.drawImage(sheet.crop(32, 0, 32, 32), 5, 5, null);
-		// End Draw
+		stateManager.render(g);
 
 		bs.show();
 		g.dispose();
-	}
-
-	public Graphics getG() {
-		return g;
-	}
-
-	public void setG(Graphics g) {
-		this.g = g;
 	}
 
 	public void run() {
@@ -223,14 +134,6 @@ public class Game implements Runnable {
 
 	}
 
-	public KeyManager getKeyManager() {
-		return keyManager;
-	}
-
-	public MouseManager getMouseManager() {
-		return mouseManager;
-	}
-
 	public GameCamera getGameCamera() {
 		return gameCamera;
 	}
@@ -263,21 +166,5 @@ public class Game implements Runnable {
 			Utilities.Debug("An exception occurred when stopping the thread!");
 			e.printStackTrace();
 		}
-	}
-
-	public boolean isLeftMenu() {
-		return leftMenu;
-	}
-
-	public void setLeftMenu(boolean leftMenu) {
-		this.leftMenu = leftMenu;
-	}
-
-	public boolean isInBattle() {
-		return inBattle;
-	}
-
-	public void setInBattle(boolean inBattle) {
-		this.inBattle = inBattle;
 	}
 }

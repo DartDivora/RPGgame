@@ -12,7 +12,20 @@ public abstract class State {
 	
 	public enum Types { Title, Overworld, Localworld, Battle, Menu };
 	
-	public boolean inMenu = true;
+	protected StateManager stateManager;
+	
+	public State(StateManager stateManager) {
+		this.stateManager = stateManager;
+	}
+	public void update() {}
+	public void render(Graphics g) {}
+	public void onEnter() {}
+	public void onExit() {}
+	
+	
+	
+	
+	/*public boolean inMenu = true;
 	public Graphics2D g2d;
 	public Font f;
 
@@ -52,15 +65,6 @@ public abstract class State {
 
 	public void setReturnState(State returnState) {
 		State.returnState = returnState;
-	}
-
-	public boolean inMouseBounds(Rectangle button, int MouseX, int MouseY) {
-		Utilities.Debug(button.contains(MouseX, MouseY));
-		if (button.contains(MouseX, MouseY)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+	}*/
 
 }

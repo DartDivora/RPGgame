@@ -1,5 +1,6 @@
 package nick.dev.utilities;
 
+import java.awt.Rectangle;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -157,4 +158,14 @@ public class Utilities extends IOUtils {
 			}
 		}
 	}
+	
+	public static boolean rectangleContainsPoint(Rectangle rect, float x, float y) {
+		System.out.println("checking: " + x + " " + y);
+		if (x >= rect.getMinX() && x <= rect.getMaxX() &&
+				y >= rect.getMinY() && y <= rect.getMaxY()) {
+			return true;
+		}
+		return false;
+	}
+	
 }

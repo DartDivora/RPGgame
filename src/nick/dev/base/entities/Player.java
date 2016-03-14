@@ -13,8 +13,8 @@ public class Player extends Creature {
 	private boolean goToBattle = false;
 	private int[] levelArray = new int[100];
 
-	public Player(Handler handler, float x, float y) {
-		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+	public Player(float x, float y) {
+		super(x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 
 		bounds.x = Integer.parseInt(Utilities.getPropValue("playerBoundsX", Utilities.getPropFile()));
 		bounds.y = Integer.parseInt(Utilities.getPropValue("playerBoundsY", Utilities.getPropFile()));
@@ -66,7 +66,7 @@ public class Player extends Creature {
 			if (xMove > 0 || yMove > 0) {
 				this.setGoToBattle(Utilities.battleChance(getBattleChance()));
 			}
-			handler.getGameCamera().centerOnEntity(this);
+			Handler.getGameCamera().centerOnEntity(this);
 		}
 
 		if (this.getCurrentExperience() > levelArray[this.getLevel()]) {
@@ -99,16 +99,16 @@ public class Player extends Creature {
 		xMove = 0;
 		yMove = 0;
 
-		if (handler.getKeyManager().keyIsDown(Keys.Up)) {
+		if (Handler.getKeyManager().keyIsDown(Keys.Up)) {
 			yMove = -speed;
 		}
-		if (handler.getKeyManager().keyIsDown(Keys.Down)) {
+		if (Handler.getKeyManager().keyIsDown(Keys.Down)) {
 			yMove = +speed;
 		}
-		if (handler.getKeyManager().keyIsDown(Keys.Left)) {
+		if (Handler.getKeyManager().keyIsDown(Keys.Left)) {
 			xMove = -speed;
 		}
-		if (handler.getKeyManager().keyIsDown(Keys.Right)) {
+		if (Handler.getKeyManager().keyIsDown(Keys.Right)) {
 			xMove = +speed;
 		}
 	}

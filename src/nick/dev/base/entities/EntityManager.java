@@ -9,7 +9,6 @@ import nick.dev.base.entities.NPCs.NPC;
 
 public class EntityManager {
 
-	private Handler handler;
 	private Player player;
 	private ArrayList<Entity> entities;
 	private Comparator<Entity> renderSorter = new Comparator<Entity>() {
@@ -33,12 +32,11 @@ public class EntityManager {
 		entities.sort(renderSorter);
 	}
 	
-	public EntityManager(Handler handler, Player player) {
-		this.handler = handler;
+	public EntityManager(Player player) {
 		this.player = player;
 		//hardcoded Gnoll and NPC, forgive me.
-		Gnoll g = new Gnoll(handler, 100, 250, 64, 64);
-		NPC n = new NPC(handler, 300, 400, 64, 64);
+		Gnoll g = new Gnoll(100, 250, 64, 64);
+		NPC n = new NPC(300, 400, 64, 64);
 		entities = new ArrayList<Entity>();
 		addEntity(player);
 		addEntity(g);
@@ -53,14 +51,6 @@ public class EntityManager {
 
 	public void addEntity(Entity e) {
 		entities.add(e);
-	}
-
-	public Handler getHandler() {
-		return handler;
-	}
-
-	public void setHandler(Handler handler) {
-		this.handler = handler;
 	}
 
 	public Player getPlayer() {
