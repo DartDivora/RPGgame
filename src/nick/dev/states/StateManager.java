@@ -12,6 +12,8 @@ public class StateManager {
 	public StateManager() {
 		states.put(State.Types.Menu, new MenuState(this));
 		states.put(State.Types.Overworld, new GameState(this));
+		states.put(State.Types.Battle, new BattleState(this));
+		
 		this.changeState(State.Types.Menu);
 	}
 	

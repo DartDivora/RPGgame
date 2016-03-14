@@ -30,6 +30,10 @@ public final class Handler {
 		mouseManager = new MouseManager();
 	}
 	
+	// We shouldn't need this, but for right now, we can update 
+	// everything in here just in case. For the most part, these 
+	// kinds of Managers can be just have handlers like they already 
+	// do.
 	public static void update() {
 		keyManager.update();
 		audioManager.update();
