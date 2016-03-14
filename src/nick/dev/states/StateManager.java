@@ -1,5 +1,6 @@
 package nick.dev.states;
 
+import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -9,30 +10,32 @@ public class StateManager {
 	private Stack<State> currentStateStack = new Stack<State>();
 	
 	public StateManager() {
-		
+		states.put(State.Types.Menu, new MenuState(this));
+		states.put(State.Types.Overworld, new GameState(this));
+		this.changeState(State.Types.Menu);
 	}
 	
 	public void update() {
 		currentStateStack.peek().update();
 	}
 	
-	public void render() {
-		
+	public void render(Graphics graphics) {
+		currentStateStack.peek().render(graphics);
 	}
 	
 	public void changeState(State.Types newStateType) {
 		if (!currentStateStack.isEmpty()) {
-			// currentStateStack.Peek().onExit();
+			currentStateStack.peek().onExit();
 		}
 		
 		this.currentStateStack.push(this.states.get(newStateType));
-		// this.currentStateStack.peek().onEnter();
+		this.currentStateStack.peek().onEnter();
 	}
 	
 	public boolean leaveState() {
 		if (!currentStateStack.isEmpty()) {
 			State state = currentStateStack.pop();
-			// state.onExit();
+			state.onExit();
 			return true;
 		} else {
 			return false;

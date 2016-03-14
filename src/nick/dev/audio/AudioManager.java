@@ -14,7 +14,6 @@ public class AudioManager {
 	
 	public enum Tracks { Overworld, Battle };
 
-	private Handler handler;
 	@SuppressWarnings("unused")
 	private JFXPanel fxPanel = new JFXPanel();
 	private boolean isMuted = false;
@@ -24,8 +23,7 @@ public class AudioManager {
 	private Tracks currentTrack = null;
 	
 	// Constructor adds the handler and initializes the tracks.
-	public AudioManager(Handler handler) {
-		this.handler = handler;
+	public AudioManager() {
 		this.isMuted = Boolean.parseBoolean(Utilities.getPropValue("mute", Utilities.getPropFile()));
 		
 		this.addTrack(Tracks.Overworld, Utilities.getPropValue("musicOverworld", Utilities.getPropFile()));
@@ -42,7 +40,7 @@ public class AudioManager {
 	
 	// Called every frame. Currently only checks to see if we try to mute audio.
 	public void update() {
-		if (handler.getKeyManager().keyIsPressed(Keys.Mute)) {
+		if (Handler.getKeyManager().keyIsPressed(Keys.Mute)) {
 			if (this.isMuted) {
 				this.unmute();
 			} else {

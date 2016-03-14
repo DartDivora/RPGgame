@@ -5,8 +5,8 @@ import nick.dev.utilities.Utilities;
 
 public class Gnoll extends Creature {
 
-	public Gnoll(Handler handler, float x, float y, int width, int height) {
-		super(handler, x, y, width, height);
+	public Gnoll(float x, float y, int width, int height) {
+		super(x, y, width, height);
 		this.setDefense(0);
 		this.setAttack(3);
 		this.setCurrentHealth(10);

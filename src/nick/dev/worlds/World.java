@@ -11,7 +11,6 @@ import nick.dev.utilities.Utilities;
 
 public class World {
 
-	private Handler handler;
 	private int width, height;
 	private int spawnX, spawnY;
 	private int[][] worldTiles;
@@ -22,10 +21,12 @@ public class World {
 	// Entities
 	private EntityManager entityManager;
 
-	public World(Handler handler, String path) {
+	public World(String path) {
+		
+		Handler.setWorld(this);
+		
 		worldResults = new String[7];
-		this.handler = handler;
-		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
+		entityManager = new EntityManager(new Player(100, 100));
 		keys[0] = "mapWidth";
 		keys[1] = "mapHeight";
 		keys[2] = "spawnX";
@@ -58,17 +59,17 @@ public class World {
 	public void render(Graphics g) {
 		// This calculation ensures that only tiles in the camera view are
 		// rendered.
-		int xStart = (int) Math.max(0, handler.getGameCamera().getxOffset() / Tile.TILEWIDTH);
+		int xStart = (int) Math.max(0, Handler.getGameCamera().getxOffset() / Tile.TILEWIDTH);
 		int xEnd = (int) Math.min(width,
-				(handler.getGameCamera().getxOffset() + handler.getWidth()) / Tile.TILEWIDTH + 1);
-		int yStart = (int) Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILEHEIGHT);
+				(Handler.getGameCamera().getxOffset() + Handler.getWidth()) / Tile.TILEWIDTH + 1);
+		int yStart = (int) Math.max(0, Handler.getGameCamera().getyOffset() / Tile.TILEHEIGHT);
 		int yEnd = (int) Math.min(height,
-				(handler.getGameCamera().getyOffset() + handler.getHeight()) / Tile.TILEHEIGHT + 1);
+				(Handler.getGameCamera().getyOffset() + Handler.getHeight()) / Tile.TILEHEIGHT + 1);
 
 		for (int y = yStart; y < yEnd; y++) {
 			for (int x = xStart; x < xEnd; x++) {
-				getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - handler.getGameCamera().getxOffset()),
-						(int) (y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
+				getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - Handler.getGameCamera().getxOffset()),
+						(int) (y * Tile.TILEHEIGHT - Handler.getGameCamera().getyOffset()));
 			}
 		}
 
@@ -108,11 +109,11 @@ public class World {
 		for (int i = 0; i < worldEntities.length; i++) {
 			String[] entity = worldEntities[i].split("\\|");
 			Utilities.Debug(entity[i]);
-			// entityManager.addEntity(new Tree(handler,
+			// entityManager.addEntity(new Tree(Handler,
 			// Integer.parseInt(entity[1]), Integer.parseInt(entity[2])));
 		}
 
-		handler.setWorld(this);
+		Handler.setWorld(this);
 	}
 
 	public int getWidth() {

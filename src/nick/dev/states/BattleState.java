@@ -20,9 +20,11 @@ public class BattleState extends State {
 	int healthBarWidth, healthBarHeight, creatureDisplayWidth, creatureDisplayHeight;
 	String playerAction = null;
 	String[] turnResults = null;
+	
+	Font f;
 
-	public BattleState(Handler handler) {
-		super(handler);
+	public BattleState(StateManager stateManager) {
+		super(stateManager);
 
 		actions = new String[2];
 		actions[0] = "Attack";
@@ -36,37 +38,40 @@ public class BattleState extends State {
 		creatureDisplayHeight = Integer
 				.parseInt(Utilities.getPropValue("createDisplayHeight", Utilities.getPropFile()));
 
-		mainButtonWidth = handler.getWidth() / 4;
-		mainButtonHeight = handler.getHeight() / 5;
+		mainButtonWidth = Handler.getWidth() / 4;
+		mainButtonHeight = Handler.getHeight() / 5;
 		attackButtonX = 0;
-		attackButtonY = handler.getHeight() - (handler.getHeight() / 4);
+		attackButtonY = Handler.getHeight() - (Handler.getHeight() / 4);
 		defendButtonX = mainButtonWidth;
 		defendButtonY = attackButtonY;
 
 		attackButton = new Rectangle(attackButtonX, attackButtonY, mainButtonWidth, mainButtonHeight);
 		defendButton = new Rectangle(defendButtonX, defendButtonY, mainButtonWidth, mainButtonHeight);
 
-		creature = new Gnoll(handler, 0, 0, 0, 0);
+		//creature = new Gnoll(Handler, 0, 0, 0, 0);
 	}
 
 	@Override
 	public void update() {
-		handler.getWorld().getEntityManager().getPlayer().update();
+		Handler.getWorld().getEntityManager().getPlayer().update();
 		creature.update();
 		playerAction = null;
-		if (handler.getMouseManager().getX() != null || handler.getMouseManager().getY() != null) {
-			if (this.inMouseBounds(attackButton, handler.getMouseManager().getX(), handler.getMouseManager().getY())) {
+		
+		Integer mouseX = Handler.getMouseManager().getX();
+		Integer mouseY = Handler.getMouseManager().getY();
+		
+		if (mouseX != null || mouseY != null) {
+			if (Utilities.rectangleContainsPoint(attackButton, mouseX, mouseY)) {
 				playerAction = "Attack";
-			} else if (this.inMouseBounds(defendButton, handler.getMouseManager().getX(),
-					handler.getMouseManager().getY())) {
+			} else if (Utilities.rectangleContainsPoint(defendButton, mouseX, mouseY)) {
 				playerAction = "Defend";
 			}
 
 			if (playerAction != null) {
-				if (handler.getPlayer().getCurrentHealth() > 0 && creature.getCurrentHealth() > 0) {
+				if (Handler.getPlayer().getCurrentHealth() > 0 && creature.getCurrentHealth() > 0) {
 					this.doAction(playerAction, this.getRandomAction());
 
-					if (handler.getPlayer().getCurrentHealth() <= 0) {
+					if (Handler.getPlayer().getCurrentHealth() <= 0) {
 						System.out.println("Game over, man!");
 						this.gameOver();
 					}
@@ -76,23 +81,22 @@ public class BattleState extends State {
 					}
 				}
 			}
-			handler.getMouseManager().resetXY();
 		}
 	}
 
 	public String[] doAction(String playerAction, String enemyAction) {
 		turnResults = new String[2];
 		if (playerAction.equals("Defend")) {
-			turnResults[0] = Defend(handler.getPlayer());
+			turnResults[0] = Defend(Handler.getPlayer());
 		}
 		if (enemyAction.equals("Defend")) {
 			turnResults[1] = Defend(creature);
 		}
 		if (playerAction.equals("Attack")) {
-			turnResults[0] = Attack(handler.getPlayer(), creature);
+			turnResults[0] = Attack(Handler.getPlayer(), creature);
 		}
 		if (enemyAction.equals("Attack")) {
-			turnResults[1] = Attack(creature, handler.getPlayer());
+			turnResults[1] = Attack(creature, Handler.getPlayer());
 		}
 		System.out.println(Arrays.toString(turnResults));
 		return turnResults;
@@ -107,15 +111,13 @@ public class BattleState extends State {
 
 	public void leaveBattle() {
 		Utilities.Debug("Leaving battle!");
-		handler.getWorld().getEntityManager().getPlayer().setGoToBattle(false);
-		State.setState(getReturnState());
-		handler.getAudioManager().stopCurrentTrack();
-		handler.getAudioManager().playTrack(Tracks.Overworld);
-		handler.getGame().setInBattle(false);
-		handler.getWorld().getEntityManager().getPlayer().setGoToBattle(false);
+		this.stateManager.leaveState();
+		Handler.getAudioManager().stopCurrentTrack();
+		Handler.getAudioManager().playTrack(Tracks.Overworld);
+		Handler.getWorld().getEntityManager().getPlayer().setGoToBattle(false);
 
-		handler.getPlayer().setCurrentExperience(handler.getPlayer().getCurrentExperience() + creature.getExpToGive());// DBC
-		handler.getPlayer().getStats();// DBC
+		Handler.getPlayer().setCurrentExperience(Handler.getPlayer().getCurrentExperience() + creature.getExpToGive());// DBC
+		Handler.getPlayer().getStats();// DBC
 		creature.setCurrentHealth(10); // DBC
 	}
 
@@ -150,7 +152,7 @@ public class BattleState extends State {
 
 	public void gameOver() {
 		Utilities.Debug("Game Over! Your health reached 0...");
-		handler.getGame().stop();
+		Handler.getGame().stop();
 	}
 
 	@Override
@@ -159,26 +161,26 @@ public class BattleState extends State {
 
 		// System.out.println("I was called!");
 
-		g.clearRect(0, 0, handler.getWidth(), handler.getHeight());
-		g.drawImage(handler.getWorld().getEntityManager().getPlayer().getAnimDown().getCurrentFrame(),
-				handler.getWidth() / 6, handler.getHeight() / 3, creatureDisplayWidth, creatureDisplayHeight, null);
-		g.drawImage(creature.getAnimDown().getCurrentFrame(), handler.getWidth() / 2, handler.getHeight() / 3,
+		g.clearRect(0, 0, Handler.getWidth(), Handler.getHeight());
+		g.drawImage(Handler.getWorld().getEntityManager().getPlayer().getAnimDown().getCurrentFrame(),
+				Handler.getWidth() / 6, Handler.getHeight() / 3, creatureDisplayWidth, creatureDisplayHeight, null);
+		g.drawImage(creature.getAnimDown().getCurrentFrame(), Handler.getWidth() / 2, Handler.getHeight() / 3,
 				creatureDisplayWidth, creatureDisplayHeight, null);
-		g.drawString("This is a battle?", handler.getWidth() / 3, (handler.getHeight() / 6));
+		g.drawString("This is a battle?", Handler.getWidth() / 3, (Handler.getHeight() / 6));
 		g.setColor(java.awt.Color.red);
-		g.fillRect(handler.getWidth() / 6, handler.getHeight() / 3 + 150, healthBarWidth, healthBarHeight);
-		g.fillRect(handler.getWidth() / 2, handler.getHeight() / 3 + 150, healthBarWidth, healthBarHeight);
+		g.fillRect(Handler.getWidth() / 6, Handler.getHeight() / 3 + 150, healthBarWidth, healthBarHeight);
+		g.fillRect(Handler.getWidth() / 2, Handler.getHeight() / 3 + 150, healthBarWidth, healthBarHeight);
 		g.setColor(java.awt.Color.green);
-		g.fillRect(handler.getWidth() / 6, handler.getHeight() / 3 + 150,
-				(int) (((double) handler.getPlayer().getCurrentHealth() / (double) handler.getPlayer().getMaxHealth())
+		g.fillRect(Handler.getWidth() / 6, Handler.getHeight() / 3 + 150,
+				(int) (((double) Handler.getPlayer().getCurrentHealth() / (double) Handler.getPlayer().getMaxHealth())
 						* healthBarWidth),
 				healthBarHeight);
-		g.fillRect(handler.getWidth() / 2, handler.getHeight() / 3 + 150,
+		g.fillRect(Handler.getWidth() / 2, Handler.getHeight() / 3 + 150,
 				(int) (((double) creature.getCurrentHealth() / (double) creature.getMaxHealth()) * healthBarWidth),
 				healthBarHeight);
 
 		g.setColor(java.awt.Color.BLACK);
-		g2d = (Graphics2D) g;
+		Graphics2D g2d = (Graphics2D) g;
 		g2d.draw(attackButton);
 		g2d.draw(defendButton);
 		g.drawString("Attack", attackButton.x, attackButton.y + (int) (attackButton.getWidth() / 2));

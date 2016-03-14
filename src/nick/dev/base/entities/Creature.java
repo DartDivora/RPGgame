@@ -44,8 +44,8 @@ public abstract class Creature extends Entity {
 		this.level = level;
 	}
 
-	public Creature(Handler handler, float x, float y, int width, int height) {
-		super(handler, x, y, width, height);
+	public Creature(float x, float y, int width, int height) {
+		super(x, y, width, height);
 		currentHealth = DEFAULT_HEALTH;
 		maxHealth = DEFAULT_HEALTH;
 		speed = DEFAULT_SPEED;
@@ -153,7 +153,7 @@ public abstract class Creature extends Entity {
 	}
 
 	protected boolean collisionWithTile(int x, int y) {
-		return handler.getWorld().getTile(x, y).isSolid();
+		return Handler.getWorld().getTile(x, y).isSolid();
 	}
 
 	public BufferedImage getCurrentAnimationFrame() {
@@ -170,8 +170,8 @@ public abstract class Creature extends Entity {
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()),
-				(int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+		g.drawImage(getCurrentAnimationFrame(), (int) (x - Handler.getGameCamera().getxOffset()),
+				(int) (y - Handler.getGameCamera().getyOffset()), width, height, null);
 		// g.setColor(Color.red);
 		// g.fillRect((int) (x + bounds.x -
 		// handler.getGameCamera().getxOffset()),

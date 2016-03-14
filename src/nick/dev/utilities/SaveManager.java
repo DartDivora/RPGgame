@@ -17,7 +17,7 @@ public class SaveManager {
 	@SuppressWarnings("unused")
 	private Handler handler;
 
-	public SaveManager(Handler handler) {
+	public SaveManager() {
 		saveFileKeys = new String[7];
 		saveFileKeys[0] = "CharacterName";
 		saveFileKeys[1] = "Attack";
@@ -31,13 +31,13 @@ public class SaveManager {
 	public boolean saveGame(Handler handler, String saveFile) {
 		JSONObject jo = new JSONObject();
 		try {
-			jo.put(saveFileKeys[0], handler.getPlayer().getEntityName());
-			jo.put(saveFileKeys[1], handler.getPlayer().getAttack());
-			jo.put(saveFileKeys[2], handler.getPlayer().getDefense());
-			jo.put(saveFileKeys[3], handler.getPlayer().getCurrentHealth());
-			jo.put(saveFileKeys[4], handler.getPlayer().getMaxHealth());
-			jo.put(saveFileKeys[5], handler.getPlayer().getSpeed());
-			jo.put(saveFileKeys[6], handler.getPlayer().getCurrentExperience());
+			jo.put(saveFileKeys[0], Handler.getPlayer().getEntityName());
+			jo.put(saveFileKeys[1], Handler.getPlayer().getAttack());
+			jo.put(saveFileKeys[2], Handler.getPlayer().getDefense());
+			jo.put(saveFileKeys[3], Handler.getPlayer().getCurrentHealth());
+			jo.put(saveFileKeys[4], Handler.getPlayer().getMaxHealth());
+			jo.put(saveFileKeys[5], Handler.getPlayer().getSpeed());
+			jo.put(saveFileKeys[6], Handler.getPlayer().getCurrentExperience());
 		} catch (JSONException e) {
 			System.out.println("Failed to save file: " + saveFile);
 		}
@@ -56,13 +56,13 @@ public class SaveManager {
 
 	public Handler loadGame(Handler handler, String saveFile) {
 		String[] loadResults = Utilities.getFromJSONObject(saveFile, saveFileKeys);
-		handler.getPlayer().setEntityName(loadResults[0]);
-		handler.getPlayer().setAttack(Integer.parseInt(loadResults[1]));
-		handler.getPlayer().setDefense(Integer.parseInt(loadResults[2]));
-		handler.getPlayer().setCurrentHealth(Integer.parseInt(loadResults[3]));
-		handler.getPlayer().setMaxHealth(Integer.parseInt(loadResults[4]));
-		handler.getPlayer().setSpeed(Float.parseFloat(loadResults[5]));
-		handler.getPlayer().setCurrentExperience(Integer.parseInt(loadResults[6]));
+		Handler.getPlayer().setEntityName(loadResults[0]);
+		Handler.getPlayer().setAttack(Integer.parseInt(loadResults[1]));
+		Handler.getPlayer().setDefense(Integer.parseInt(loadResults[2]));
+		Handler.getPlayer().setCurrentHealth(Integer.parseInt(loadResults[3]));
+		Handler.getPlayer().setMaxHealth(Integer.parseInt(loadResults[4]));
+		Handler.getPlayer().setSpeed(Float.parseFloat(loadResults[5]));
+		Handler.getPlayer().setCurrentExperience(Integer.parseInt(loadResults[6]));
 		return handler;
 	}
 }

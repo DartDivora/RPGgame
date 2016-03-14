@@ -6,8 +6,8 @@ import nick.dev.base.Handler;
 
 public class SettingsState extends State {
 
-	public SettingsState(Handler handler) {
-		super(handler);
+	public SettingsState(StateManager stateManager) {
+		super(stateManager);
 	}
 
 	@Override

@@ -7,8 +7,8 @@ import nick.dev.base.entities.Entity;
 
 public class StaticEntity extends Entity {
 
-	public StaticEntity(Handler handler, float x, float y, int width, int height) {
-		super(handler, x, y, width, height);
+	public StaticEntity(float x, float y, int width, int height) {
+		super(x, y, width, height);
 	}
 
 	@Override

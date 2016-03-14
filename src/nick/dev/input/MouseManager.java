@@ -16,8 +16,7 @@ public class MouseManager implements MouseListener, MouseMotionListener {
 	@SuppressWarnings("unused")
 	private Handler handler;
 
-	public MouseManager(Handler handler) {
-		this.handler = handler;
+	public MouseManager() {
 		mouseClicks = new boolean[MouseInfo.getNumberOfButtons()];
 	}
 
@@ -39,16 +38,8 @@ public class MouseManager implements MouseListener, MouseMotionListener {
 		return x;
 	}
 
-	public void setX(Integer x) {
-		this.x = x;
-	}
-
 	public Integer getY() {
 		return y;
-	}
-
-	public void setY(Integer y) {
-		this.y = y;
 	}
 
 	@Override
@@ -65,11 +56,6 @@ public class MouseManager implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-	}
-
-	public void resetXY() {
-		this.x = null;
-		this.y = null;
 	}
 
 	@Override

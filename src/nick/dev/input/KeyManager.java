@@ -20,8 +20,7 @@ public class KeyManager implements KeyListener {
 	@SuppressWarnings("unused")
 	private Handler handler;
 
-	public KeyManager(Handler handler) {
-		this.handler = handler;
+	public KeyManager() {
 		keys = new boolean[256];
 		keysAlreadyPressed = new boolean[256];
 

@@ -8,91 +8,89 @@ import nick.dev.gfx.GameCamera;
 import nick.dev.input.KeyManager;
 import nick.dev.input.MouseManager;
 import nick.dev.utilities.SaveManager;
+import nick.dev.utilities.Utilities;
 import nick.dev.worlds.World;
 
-public class Handler {
+public final class Handler {
 
-	private Game game;
-	private World world;
-	private AudioManager audioManager;
-	private SaveManager saveManager;
-	private DialogManager dialogManager;
-	private Display display;
-
-	public Handler(Game game) {
-		this.game = game;
+	private static Game game;
+	private static World world;
+	private static AudioManager audioManager;
+	private static KeyManager keyManager;
+	private static SaveManager saveManager;
+	private static MouseManager mouseManager;
+	private static DialogManager dialogManager;
+	private static Display display;
+	
+	public static void init(Game g) {
+		game = g;
+		audioManager = new AudioManager();
+		saveManager = new SaveManager();
+		keyManager = new KeyManager();
+		mouseManager = new MouseManager();
+	}
+	
+	public static void update() {
+		keyManager.update();
+		audioManager.update();
+		mouseManager.update();
 	}
 
-	public GameCamera getGameCamera() {
+	public static GameCamera getGameCamera() {
 		return game.getGameCamera();
 	}
 
-	public KeyManager getKeyManager() {
-		return game.getKeyManager();
+	public static KeyManager getKeyManager() {
+		return keyManager;
 	}
 
-	public MouseManager getMouseManager() {
-		return game.getMouseManager();
+	public static MouseManager getMouseManager() {
+		return mouseManager;
 	}
 
-	public int getWidth() {
+	public static Integer getWidth() {
 		return game.getWidth();
 	}
 
-	public int getHeight() {
+	public static Integer getHeight() {
 		return game.getHeight();
 	}
 
-	public Game getGame() {
+	public static Game getGame() {
 		return game;
 	}
 
-	public void setGame(Game game) {
-		this.game = game;
-	}
-
-	public World getWorld() {
+	public static World getWorld() {
 		return world;
 	}
 
-	public void setWorld(World world) {
-		this.world = world;
+	public static void setWorld(World w) {
+		world = w;
+	}
+	
+	public static void setDisplay(Display d) {
+		display = d;
 	}
 
-	public Player getPlayer() {
-		return this.getWorld().getEntityManager().getPlayer();
+	public static Player getPlayer() {
+		return getWorld().getEntityManager().getPlayer();
 	}
 
-	public AudioManager getAudioManager() {
+	public static AudioManager getAudioManager() {
 		return audioManager;
 	}
 
-	public void setAudioManager(AudioManager audioManager) {
-		this.audioManager = audioManager;
-	}
-
-	public SaveManager getSaveManager() {
+	public static SaveManager getSaveManager() {
 		return saveManager;
 	}
+	
 
-	public void setSaveManager(SaveManager saveManager) {
-		this.saveManager = saveManager;
-	}
-
-	public Display getDisplay() {
+	public static Display getDisplay() {
 		return display;
 	}
 
-	public void setDisplay(Display display) {
-		this.display = display;
-	}
-
-	public DialogManager getDialogManager() {
+	public static DialogManager getDialogManager() {
 		return dialogManager;
-	}
-
-	public void setDialogManager(DialogManager dialogManager) {
-		this.dialogManager = dialogManager;
 	}
 
 }
