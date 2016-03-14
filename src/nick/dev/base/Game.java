@@ -38,14 +38,14 @@ public class Game implements Runnable {
 	}
 
 	private void init() {
-		
 
 		Handler.init(this);
 		
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(Handler.getKeyManager());
-		display.getFrame().addMouseListener(Handler.getMouseManager());
+		//display.getFrame().addMouseListener(Handler.getMouseManager());
 		display.getCanvas().addMouseListener(Handler.getMouseManager());
+		display.getCanvas().addMouseMotionListener(Handler.getMouseManager());
 		
 		Handler.setDisplay(display);
 		

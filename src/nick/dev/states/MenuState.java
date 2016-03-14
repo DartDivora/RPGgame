@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import nick.dev.base.Handler;
+import nick.dev.input.MouseManager.Buttons;
 import nick.dev.utilities.Utilities;
 
 public class MenuState extends State {
@@ -25,10 +26,11 @@ public class MenuState extends State {
 
 	@Override
 	public void update() {
-		Integer mouseX = Handler.getMouseManager().getX();
-		Integer mouseY = Handler.getMouseManager().getY();
 		
-		if (Handler.getMouseManager().leftClick && mouseX != null && mouseY != null) {
+		boolean leftClicked = Handler.getMouseManager().mouseIsClicked(Buttons.Left);
+		if (leftClicked) {
+			Integer mouseX = Handler.getMouseManager().getX();
+			Integer mouseY = Handler.getMouseManager().getY();
 			
 			if (Utilities.rectangleContainsPoint(playButton, mouseX, mouseY)) {
 				this.stateManager.changeState(State.Types.Overworld);

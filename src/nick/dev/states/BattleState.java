@@ -10,6 +10,7 @@ import nick.dev.audio.AudioManager.Tracks;
 import nick.dev.base.Handler;
 import nick.dev.base.entities.Creature;
 import nick.dev.base.entities.Gnoll;
+import nick.dev.input.MouseManager.Buttons;
 import nick.dev.utilities.Utilities;
 
 public class BattleState extends State {
@@ -35,7 +36,7 @@ public class BattleState extends State {
 		creatureDisplayWidth = Integer
 				.parseInt(Utilities.getPropValue("creatureDisplayWidth", Utilities.getPropFile()));
 		creatureDisplayHeight = Integer
-				.parseInt(Utilities.getPropValue("createDisplayHeight", Utilities.getPropFile()));
+				.parseInt(Utilities.getPropValue("creatureDisplayHeight", Utilities.getPropFile()));
 
 		Integer mainButtonWidth = Handler.getWidth() / 4;
 		Integer mainButtonHeight = Handler.getHeight() / 5;
@@ -61,8 +62,9 @@ public class BattleState extends State {
 		
 		Integer mouseX = Handler.getMouseManager().getX();
 		Integer mouseY = Handler.getMouseManager().getY();
+		boolean leftClicked = Handler.getMouseManager().mouseIsClicked(Buttons.Left);
 		
-		if (mouseX != null || mouseY != null) {
+		if (leftClicked && (mouseX != null && mouseY != null)) {
 			if (Utilities.rectangleContainsPoint(attackButton, mouseX, mouseY)) {
 				playerAction = "Attack";
 			} else if (Utilities.rectangleContainsPoint(defendButton, mouseX, mouseY)) {
@@ -110,7 +112,7 @@ public class BattleState extends State {
 		if (enemyAction.equals("Attack")) {
 			turnResults[1] = Attack(creature, Handler.getPlayer());
 		}
-		System.out.println(Arrays.toString(turnResults));
+		//System.out.println(Arrays.toString(turnResults));
 		return turnResults;
 	}
 

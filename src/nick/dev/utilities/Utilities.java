@@ -160,7 +160,6 @@ public class Utilities extends IOUtils {
 	}
 	
 	public static boolean rectangleContainsPoint(Rectangle rect, float x, float y) {
-		System.out.println("checking: " + x + " " + y);
 		if (x >= rect.getMinX() && x <= rect.getMaxX() &&
 				y >= rect.getMinY() && y <= rect.getMaxY()) {
 			return true;
