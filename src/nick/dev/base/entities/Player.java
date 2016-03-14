@@ -59,13 +59,17 @@ public class Player extends Creature {
 		animUp.update();
 		animLeft.update();
 		animRight.update();
-
+		
+		// You can't go to battle if you're moving up and/or to the left :)
 		if (!isGoToBattle()) {
 			getInput();
 			move();
-			if (xMove > 0 || yMove > 0) {
+			/*if (xMove > 0 || yMove > 0) {
+				// TODO: Change this so that rather than calling this function,
+				// we just tell the state manager we want to go to battle.
+				// That probably won't be from the player, but maybe.
 				this.setGoToBattle(Utilities.battleChance(getBattleChance()));
-			}
+			}*/
 			Handler.getGameCamera().centerOnEntity(this);
 		}
 
