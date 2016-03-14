@@ -1,6 +1,5 @@
 package nick.dev.base.entities;
 
-import nick.dev.base.Handler;
 import nick.dev.utilities.Utilities;
 
 public class Gnoll extends Creature {

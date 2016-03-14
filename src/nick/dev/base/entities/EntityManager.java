@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import nick.dev.base.Handler;
 import nick.dev.base.entities.NPCs.NPC;
 
 public class EntityManager {

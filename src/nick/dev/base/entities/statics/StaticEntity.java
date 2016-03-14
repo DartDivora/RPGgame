@@ -2,7 +2,6 @@ package nick.dev.base.entities.statics;
 
 import java.awt.Graphics;
 
-import nick.dev.base.Handler;
 import nick.dev.base.entities.Entity;
 
 public class StaticEntity extends Entity {

@@ -2,8 +2,6 @@ package nick.dev.states;
 
 import java.awt.Graphics;
 
-import nick.dev.base.Handler;
-
 public class SettingsState extends State {
 
 	public SettingsState(StateManager stateManager) {

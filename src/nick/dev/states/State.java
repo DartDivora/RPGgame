@@ -1,12 +1,6 @@
 package nick.dev.states;
 
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-
-import nick.dev.base.Handler;
-import nick.dev.utilities.Utilities;
 
 public abstract class State {
 	

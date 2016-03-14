@@ -8,7 +8,6 @@ import nick.dev.gfx.GameCamera;
 import nick.dev.input.KeyManager;
 import nick.dev.input.MouseManager;
 import nick.dev.utilities.SaveManager;
-import nick.dev.utilities.Utilities;
 import nick.dev.worlds.World;
 
 public final class Handler {

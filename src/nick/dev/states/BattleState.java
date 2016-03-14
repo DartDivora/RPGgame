@@ -4,8 +4,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.util.Arrays;
-
 import nick.dev.audio.AudioManager.Tracks;
 import nick.dev.base.Handler;
 import nick.dev.base.entities.Creature;
