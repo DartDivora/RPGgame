@@ -10,6 +10,12 @@ import nick.dev.input.MouseManager;
 import nick.dev.utilities.SaveManager;
 import nick.dev.worlds.World;
 
+/**
+ * This class is a handler to manage and change several other classes.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public final class Handler {
 
 	private static Game game;
@@ -20,7 +26,7 @@ public final class Handler {
 	private static MouseManager mouseManager;
 	private static DialogManager dialogManager;
 	private static Display display;
-	
+
 	public static void init(Game g) {
 		game = g;
 		audioManager = new AudioManager();
@@ -28,12 +34,12 @@ public final class Handler {
 		keyManager = new KeyManager();
 		mouseManager = new MouseManager();
 	}
-	
-	// We shouldn't need this, but for right now, we can update 
-	// everything in here just in case. For the most part, these 
-	// kinds of Managers can be just have handlers like they already 
-	// do.
+
 	public static void update() {
+		// We shouldn't need this, but for right now, we can update
+		// everything in here just in case. For the most part, these
+		// kinds of Managers can be just have handlers like they already
+		// do.
 		keyManager.update();
 		audioManager.update();
 		mouseManager.update();
@@ -70,7 +76,7 @@ public final class Handler {
 	public static void setWorld(World w) {
 		world = w;
 	}
-	
+
 	public static void setDisplay(Display d) {
 		display = d;
 	}
@@ -86,7 +92,6 @@ public final class Handler {
 	public static SaveManager getSaveManager() {
 		return saveManager;
 	}
-	
 
 	public static Display getDisplay() {
 		return display;

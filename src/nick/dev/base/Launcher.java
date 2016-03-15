@@ -5,6 +5,12 @@ import java.awt.GraphicsEnvironment;
 
 import nick.dev.utilities.Utilities;
 
+/**
+ * This class contains the main method to start the game.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class Launcher {
 
 	public static void main(String[] args) {

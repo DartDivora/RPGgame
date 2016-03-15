@@ -9,6 +9,12 @@ import nick.dev.base.Handler;
 import nick.dev.input.MouseManager.Buttons;
 import nick.dev.utilities.Utilities;
 
+/**
+ * This class will handle the menu system. Extends the State class.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class MenuState extends State {
 
 	private Rectangle playButton;
@@ -26,12 +32,12 @@ public class MenuState extends State {
 
 	@Override
 	public void update() {
-		
+
 		boolean leftClicked = Handler.getMouseManager().mouseIsClicked(Buttons.Left);
 		if (leftClicked) {
 			Integer mouseX = Handler.getMouseManager().getX();
 			Integer mouseY = Handler.getMouseManager().getY();
-			
+
 			if (Utilities.rectangleContainsPoint(playButton, mouseX, mouseY)) {
 				this.stateManager.changeState(State.Types.Overworld);
 			}
@@ -46,9 +52,6 @@ public class MenuState extends State {
 		g.drawString(Utilities.getPropValue("gameTitle", Utilities.getPropFile()), Handler.getWidth() / 3 - 50,
 				(Handler.getHeight() / 6));
 		g.drawString("Play", Handler.getWidth() / 3 + 45, (Handler.getHeight() / 4) + 50);
-		// g.setColor(Color.BLUE);
-		// g.fillRect(handler.getMouseManager().getX(),
-		// handler.getMouseManager().getY(), 8, 8);
 	}
 
 }

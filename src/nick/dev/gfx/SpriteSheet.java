@@ -2,6 +2,12 @@ package nick.dev.gfx;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * This class is used to get a SubImage from a Sprite Sheet.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class SpriteSheet {
 
 	private BufferedImage sheet;

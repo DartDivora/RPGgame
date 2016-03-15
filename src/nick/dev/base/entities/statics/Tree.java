@@ -6,6 +6,12 @@ import nick.dev.base.Handler;
 import nick.dev.gfx.Assets;
 import nick.dev.tiles.Tile;
 
+/**
+ * This is a tree, that's about it.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class Tree extends StaticEntity {
 
 	public Tree(float x, float y) {

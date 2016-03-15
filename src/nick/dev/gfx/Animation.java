@@ -2,6 +2,13 @@ package nick.dev.gfx;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * This class is an object used to store animations. These are stored in the
+ * frames BufferedImage array.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class Animation {
 
 	private int speed, index;

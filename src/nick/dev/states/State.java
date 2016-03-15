@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 public abstract class State {
 	
-	public enum Types { Title, Overworld, Localworld, Battle, Menu };
+	public enum Types { Title, Overworld, Localworld, Battle, Menu, Dialog };
 	
 	protected StateManager stateManager;
 	

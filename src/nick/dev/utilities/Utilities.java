@@ -15,6 +15,13 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * This class contains all methods that do not otherwise fit into a specific
+ * class.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class Utilities extends IOUtils {
 
 	private static boolean Debug = false;
@@ -158,13 +165,12 @@ public class Utilities extends IOUtils {
 			}
 		}
 	}
-	
+
 	public static boolean rectangleContainsPoint(Rectangle rect, float x, float y) {
-		if (x >= rect.getMinX() && x <= rect.getMaxX() &&
-				y >= rect.getMinY() && y <= rect.getMaxY()) {
+		if (x >= rect.getMinX() && x <= rect.getMaxX() && y >= rect.getMinY() && y <= rect.getMaxY()) {
 			return true;
 		}
 		return false;
 	}
-	
+
 }

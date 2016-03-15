@@ -3,6 +3,12 @@ package nick.dev.tiles;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+/**
+ * This class will manage all tiles.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class Tile {
 
 	public static Tile[] tiles = new Tile[256];

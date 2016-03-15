@@ -4,6 +4,12 @@ import java.awt.image.BufferedImage;
 
 import nick.dev.utilities.Utilities;
 
+/**
+ * This class loads all images used for rendering.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class Assets {
 	private static int width, height;
 	public static BufferedImage dirt, sand, grass, stone, tree, town;
@@ -14,8 +20,6 @@ public class Assets {
 
 		width = Integer.parseInt(Utilities.getPropValue("tileWidth", Utilities.getPropFile()));
 		height = Integer.parseInt(Utilities.getPropValue("tileHeight", Utilities.getPropFile()));
-		// SpriteSheet sheet = new
-		// SpriteSheet(loadImage.loadImages("/textures/sheet.png"));
 		SpriteSheet tileSheet = new SpriteSheet(
 				loadImage.loadImages(Utilities.getPropValue("tileSheet", Utilities.getPropFile())));
 		SpriteSheet characterSheet = new SpriteSheet(
@@ -30,15 +34,6 @@ public class Assets {
 		DEFAULT_ANIM_UP = new BufferedImage[2];
 		DEFAULT_ANIM_LEFT = new BufferedImage[2];
 		DEFAULT_ANIM_RIGHT = new BufferedImage[2];
-
-		// player_down[0] = tileSheet.crop(width * 4, 0, width, height);
-		// player_down[1] = tileSheet.crop(width * 5, 0, width, height);
-		// player_up[0] = tileSheet.crop(width * 6, 0, width, height);
-		// player_up[1] = tileSheet.crop(width * 7, 0, width, height);
-		// player_right[0] = tileSheet.crop(width * 4, height, width, height);
-		// player_right[1] = tileSheet.crop(width * 5, height, width, height);
-		// player_left[0] = tileSheet.crop(width * 6, height, width, height);
-		// player_left[1] = tileSheet.crop(width * 7, height, width, height);
 
 		player_down[0] = characterSheet.crop(0, 0, 15, 17);
 		player_down[1] = characterSheet.crop(16, 0, 15, 17);

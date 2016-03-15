@@ -10,6 +10,13 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+/**
+ * This class sets the basic Canvas and JFrames. May be removed in use of a
+ * better way to render.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class Display implements ActionListener {
 
 	private JFrame frame;

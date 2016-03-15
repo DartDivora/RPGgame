@@ -8,6 +8,12 @@ import nick.dev.gfx.Assets;
 import nick.dev.input.KeyManager.Keys;
 import nick.dev.utilities.Utilities;
 
+/**
+ * Player class.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class Player extends Creature {
 	private Integer battleChance, currentExperience;
 	private boolean goToBattle = false;
@@ -59,17 +65,18 @@ public class Player extends Creature {
 		animUp.update();
 		animLeft.update();
 		animRight.update();
-		
+
 		// You can't go to battle if you're moving up and/or to the left :)
 		if (!isGoToBattle()) {
 			getInput();
 			move();
-			/*if (xMove > 0 || yMove > 0) {
-				// TODO: Change this so that rather than calling this function,
-				// we just tell the state manager we want to go to battle.
-				// That probably won't be from the player, but maybe.
-				this.setGoToBattle(Utilities.battleChance(getBattleChance()));
-			}*/
+			/*
+			 * if (xMove > 0 || yMove > 0) { // TODO: Change this so that rather
+			 * than calling this function, // we just tell the state manager we
+			 * want to go to battle. // That probably won't be from the player,
+			 * but maybe.
+			 * this.setGoToBattle(Utilities.battleChance(getBattleChance())); }
+			 */
 			Handler.getGameCamera().centerOnEntity(this);
 		}
 

@@ -8,6 +8,13 @@ import nick.dev.gfx.Animation;
 import nick.dev.gfx.Assets;
 import nick.dev.tiles.Tile;
 
+/**
+ * This abstract class is the basis for all non-static entities. Extends the Entity
+ * class.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public abstract class Creature extends Entity {
 	protected Animation animDown, animUp, animLeft, animRight;
 
@@ -238,9 +245,8 @@ public abstract class Creature extends Entity {
 
 	public void warp(int warpX, int warpY) {
 		this.setX(warpX);
-		this.setY(warpY);		
+		this.setY(warpY);
 		System.out.println("You got warped, son!");
-
 
 	}
 

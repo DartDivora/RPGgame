@@ -5,6 +5,12 @@ import java.awt.Rectangle;
 
 import nick.dev.base.Handler;
 
+/**
+ * This abstract class is the base for any in-game entities rendered on the map.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public abstract class Entity {
 
 	protected float x, y;
@@ -35,7 +41,7 @@ public abstract class Entity {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		this.setCurrentDialog(0); //DBC
+		this.setCurrentDialog(0); // DBC
 
 		bounds = new Rectangle(0, 0, width, height);
 	}

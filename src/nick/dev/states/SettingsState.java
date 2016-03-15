@@ -2,6 +2,12 @@ package nick.dev.states;
 
 import java.awt.Graphics;
 
+/**
+ * This class will manage settings. Extends the State class.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class SettingsState extends State {
 
 	public SettingsState(StateManager stateManager) {

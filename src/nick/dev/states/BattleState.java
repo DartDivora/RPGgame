@@ -11,6 +11,12 @@ import nick.dev.base.entities.Gnoll;
 import nick.dev.input.MouseManager.Buttons;
 import nick.dev.utilities.Utilities;
 
+/**
+ * This class will handle the battle system. Extends the State class.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class BattleState extends State {
 	private Gnoll creature;
 	private String[] actions;

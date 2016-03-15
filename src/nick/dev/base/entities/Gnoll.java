@@ -2,6 +2,12 @@ package nick.dev.base.entities;
 
 import nick.dev.utilities.Utilities;
 
+/**
+ * This is a Gnoll, just a regular old placeholder enemy.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class Gnoll extends Creature {
 
 	public Gnoll(float x, float y, int width, int height) {

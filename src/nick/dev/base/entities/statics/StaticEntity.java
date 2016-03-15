@@ -4,6 +4,12 @@ import java.awt.Graphics;
 
 import nick.dev.base.entities.Entity;
 
+/**
+ * This class is the basis for all Static Entities. Extends the Entity class.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class StaticEntity extends Entity {
 
 	public StaticEntity(float x, float y, int width, int height) {

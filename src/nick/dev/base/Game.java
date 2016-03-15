@@ -11,6 +11,12 @@ import nick.dev.gfx.GameCamera;
 import nick.dev.states.StateManager;
 import nick.dev.utilities.Utilities;
 
+/**
+ * This class contains the main game loop.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class Game implements Runnable {
 
 	private Display display = null;
@@ -20,8 +26,6 @@ public class Game implements Runnable {
 	private boolean running = false;
 	private BufferStrategy bs;
 	private Graphics g;
-	// private BufferedImage testImage;
-	// private SpriteSheet sheet;
 	private StateManager stateManager;
 
 	// Camera
@@ -29,7 +33,6 @@ public class Game implements Runnable {
 	private GameCamera gameCamera;
 
 	// Handler
-	//private Handler handler;
 
 	public Game(String title, int width, int height) {
 		this.width = width;
@@ -40,20 +43,20 @@ public class Game implements Runnable {
 	private void init() {
 
 		Handler.init(this);
-		
+
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(Handler.getKeyManager());
-		//display.getFrame().addMouseListener(Handler.getMouseManager());
+		// display.getFrame().addMouseListener(Handler.getMouseManager());
 		display.getCanvas().addMouseListener(Handler.getMouseManager());
 		display.getCanvas().addMouseMotionListener(Handler.getMouseManager());
-		
+
 		Handler.setDisplay(display);
-		
+
 		Utilities.Debug(Arrays.toString(display.getCanvas().getMouseListeners()));
 		Assets.init();
-		
+
 		stateManager = new StateManager();
-		
+
 		gameCamera = new GameCamera(0, 0);
 	}
 
@@ -69,7 +72,7 @@ public class Game implements Runnable {
 			return;
 		}
 		g = bs.getDrawGraphics();
-		
+
 		// Clear Screen
 		g.clearRect(0, 0, width, height);
 

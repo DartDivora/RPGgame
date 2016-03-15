@@ -9,6 +9,12 @@ import nick.dev.base.entities.Player;
 import nick.dev.tiles.Tile;
 import nick.dev.utilities.Utilities;
 
+/**
+ * This class contains the world the player is rendered on.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class World {
 
 	private int width, height;
@@ -22,9 +28,9 @@ public class World {
 	private EntityManager entityManager;
 
 	public World(String path) {
-		
+
 		Handler.setWorld(this);
-		
+
 		worldResults = new String[7];
 		entityManager = new EntityManager(new Player(100, 100));
 		keys[0] = "mapWidth";
@@ -51,10 +57,10 @@ public class World {
 	public void render(Graphics g) {
 		// This calculation ensures that only tiles in the camera view are
 		// rendered.
-		
+
 		float xOff = Handler.getGameCamera().getxOffset();
 		float yOff = Handler.getGameCamera().getyOffset();
-		
+
 		int xStart = (int) Math.max(0, xOff / Tile.TILEWIDTH);
 		int xEnd = (int) Math.min(width, (xOff + Handler.getWidth()) / Tile.TILEWIDTH + 1);
 		int yStart = (int) Math.max(0, yOff / Tile.TILEHEIGHT);
@@ -62,8 +68,7 @@ public class World {
 
 		for (int y = yStart; y < yEnd; y++) {
 			for (int x = xStart; x < xEnd; x++) {
-				getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - xOff),
-						(int) (y * Tile.TILEHEIGHT - yOff));
+				getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - xOff), (int) (y * Tile.TILEHEIGHT - yOff));
 			}
 		}
 

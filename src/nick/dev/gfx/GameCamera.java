@@ -4,6 +4,12 @@ import nick.dev.base.Handler;
 import nick.dev.base.entities.Entity;
 import nick.dev.tiles.Tile;
 
+/**
+ * This class is the GameCamera that will follow the player.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class GameCamera {
 
 	private float xOffset, yOffset;

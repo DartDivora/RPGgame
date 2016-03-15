@@ -6,6 +6,12 @@ import java.util.Comparator;
 
 import nick.dev.base.entities.NPCs.NPC;
 
+/**
+ * This class manages all entities in-game through an ArrayList of entities.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class EntityManager {
 
 	private Player player;
@@ -20,7 +26,6 @@ public class EntityManager {
 				return 1;
 			}
 		}
-
 	};
 
 	public void update() {
@@ -30,10 +35,10 @@ public class EntityManager {
 		}
 		entities.sort(renderSorter);
 	}
-	
+
 	public EntityManager(Player player) {
 		this.player = player;
-		//hardcoded Gnoll and NPC, forgive me.
+		// hardcoded Gnoll and NPC, forgive me.
 		Gnoll g = new Gnoll(100, 250, 64, 64);
 		NPC n = new NPC(300, 400, 64, 64);
 		entities = new ArrayList<Entity>();

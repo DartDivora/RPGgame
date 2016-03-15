@@ -4,6 +4,12 @@ import java.util.HashMap;
 
 import nick.dev.base.Handler;
 
+/**
+ * This class manages all dialog output in the game.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class DialogManager {
 	@SuppressWarnings("unused")
 	private Handler handler;

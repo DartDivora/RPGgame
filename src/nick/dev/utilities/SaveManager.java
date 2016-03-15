@@ -11,6 +11,12 @@ import org.json.JSONObject;
 
 import nick.dev.base.Handler;
 
+/**
+ * This class manages the saving and loading of the game.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class SaveManager {
 
 	public static String[] saveFileKeys;
