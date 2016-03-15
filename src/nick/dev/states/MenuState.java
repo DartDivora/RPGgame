@@ -47,6 +47,9 @@ public class MenuState extends State {
 	@Override
 	public void render(Graphics g) {
 		g.setFont(f);
+		// Clear Screen
+		g.clearRect(0, 0, Handler.getWidth(), Handler.getHeight());
+		
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.draw(playButton);
 		g.drawString(Utilities.getPropValue("gameTitle", Utilities.getPropFile()), Handler.getWidth() / 3 - 50,

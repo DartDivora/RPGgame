@@ -177,6 +177,9 @@ public class BattleState extends State {
 	public void render(Graphics g) {
 		g.setFont(f);
 
+		// Clear Screen
+		g.clearRect(0, 0, Handler.getWidth(), Handler.getHeight());
+
 		// System.out.println("I was called!");
 
 		g.clearRect(0, 0, Handler.getWidth(), Handler.getHeight());

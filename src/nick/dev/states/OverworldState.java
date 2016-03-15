@@ -8,11 +8,11 @@ import nick.dev.input.KeyManager.Keys;
 import nick.dev.utilities.Utilities;
 import nick.dev.worlds.World;
 
-public class GameState extends State {
+public class OverworldState extends State {
 
 	private World world;
 
-	public GameState(StateManager stateManager) {
+	public OverworldState(StateManager stateManager) {
 		super(stateManager);
 		world = new World(Utilities.getPropValue("world3", Utilities.getPropFile()));
 		Handler.setWorld(world);
@@ -31,6 +31,8 @@ public class GameState extends State {
 
 	@Override
 	public void render(Graphics g) {
+		// Clear Screen
+		g.clearRect(0, 0, Handler.getWidth(), Handler.getHeight());
 		world.render(g);
 	}
 
@@ -41,7 +43,7 @@ public class GameState extends State {
 
 	@Override
 	public void onExit() {
-		Handler.getAudioManager().stopCurrentTrack();
+		//Handler.getAudioManager().stopCurrentTrack();
 	}
 
 }

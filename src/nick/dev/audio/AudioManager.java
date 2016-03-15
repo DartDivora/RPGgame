@@ -75,12 +75,14 @@ public class AudioManager {
 	 * @param track
 	 */
 	public void playTrack(Tracks track) {
-		if (currentTrack != null) {
-			tracks.get(currentTrack).stop();
-		}
-		currentTrack = track;
-		if (!this.isMuted) {
-			tracks.get(currentTrack).play();
+		if (currentTrack != track) {
+			if (currentTrack != null) {
+				tracks.get(currentTrack).stop();
+			}
+			currentTrack = track;
+			if (!this.isMuted) {
+				tracks.get(currentTrack).play();
+			}
 		}
 	}
 
