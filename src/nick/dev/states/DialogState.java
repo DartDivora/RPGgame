@@ -55,7 +55,6 @@ public class DialogState extends State {
 			} else {
 				this.currMessageChar = this.testMessage.length();
 				this.currMessage = this.testMessage;
-				Handler.getAudioManager().stopRepeatingSFX(Tracks.TalkSFX);
 			}
 		}
 		
@@ -74,15 +73,11 @@ public class DialogState extends State {
 			if (this.framesSinceLastChar >= this.framesBetweenChars) {
 				this.currMessage += this.testMessage.substring(this.currMessageChar, this.currMessageChar+1);
 				
-				// This is kind of awful but it works for now...
-				// DO NOT KEEP
-				Handler.getAudioManager().playRepeatingSFX(Tracks.TalkSFX);
+				Handler.getAudioManager().playSFX(Tracks.TalkSFX);
 				
 				this.currMessageChar++;
 				this.framesSinceLastChar = 0;
 			}
-		} else {
-			Handler.getAudioManager().stopRepeatingSFX(Tracks.TalkSFX);
 		}
 	}
 
