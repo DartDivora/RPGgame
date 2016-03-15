@@ -6,6 +6,8 @@ import java.util.HashMap;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
+import javafx.util.Duration;
 import nick.dev.base.Handler;
 import nick.dev.input.KeyManager.Keys;
 import nick.dev.utilities.Utilities;
@@ -19,7 +21,7 @@ import nick.dev.utilities.Utilities;
 public class AudioManager {
 
 	public enum Tracks {
-		Overworld, Battle
+		Overworld, Battle, TalkSFX
 	};
 
 	@SuppressWarnings("unused")
@@ -40,6 +42,7 @@ public class AudioManager {
 
 		this.addTrack(Tracks.Overworld, Utilities.getPropValue("musicOverworld", Utilities.getPropFile()));
 		this.addTrack(Tracks.Battle, Utilities.getPropValue("musicBattle", Utilities.getPropFile()));
+		this.addTrack(Tracks.TalkSFX, Utilities.getPropValue("talkSFX", Utilities.getPropFile()));
 	}
 
 	/**
@@ -93,10 +96,13 @@ public class AudioManager {
 	 * 
 	 * @param track
 	 */
-
 	public void playSFX(Tracks track) {
 		if (!this.isMuted) {
-			tracks.get(track).play();
+			if (tracks.get(track).getStatus() != Status.PLAYING) {
+				tracks.get(track).play();
+			} else {
+				tracks.get(track).stop();
+			}
 		}
 	}
 

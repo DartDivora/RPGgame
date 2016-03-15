@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+import nick.dev.audio.AudioManager.Tracks;
 import nick.dev.base.Handler;
 import nick.dev.dialog.DialogManager;
 import nick.dev.input.KeyManager.Keys;
@@ -44,6 +45,10 @@ public class DialogState extends State {
 
 	@Override
 	public void update() {
+		
+		// Check if talk button is pressed - if it was and the message isn't
+		// all displayed, then show the message. If it was all displayed, 
+		// leave the dialog state.
 		if (Handler.getKeyManager().keyIsPressed(Keys.Talk)) {
 			if (this.currMessageChar == this.testMessage.length()) {
 				this.stateManager.leaveState();
@@ -53,17 +58,24 @@ public class DialogState extends State {
 			}
 		}
 		
+		// This is only here in case the window size changes. We'll probably
+		// want to set it to a certain size and then just black-box around it,
+		// but maybe not.
 		this.dialogStartX = 0;
 		this.dialogStartY = Handler.getHeight() * 2 / 3 + 1;
 		this.dialogBoxLength = Handler.getWidth();
 		this.dialogBoxHeight = Handler.getHeight() / 3;
 		
+		// If the current message isn't all being shown, then just see if it's
+		// time to put a new character and make the fun sound.
 		if (currMessageChar != testMessage.length()) {
 			this.framesSinceLastChar++;
 			if (this.framesSinceLastChar >= this.framesBetweenChars) {
 				this.currMessage += this.testMessage.substring(this.currMessageChar, this.currMessageChar+1);
+				
+				Handler.getAudioManager().playSFX(Tracks.TalkSFX);
+				
 				this.currMessageChar++;
-				System.out.println(this.currMessageChar);
 				this.framesSinceLastChar = 0;
 			}
 		}
