@@ -42,7 +42,7 @@ public class AudioManager {
 
 		this.addTrack(Tracks.Overworld, Utilities.getPropValue("musicOverworld", Utilities.getPropFile()));
 		this.addTrack(Tracks.Battle, Utilities.getPropValue("musicBattle", Utilities.getPropFile()));
-		this.addTrack(Tracks.TalkSFX, Utilities.getPropValue("talkSFX", Utilities.getPropFile()));
+		this.addRepeatingSFX(Tracks.TalkSFX, Utilities.getPropValue("talkSFX", Utilities.getPropFile()));
 	}
 
 	/**
@@ -56,6 +56,24 @@ public class AudioManager {
 		Media m = new Media(resource.toString());
 
 		this.tracks.put(track, new MediaPlayer(m));
+	}
+	
+	/**
+	 * Do not keep this!! Have to figure out how to either fix or replace
+	 * MediaPlayer before we can get rid of this. Starting and stopping
+	 * a MediaPlayer object is too slow.
+	 * 
+	 * @param track
+	 * @param path
+	 */
+	private void addRepeatingSFX(Tracks track, String path) {
+		URL resource = getClass().getResource(path);
+		Media m = new Media(resource.toString());
+		
+		MediaPlayer mp = new MediaPlayer(m);
+		mp.setCycleCount(Integer.MAX_VALUE);
+
+		this.tracks.put(track, mp);
 	}
 
 	/**
@@ -91,18 +109,26 @@ public class AudioManager {
 
 	/**
 	 * Play Sound Effect. Still a track, but it doesn't stop the current track.
-	 * Should only be used for short sound effects since otherwise you get
-	 * multiple songs at once...
+	 * This will repeat until stopRepeatingSFX is called on the track.
+	 * 
+	 * DO NOT KEEP THIS, MAKE A REAL SOLUTION. Unfortunately,
+	 * the solution involves either using something else to play audio or
+	 * slowing down the game a lot.
+	 * @param track
+	 */
+	public void playRepeatingSFX(Tracks track) {
+		if (!this.isMuted && tracks.get(track).getStatus() != Status.PLAYING) {
+			tracks.get(track).play();
+		}
+	}
+	/**
+	 * Stops a repeating SFX. 
 	 * 
 	 * @param track
 	 */
-	public void playSFX(Tracks track) {
-		if (!this.isMuted) {
-			if (tracks.get(track).getStatus() != Status.PLAYING) {
-				tracks.get(track).play();
-			} else {
-				tracks.get(track).stop();
-			}
+	public void stopRepeatingSFX(Tracks track) {
+		if (!this.isMuted && tracks.get(track).getStatus() == Status.PLAYING) {
+			tracks.get(track).stop();
 		}
 	}
 
@@ -135,6 +161,12 @@ public class AudioManager {
 			tracks.get(currentTrack).stop();
 		}
 	}
+	
+	public void pauseAllTracks() {
+		for (HashMap.Entry<Tracks, MediaPlayer> entry  : tracks.entrySet()) {
+			entry.getValue().pause();
+		}
+	}
 
 	/**
 	 * Unmutes all tracks.
@@ -152,6 +184,6 @@ public class AudioManager {
 		// TODO: Make all tracks mute, just need to iterate through all tracks
 		// and pause them.
 		this.isMuted = true;
-		this.pauseCurrentTrack();
+		this.pauseAllTracks();
 	}
 }
