@@ -130,8 +130,6 @@ public class DialogState extends State {
 				} else {
 					this.currMessage += " ";
 				}
-			} else {
-				this.currMessage += " ";
 			}
 		} else {
 			this.currMessage += newChar;
