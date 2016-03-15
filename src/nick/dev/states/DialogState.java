@@ -6,7 +6,6 @@ import java.awt.Graphics;
 
 import nick.dev.audio.AudioManager.Tracks;
 import nick.dev.base.Handler;
-import nick.dev.dialog.DialogManager;
 import nick.dev.input.KeyManager.Keys;
 
 /**
@@ -18,13 +17,13 @@ import nick.dev.input.KeyManager.Keys;
 public class DialogState extends State {
 
 	private Font f;
-	//private Integer messageID = 0;
+	// private Integer messageID = 0;
 	private String testMessage = "This is what I'm talking about, you know that's right";
 	private String currMessage = "";
 	private Integer currMessageChar = 0;
 	private Integer framesBetweenChars = 2;
 	private Integer framesSinceLastChar = 0;
-	
+
 	private Integer dialogStartX = 0;
 	private Integer dialogStartY = 0;
 	private Integer dialogBoxLength = 0;
@@ -36,7 +35,7 @@ public class DialogState extends State {
 		f = new Font("arial", Font.BOLD, 25);
 		// TODO discuss implementing the DialogManager.
 	}
-	
+
 	public void reinitialize() {
 		this.currMessage = "";
 		this.currMessageChar = 0;
@@ -45,9 +44,9 @@ public class DialogState extends State {
 
 	@Override
 	public void update() {
-		
+
 		// Check if talk button is pressed - if it was and the message isn't
-		// all displayed, then show the message. If it was all displayed, 
+		// all displayed, then show the message. If it was all displayed,
 		// leave the dialog state.
 		if (Handler.getKeyManager().keyIsPressed(Keys.Talk)) {
 			if (this.currMessageChar == this.testMessage.length()) {
@@ -58,7 +57,7 @@ public class DialogState extends State {
 				Handler.getAudioManager().stopRepeatingSFX(Tracks.TalkSFX);
 			}
 		}
-		
+
 		// This is only here in case the window size changes. We'll probably
 		// want to set it to a certain size and then just black-box around it,
 		// but maybe not.
@@ -66,18 +65,18 @@ public class DialogState extends State {
 		this.dialogStartY = Handler.getHeight() * 2 / 3 + 1;
 		this.dialogBoxLength = Handler.getWidth();
 		this.dialogBoxHeight = Handler.getHeight() / 3;
-		
+
 		// If the current message isn't all being shown, then just see if it's
 		// time to put a new character and make the fun sound.
 		if (currMessageChar != testMessage.length()) {
 			this.framesSinceLastChar++;
 			if (this.framesSinceLastChar >= this.framesBetweenChars) {
-				this.currMessage += this.testMessage.substring(this.currMessageChar, this.currMessageChar+1);
-				
+				this.currMessage += this.testMessage.substring(this.currMessageChar, this.currMessageChar + 1);
+
 				// This is kind of awful but it works for now...
 				// DO NOT KEEP
 				Handler.getAudioManager().playRepeatingSFX(Tracks.TalkSFX);
-				
+
 				this.currMessageChar++;
 				this.framesSinceLastChar = 0;
 			}
@@ -90,12 +89,10 @@ public class DialogState extends State {
 	public void render(Graphics g) {
 		g.setFont(f);
 		g.setColor(Color.black);
-		
-		g.fillRect(this.dialogStartX, this.dialogStartY, 
-				this.dialogBoxLength, this.dialogBoxHeight);
+
+		g.fillRect(this.dialogStartX, this.dialogStartY, this.dialogBoxLength, this.dialogBoxHeight);
 		g.setColor(Color.white);
-		g.drawString(this.currMessage, 
-				this.dialogStartX + this.dialogBoxInnerMargin, 
+		g.drawString(this.currMessage, this.dialogStartX + this.dialogBoxInnerMargin,
 				this.dialogStartY + this.dialogBoxInnerMargin * 3);
 	}
 

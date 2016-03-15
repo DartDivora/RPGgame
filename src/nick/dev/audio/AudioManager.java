@@ -7,7 +7,6 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
-import javafx.util.Duration;
 import nick.dev.base.Handler;
 import nick.dev.input.KeyManager.Keys;
 import nick.dev.utilities.Utilities;
@@ -57,11 +56,11 @@ public class AudioManager {
 
 		this.tracks.put(track, new MediaPlayer(m));
 	}
-	
+
 	/**
 	 * Do not keep this!! Have to figure out how to either fix or replace
-	 * MediaPlayer before we can get rid of this. Starting and stopping
-	 * a MediaPlayer object is too slow.
+	 * MediaPlayer before we can get rid of this. Starting and stopping a
+	 * MediaPlayer object is too slow.
 	 * 
 	 * @param track
 	 * @param path
@@ -69,7 +68,7 @@ public class AudioManager {
 	private void addRepeatingSFX(Tracks track, String path) {
 		URL resource = getClass().getResource(path);
 		Media m = new Media(resource.toString());
-		
+
 		MediaPlayer mp = new MediaPlayer(m);
 		mp.setCycleCount(Integer.MAX_VALUE);
 
@@ -111,9 +110,10 @@ public class AudioManager {
 	 * Play Sound Effect. Still a track, but it doesn't stop the current track.
 	 * This will repeat until stopRepeatingSFX is called on the track.
 	 * 
-	 * DO NOT KEEP THIS, MAKE A REAL SOLUTION. Unfortunately,
-	 * the solution involves either using something else to play audio or
-	 * slowing down the game a lot.
+	 * DO NOT KEEP THIS, MAKE A REAL SOLUTION. Unfortunately, the solution
+	 * involves either using something else to play audio or slowing down the
+	 * game a lot.
+	 * 
 	 * @param track
 	 */
 	public void playRepeatingSFX(Tracks track) {
@@ -121,8 +121,9 @@ public class AudioManager {
 			tracks.get(track).play();
 		}
 	}
+
 	/**
-	 * Stops a repeating SFX. 
+	 * Stops a repeating SFX.
 	 * 
 	 * @param track
 	 */
@@ -161,9 +162,9 @@ public class AudioManager {
 			tracks.get(currentTrack).stop();
 		}
 	}
-	
+
 	public void pauseAllTracks() {
-		for (HashMap.Entry<Tracks, MediaPlayer> entry  : tracks.entrySet()) {
+		for (HashMap.Entry<Tracks, MediaPlayer> entry : tracks.entrySet()) {
 			entry.getValue().pause();
 		}
 	}
