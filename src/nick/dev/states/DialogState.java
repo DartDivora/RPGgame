@@ -18,9 +18,14 @@ public class DialogState extends State {
 
 	private Font f;
 	// private Integer messageID = 0;
-	private String testMessage = "This is what I'm talking about, you know that's right";
+	private String testMessage = "This is what I'm talking about, you know. This is what I'm talking about, you know that's right. This is what I'm talking about. This is what I'm talking about, you know that's right.";
 	private String currMessage = "";
-	private Integer currMessageChar = 0;
+	private Integer currMessagePos = 0;
+	
+	private Integer currLinePos = 0;
+	
+	private Integer maxCharsOnLine = 54;
+	
 	private Integer framesBetweenChars = 2;
 	private Integer framesSinceLastChar = 0;
 
@@ -37,9 +42,11 @@ public class DialogState extends State {
 	}
 
 	public void reinitialize() {
-		this.currMessage = "";
-		this.currMessageChar = 0;
+		
+		this.currMessagePos = 0;
+		this.currLinePos = 0;
 		this.framesSinceLastChar = 0;
+		this.currMessage = "";
 	}
 
 	@Override
@@ -49,11 +56,12 @@ public class DialogState extends State {
 		// all displayed, then show the message. If it was all displayed,
 		// leave the dialog state.
 		if (Handler.getKeyManager().keyIsPressed(Keys.Talk)) {
-			if (this.currMessageChar == this.testMessage.length()) {
+			if (this.currMessagePos == this.testMessage.length()) {
 				this.stateManager.leaveState();
 			} else {
-				this.currMessageChar = this.testMessage.length();
-				this.currMessage = this.testMessage;
+				while (this.currMessagePos != this.testMessage.length()) {
+					this.addCharacterToLine();
+				}
 				Handler.getAudioManager().stopRepeatingSFX(Tracks.TalkSFX);
 			}
 		}
@@ -68,18 +76,20 @@ public class DialogState extends State {
 
 		// If the current message isn't all being shown, then just see if it's
 		// time to put a new character and make the fun sound.
-		if (currMessageChar != testMessage.length()) {
+		if (currMessagePos != testMessage.length()) {
 			this.framesSinceLastChar++;
+			
+			// If it's time to add a new character to the dialog.
 			if (this.framesSinceLastChar >= this.framesBetweenChars) {
-				this.currMessage += this.testMessage.substring(this.currMessageChar, this.currMessageChar + 1);
+				this.addCharacterToLine();
 
 				// This is kind of awful but it works for now...
 				// DO NOT KEEP
 				Handler.getAudioManager().playRepeatingSFX(Tracks.TalkSFX);
-
-				this.currMessageChar++;
+				
 				this.framesSinceLastChar = 0;
 			}
+			
 		} else {
 			Handler.getAudioManager().stopRepeatingSFX(Tracks.TalkSFX);
 		}
@@ -92,8 +102,38 @@ public class DialogState extends State {
 
 		g.fillRect(this.dialogStartX, this.dialogStartY, this.dialogBoxLength, this.dialogBoxHeight);
 		g.setColor(Color.white);
-		g.drawString(this.currMessage, this.dialogStartX + this.dialogBoxInnerMargin,
-				this.dialogStartY + this.dialogBoxInnerMargin * 3);
+		this.drawString(g, this.currMessage, this.dialogStartX + this.dialogBoxInnerMargin,
+				this.dialogStartY + this.dialogBoxInnerMargin);
+	}
+	
+	private void drawString(Graphics g, String text, int x, int y) {
+		for (String line : text.split("\n"))
+			g.drawString(line, x, y += g.getFontMetrics().getHeight());
+	}
+	
+	private void addCharacterToLine() {
+		
+		// Get next character in our message.
+		String newChar = this.testMessage.substring(this.currMessagePos, this.currMessagePos + 1);
+		this.currMessagePos++;
+		this.currLinePos++;
+		
+		if (newChar.equals(" ")) {
+			
+			Integer nextSpacePos = this.testMessage.indexOf(" ", this.currMessagePos);
+			if (nextSpacePos != -1) {
+				String nextWord = this.testMessage.substring(this.currMessagePos, nextSpacePos);
+				if (this.currLinePos + nextWord.length() >= this.maxCharsOnLine) 
+				{
+					this.currMessage += "\n";
+					this.currLinePos = 0;
+				} else {
+					this.currMessage += " ";
+				}
+			}
+		} else {
+			this.currMessage += newChar;
+		}
 	}
 
 	@Override
