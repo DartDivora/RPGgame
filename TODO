@@ -6,3 +6,4 @@ Things to do:
 - Implement TaskQueue - this can do things like play spell animations, move npcs, cutscenes, etc.
 - Figure out NPC to DialogState relationship.
 - Figure out how to keep track of which direction the player is facing.
+- Look into using GSON to make loading json files more efficient and less complicated.

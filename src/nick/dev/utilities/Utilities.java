@@ -84,15 +84,12 @@ public class Utilities extends IOUtils {
 				System.out.println("An error occurred parsing the .json file to a JSON object!!!");
 				e.printStackTrace();
 			}
-			// Debug(jo.toString());
 		} else {
 			Debug("File: " + path + " did not exist!!!");
 			return null;
 		}
 		for (int i = 0; i < keys.length; i++) {
 			try {
-				// Debug(keys[i]);
-				// Debug(jo.get(keys[i]).toString());
 				result[i] = jo.get(keys[i]).toString();
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -118,12 +115,9 @@ public class Utilities extends IOUtils {
 		}
 		// this sets the property value from the file.
 		result = prop.getProperty(PropertyName);
-		// System.out.println(PropertyName + "-" + result);
 
 		if (result == null) {
 			System.out.println("Property value " + PropertyName + " not found!");
-			// throw new RuntimeException();
-
 		}
 		return result;
 
