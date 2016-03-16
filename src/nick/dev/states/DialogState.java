@@ -18,12 +18,12 @@ public class DialogState extends State {
 
 	private Font f;
 	// private Integer messageID = 0;
+	// Rather than have a test message, this state will be passed the id of the string to display and then look it up.
 	private String testMessage = "This is what I'm talking about, you know. This is what I'm talking about, you know that's right. This is what I'm talking about. This is what I'm talking about, you know that's right.";
 	private String currMessage = "";
 	private Integer currMessagePos = 0;
 	
 	private Integer currLinePos = 0;
-	
 	private Integer maxCharsOnLine = 54;
 	
 	private Integer framesBetweenChars = 2;
@@ -41,8 +41,7 @@ public class DialogState extends State {
 		// TODO discuss implementing the DialogManager.
 	}
 
-	public void reinitialize() {
-		
+	private void reinitialize() {
 		this.currMessagePos = 0;
 		this.currLinePos = 0;
 		this.framesSinceLastChar = 0;
@@ -119,8 +118,8 @@ public class DialogState extends State {
 		this.currLinePos++;
 		
 		if (newChar.equals(" ")) {
-			
 			Integer nextSpacePos = this.testMessage.indexOf(" ", this.currMessagePos);
+			
 			if (nextSpacePos != -1) {
 				String nextWord = this.testMessage.substring(this.currMessagePos, nextSpacePos);
 				if (this.currLinePos + nextWord.length() >= this.maxCharsOnLine) 
@@ -133,6 +132,7 @@ public class DialogState extends State {
 			} else {
 				this.currMessage += " ";
 			}
+			
 		} else {
 			this.currMessage += newChar;
 		}
