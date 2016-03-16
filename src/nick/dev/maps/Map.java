@@ -3,6 +3,8 @@ package nick.dev.maps;
 import java.awt.Graphics;
 import java.util.HashMap;
 
+import com.google.gson.Gson;
+
 import nick.dev.base.Handler;
 import nick.dev.gfx.SpriteSheet;
 import nick.dev.gfx.loadImage;
@@ -40,11 +42,14 @@ public class Map {
 	private Integer mapHeight = 0;
 
 	private int[][] mapData;
-
+	
 	public Map(String newMapData, Integer width, Integer height) {
-		//Gson gson = new Gson();
-		// gson.fromJson(Utilities.getStringFromFile(Utilities.getPropValue("tileJSON")),
-		// Tile.class);
+		Gson gson = new Gson();
+		String JSONString = Utilities.getStringFromFile(Utilities.getPropValue("tileJSON"));
+		System.out.println(JSONString);
+		Tile t = gson.fromJson(Utilities.getStringFromFile(Utilities.getPropValue("tileJSON")), Tile.class);
+		System.out.println(t.getId());
+
 		this.mapData = new int[width][height];
 
 		this.mapWidth = width;
