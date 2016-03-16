@@ -12,7 +12,6 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.IOUtils;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -60,7 +59,7 @@ public class Utilities extends IOUtils {
 		return random.nextInt(max - min + 1) + min;
 	}
 
-	public static JSONObject getJSONObjectFromFile(String path) {
+	public static String getStringFromFile(String path) {
 		File f = new File(path);
 		InputStream is = null;
 		try {
@@ -70,27 +69,9 @@ public class Utilities extends IOUtils {
 			e.printStackTrace();
 		}
 		try {
-			return new JSONObject(IOUtils.toString(is, "UTF-8"));
-		} catch (JSONException | IOException e) {
+			return IOUtils.toString(is, "UTF-8");
+		} catch (IOException e) {
 			System.out.println("Could not load the JSONObject from the path: " + path);
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public static JSONArray getJSONArrayFromFile(String path) {
-		File f = new File(path);
-		InputStream is = null;
-		try {
-			is = new FileInputStream(f);
-		} catch (FileNotFoundException e) {
-			System.out.println("Could not find the file: " + f);
-			e.printStackTrace();
-		}
-		try {
-			return new JSONArray(IOUtils.toString(is, "UTF-8"));
-		} catch (JSONException | IOException e) {
-			System.out.println("Could not load the JSONArray from the path: " + path);
 			e.printStackTrace();
 			return null;
 		}

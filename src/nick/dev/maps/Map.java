@@ -3,8 +3,6 @@ package nick.dev.maps;
 import java.awt.Graphics;
 import java.util.HashMap;
 
-import org.json.JSONObject;
-
 import com.google.gson.Gson;
 
 import nick.dev.base.Handler;
