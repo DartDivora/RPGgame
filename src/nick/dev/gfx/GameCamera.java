@@ -2,7 +2,7 @@ package nick.dev.gfx;
 
 import nick.dev.base.Handler;
 import nick.dev.base.entities.Entity;
-import nick.dev.tiles.Tile;
+import nick.dev.maps.Map;
 
 /**
  * This class is the GameCamera that will follow the player.
@@ -22,13 +22,13 @@ public class GameCamera {
 	public void checkBlankSpace() {
 		if (xOffset < 0) {
 			xOffset = 0;
-		} else if (xOffset > Handler.getWorld().getWidth() * Tile.TILEWIDTH - Handler.getWidth()) {
-			xOffset = Handler.getWorld().getWidth() * Tile.TILEWIDTH - Handler.getWidth();
+		} else if (xOffset > Handler.getWorld().getWidth() * Map.TileWidth - Handler.getWidth()) {
+			xOffset = Handler.getWorld().getWidth() * Map.TileWidth - Handler.getWidth();
 		}
 		if (yOffset < 0) {
 			yOffset = 0;
-		} else if (yOffset > Handler.getWorld().getHeight() * Tile.TILEHEIGHT - Handler.getHeight()) {
-			yOffset = Handler.getWorld().getHeight() * Tile.TILEHEIGHT - Handler.getHeight();
+		} else if (yOffset > Handler.getWorld().getHeight() * Map.TileHeight - Handler.getHeight()) {
+			yOffset = Handler.getWorld().getHeight() * Map.TileHeight - Handler.getHeight();
 		}
 
 	}

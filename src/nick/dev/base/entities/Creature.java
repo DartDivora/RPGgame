@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import nick.dev.base.Handler;
 import nick.dev.gfx.Animation;
 import nick.dev.gfx.Assets;
-import nick.dev.tiles.Tile;
+import nick.dev.maps.Map;
 
 /**
  * This abstract class is the basis for all non-static entities. Extends the Entity
@@ -113,23 +113,23 @@ public abstract class Creature extends Entity {
 
 	public void moveX() {
 		if (xMove > 0) {// Moving right
-			int tx = (int) (x + xMove + bounds.x + bounds.width) / Tile.TILEWIDTH;
+			int tx = (int) (x + xMove + bounds.x + bounds.width) / Map.TileWidth;
 
-			if (!collisionWithTile(tx, (int) (y + bounds.y) / Tile.TILEHEIGHT)
-					&& !collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
+			if (!collisionWithTile(tx, (int) (y + bounds.y) / Map.TileHeight)
+					&& !collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Map.TileHeight)) {
 				x += xMove;
 			} else {
-				x = tx * Tile.TILEWIDTH - bounds.x - bounds.width - 1;
+				x = tx * Map.TileWidth - bounds.x - bounds.width - 1;
 			}
 
 		} else if (xMove < 0) {// Moving left
-			int tx = (int) (x + xMove + bounds.x) / Tile.TILEWIDTH;
+			int tx = (int) (x + xMove + bounds.x) / Map.TileWidth;
 
-			if (!collisionWithTile(tx, (int) (y + bounds.y) / Tile.TILEHEIGHT)
-					&& !collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
+			if (!collisionWithTile(tx, (int) (y + bounds.y) / Map.TileHeight)
+					&& !collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Map.TileHeight)) {
 				x += xMove;
 			} else {
-				x = tx * Tile.TILEWIDTH + Tile.TILEWIDTH - bounds.x;
+				x = tx * Map.TileWidth + Map.TileWidth - bounds.x;
 			}
 
 		}
@@ -137,30 +137,30 @@ public abstract class Creature extends Entity {
 
 	public void moveY() {
 		if (yMove < 0) {// Up
-			int ty = (int) (y + yMove + bounds.y) / Tile.TILEHEIGHT;
+			int ty = (int) (y + yMove + bounds.y) / Map.TileHeight;
 
-			if (!collisionWithTile((int) (x + bounds.x) / Tile.TILEWIDTH, ty)
-					&& !collisionWithTile((int) (x + bounds.x + bounds.width) / Tile.TILEWIDTH, ty)) {
+			if (!collisionWithTile((int) (x + bounds.x) / Map.TileWidth, ty)
+					&& !collisionWithTile((int) (x + bounds.x + bounds.width) / Map.TileWidth, ty)) {
 				y += yMove;
 			} else {
-				y = ty * Tile.TILEHEIGHT + Tile.TILEHEIGHT - bounds.y;
+				y = ty * Map.TileHeight + Map.TileHeight - bounds.y;
 			}
 
 		} else if (yMove > 0) {// Down
-			int ty = (int) (y + yMove + bounds.y + bounds.height) / Tile.TILEHEIGHT;
+			int ty = (int) (y + yMove + bounds.y + bounds.height) / Map.TileHeight;
 
-			if (!collisionWithTile((int) (x + bounds.x) / Tile.TILEWIDTH, ty)
-					&& !collisionWithTile((int) (x + bounds.x + bounds.width) / Tile.TILEWIDTH, ty)) {
+			if (!collisionWithTile((int) (x + bounds.x) / Map.TileWidth, ty)
+					&& !collisionWithTile((int) (x + bounds.x + bounds.width) / Map.TileWidth, ty)) {
 				y += yMove;
 			} else {
-				y = ty * Tile.TILEHEIGHT - bounds.y - bounds.height - 1;
+				y = ty * Map.TileHeight - bounds.y - bounds.height - 1;
 			}
 
 		}
 	}
 
 	protected boolean collisionWithTile(int x, int y) {
-		return Handler.getWorld().getTile(x, y).isSolid();
+		return Handler.getWorld().tileIsSolid(x, y);
 	}
 
 	public BufferedImage getCurrentAnimationFrame() {

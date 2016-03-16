@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import nick.dev.base.Handler;
 import nick.dev.gfx.Assets;
-import nick.dev.tiles.Tile;
+import nick.dev.maps.Map;
 
 /**
  * This is a tree, that's about it.
@@ -15,7 +15,7 @@ import nick.dev.tiles.Tile;
 public class Tree extends StaticEntity {
 
 	public Tree(float x, float y) {
-		super(x, y, Tile.TILEWIDTH, Tile.TILEHEIGHT * 2);
+		super(x, y, Map.TileWidth, Map.TileHeight * 2);
 
 		bounds.x = 10;
 		bounds.y = (int) (height / 1.5f);

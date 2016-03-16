@@ -2,24 +2,29 @@ package nick.dev.tiles;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.Collections;
+import java.util.HashMap;
+
+import nick.dev.gfx.Assets;
+import nick.dev.maps.Map;
 
 /**
- * This class will manage all tiles.
+ * This class defines what a tile is and is responsible for drawing each one.
+ * It can probably just be removed since the map is kind of handling that 
+ * functionality...but there will probably be a reason to keep it. 
  * 
  * @author nsanft,acharles
  * @version 1.1
  */
 public class Tile {
-
-	public static final int TILEWIDTH = 64, TILEHEIGHT = 64;
-
+	
 	protected BufferedImage texture;
 	protected final int id;
 	protected final boolean isSolid;
 
 	public Tile(int id, BufferedImage texture, boolean isSolid) {
-		this.texture = texture;
 		this.id = id;
+		this.texture = texture;
 		this.isSolid = isSolid;
 	}
 
@@ -32,7 +37,7 @@ public class Tile {
 	}
 
 	public void render(Graphics g, int x, int y) {
-		g.drawImage(texture, x, y, TILEWIDTH, TILEHEIGHT, null);
+		g.drawImage(texture, x, y, Map.TileWidth, Map.TileHeight, null);
 	}
 
 	public int getId() {

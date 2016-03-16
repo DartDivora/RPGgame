@@ -8,6 +8,7 @@ import nick.dev.base.Handler;
 import nick.dev.base.entities.EntityManager;
 import nick.dev.base.entities.Player;
 import nick.dev.gfx.Assets;
+import nick.dev.maps.Map;
 import nick.dev.tiles.Tile;
 import nick.dev.utilities.Utilities;
 
@@ -21,8 +22,10 @@ public class World {
 
 	private int width, height;
 	private int spawnX, spawnY;
-	private int[][] worldTiles;
-	private HashMap<Integer, Tile> tileMap;;
+	
+	private Map currentMap;
+	
+	private HashMap<Integer, Tile> tileMap;
 
 	String[] keys = new String[7];
 	String[] worldResults;
@@ -46,12 +49,6 @@ public class World {
 		keys[6] = "chanceOfBattle";
 		worldResults = Utilities.getFromJSONObject(path, keys);
 
-		tileMap = new HashMap<Integer, Tile>();
-		tileMap.put(0, new Tile(0, Assets.grass, false));
-		tileMap.put(1, new Tile(1, Assets.dirt, false));
-		tileMap.put(2, new Tile(2, Assets.stone, true));
-		tileMap.put(3, new Tile(3, Assets.sand, false));
-
 		loadWorld(path);
 
 		Utilities.Debug("spawnX: " + spawnX + " spawnY: " + spawnY);
@@ -61,41 +58,13 @@ public class World {
 	}
 
 	public void update() {
+		currentMap.update();
 		entityManager.update();
 	}
 
 	public void render(Graphics g) {
-		// This calculation ensures that only tiles in the camera view are
-		// rendered.
-
-		float xOff = Handler.getGameCamera().getxOffset();
-		float yOff = Handler.getGameCamera().getyOffset();
-
-		int xStart = (int) Math.max(0, xOff / Tile.TILEWIDTH);
-		int xEnd = (int) Math.min(width, (xOff + Handler.getWidth()) / Tile.TILEWIDTH + 1);
-		int yStart = (int) Math.max(0, yOff / Tile.TILEHEIGHT);
-		int yEnd = (int) Math.min(height, (yOff + Handler.getHeight()) / Tile.TILEHEIGHT + 1);
-
-		for (int y = yStart; y < yEnd; y++) {
-			for (int x = xStart; x < xEnd; x++) {
-				getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - xOff), (int) (y * Tile.TILEHEIGHT - yOff));
-			}
-		}
-
-		// Entities
+		currentMap.render(g);
 		entityManager.render(g);
-	}
-
-	public Tile getTile(int x, int y) {
-		if (x < 0 || y < 0 || x >= width || y >= height) {
-			return this.getTileMap().get(0);
-		}
-
-		Tile t = this.getTileMap().get(worldTiles[x][y]);
-		if (t == null) {
-			return this.getTileMap().get(0);
-		}
-		return t;
 	}
 
 	private void loadWorld(String path) {
@@ -108,19 +77,19 @@ public class World {
 		height = Integer.parseInt(worldResults[1]);
 		spawnX = Integer.parseInt(worldResults[2]);
 		spawnY = Integer.parseInt(worldResults[3]);
-		worldTiles = new int[width][height];
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				worldTiles[x][y] = Integer.parseInt(worldResults[4].split("\\|")[(x + y * width)]);
-
-			}
-		}
+		
+		currentMap = new Map(worldResults[4], width, height);
+		
 		for (int i = 0; i < worldEntities.length; i++) {
 			String[] entity = worldEntities[i].split("\\|");
 			Utilities.Debug(entity[i]);
 			// entityManager.addEntity(new Tree(Handler,
 			// Integer.parseInt(entity[1]), Integer.parseInt(entity[2])));
 		}
+	}
+	
+	public boolean tileIsSolid(Integer x, Integer y) {
+		return currentMap.tileIsSolid(x, y);
 	}
 
 	public int getWidth() {
