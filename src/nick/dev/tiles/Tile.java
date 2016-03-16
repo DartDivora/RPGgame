@@ -3,6 +3,8 @@ package nick.dev.tiles;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import nick.dev.gfx.Assets;
+
 /**
  * This class will manage all tiles.
  * 
@@ -12,19 +14,21 @@ import java.awt.image.BufferedImage;
 public class Tile {
 
 	public static Tile[] tiles = new Tile[256];
-	public static Tile grassTile = new GrassTile(0);
-	public static Tile dirtTile = new DirtTile(1);
-	public static Tile rockTile = new RockTile(2);
-	public static Tile sandTile = new SandTile(3);
+	public static Tile grassTile = new Tile(0, Assets.grass, false);
+	public static Tile dirtTile = new Tile(1, Assets.dirt, false);
+	public static Tile stoneTile = new Tile(2, Assets.stone, true);
+	public static Tile sandTile = new Tile(3, Assets.sand, false);
 
 	public static final int TILEWIDTH = 64, TILEHEIGHT = 64;
 
 	protected BufferedImage texture;
 	protected final int id;
+	protected final boolean isSolid;
 
-	public Tile(BufferedImage texture, int id) {
+	public Tile(int id, BufferedImage texture, boolean isSolid) {
 		this.texture = texture;
 		this.id = id;
+		this.isSolid = isSolid;
 
 		tiles[id] = this;
 	}
@@ -34,7 +38,7 @@ public class Tile {
 	}
 
 	public boolean isSolid() {
-		return false;
+		return isSolid;
 	}
 
 	public void render(Graphics g, int x, int y) {
