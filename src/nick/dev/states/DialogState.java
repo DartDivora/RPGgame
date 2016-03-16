@@ -22,10 +22,10 @@ public class DialogState extends State {
 	private String testMessage = "This is what I'm talking about, you know. This is what I'm talking about, you know that's right. This is what I'm talking about. This is what I'm talking about, you know that's right.";
 	private String currMessage = "";
 	private Integer currMessagePos = 0;
-	
+
 	private Integer currLinePos = 0;
 	private Integer maxCharsOnLine = 54;
-	
+
 	private Integer framesBetweenChars = 2;
 	private Integer framesSinceLastChar = 0;
 
@@ -77,7 +77,7 @@ public class DialogState extends State {
 		// time to put a new character and make the fun sound.
 		if (currMessagePos != testMessage.length()) {
 			this.framesSinceLastChar++;
-			
+
 			// If it's time to add a new character to the dialog.
 			if (this.framesSinceLastChar >= this.framesBetweenChars) {
 				this.addCharacterToLine();
@@ -85,10 +85,10 @@ public class DialogState extends State {
 				// This is kind of awful but it works for now...
 				// DO NOT KEEP
 				Handler.getAudioManager().playRepeatingSFX(Tracks.TalkSFX);
-				
+
 				this.framesSinceLastChar = 0;
 			}
-			
+
 		} else {
 			Handler.getAudioManager().stopRepeatingSFX(Tracks.TalkSFX);
 		}
@@ -104,26 +104,25 @@ public class DialogState extends State {
 		this.drawString(g, this.currMessage, this.dialogStartX + this.dialogBoxInnerMargin,
 				this.dialogStartY + this.dialogBoxInnerMargin);
 	}
-	
+
 	private void drawString(Graphics g, String text, int x, int y) {
 		for (String line : text.split("\n"))
 			g.drawString(line, x, y += g.getFontMetrics().getHeight());
 	}
-	
+
 	private void addCharacterToLine() {
-		
+
 		// Get next character in our message.
 		String newChar = this.testMessage.substring(this.currMessagePos, this.currMessagePos + 1);
 		this.currMessagePos++;
 		this.currLinePos++;
-		
+
 		if (newChar.equals(" ")) {
 			Integer nextSpacePos = this.testMessage.indexOf(" ", this.currMessagePos);
 			
 			if (nextSpacePos != -1) {
 				String nextWord = this.testMessage.substring(this.currMessagePos, nextSpacePos);
-				if (this.currLinePos + nextWord.length() >= this.maxCharsOnLine) 
-				{
+				if (this.currLinePos + nextWord.length() >= this.maxCharsOnLine) {
 					this.currMessage += "\n";
 					this.currLinePos = 0;
 				} else {
