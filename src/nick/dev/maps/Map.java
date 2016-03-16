@@ -3,10 +3,7 @@ package nick.dev.maps;
 import java.awt.Graphics;
 import java.util.HashMap;
 
-import com.google.gson.Gson;
-
 import nick.dev.base.Handler;
-import nick.dev.gfx.Assets;
 import nick.dev.gfx.SpriteSheet;
 import nick.dev.gfx.loadImage;
 import nick.dev.tiles.Tile;
@@ -23,16 +20,20 @@ public class Map {
 
 	public static int TileWidth = 64;
 	public static int TileHeight = 64;
-	private static SpriteSheet tileSheet;
+	private static SpriteSheet tileSheet = new SpriteSheet(loadImage.loadImages(Utilities.getPropValue("tileSheet")));
+
+	public static SpriteSheet getTileSheet() {
+		return tileSheet;
+	}
 
 	private static final HashMap<Integer, Tile> tileData;
 	static {
 
 		tileData = new HashMap<Integer, Tile>();
-		tileData.put(0, new Tile(0, Assets.grass, false));
-		tileData.put(1, new Tile(1, Assets.dirt, false));
-		tileData.put(2, new Tile(2, Assets.stone, true));
-		tileData.put(3, new Tile(3, Assets.sand, false));
+		tileData.put(0, new Tile(0, 192, 0, false));
+		tileData.put(1, new Tile(1, 288, 0, false));
+		tileData.put(2, new Tile(2, 240, 64, true));
+		tileData.put(3, new Tile(3, 208, 0, false));
 	}
 
 	private Integer mapWidth = 0;
@@ -41,11 +42,9 @@ public class Map {
 	private int[][] mapData;
 
 	public Map(String newMapData, Integer width, Integer height) {
-		Gson gson = new Gson();
-		//JSONObject jo = Utilities.getJSONObjectFromFile(Utilities.getPropValue("tileJSON"));
-		//System.out.println(jo.toString());
-		tileSheet = new SpriteSheet(loadImage.loadImages(Utilities.getPropValue("tileSheet")));
-
+		//Gson gson = new Gson();
+		// gson.fromJson(Utilities.getStringFromFile(Utilities.getPropValue("tileJSON")),
+		// Tile.class);
 		this.mapData = new int[width][height];
 
 		this.mapWidth = width;

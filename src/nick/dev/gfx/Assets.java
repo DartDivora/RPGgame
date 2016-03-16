@@ -49,13 +49,17 @@ public class Assets {
 		DEFAULT_ANIM_LEFT[1] = monsterSheet.crop(80, 0, 16, 16);
 		DEFAULT_ANIM_RIGHT[0] = monsterSheet.crop(96, 0, 16, 16);
 		DEFAULT_ANIM_RIGHT[1] = monsterSheet.crop(112, 0, 16, 16);
-
-		grass = tileSheet.crop(192, 0, width, height);
-		dirt = tileSheet.crop(288, 0, width, height);
-		stone = tileSheet.crop(240, 64, width, height);
-		sand = tileSheet.crop(208, 0, width, height);
+		
 		tree = tileSheet.crop(208, 144, width, height * 2);
 		town = tileSheet.crop(416, 16, width, height);
+	}
+
+	public static int getWidth() {
+		return width;
+	}
+
+	public static int getHeight() {
+		return height;
 	}
 
 }

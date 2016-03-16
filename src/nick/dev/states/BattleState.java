@@ -24,7 +24,7 @@ public class BattleState extends State {
 	int healthBarWidth, healthBarHeight, creatureDisplayWidth, creatureDisplayHeight;
 	String playerAction = null;
 	String[] turnResults = null;
-	
+
 	Font f;
 
 	public BattleState(StateManager stateManager) {
@@ -37,10 +37,8 @@ public class BattleState extends State {
 		f = new Font("arial", Font.BOLD, 25);
 		healthBarWidth = Integer.parseInt(Utilities.getPropValue("healthBarWidth"));
 		healthBarHeight = Integer.parseInt(Utilities.getPropValue("healthBarHeight"));
-		creatureDisplayWidth = Integer
-				.parseInt(Utilities.getPropValue("creatureDisplayWidth"));
-		creatureDisplayHeight = Integer
-				.parseInt(Utilities.getPropValue("creatureDisplayHeight"));
+		creatureDisplayWidth = Integer.parseInt(Utilities.getPropValue("creatureDisplayWidth"));
+		creatureDisplayHeight = Integer.parseInt(Utilities.getPropValue("creatureDisplayHeight"));
 
 		Integer mainButtonWidth = Handler.getWidth() / 4;
 		Integer mainButtonHeight = Handler.getHeight() / 5;
@@ -63,11 +61,11 @@ public class BattleState extends State {
 		Handler.getWorld().getEntityManager().getPlayer().update();
 		creature.update();
 		playerAction = null;
-		
+
 		Integer mouseX = Handler.getMouseManager().getX();
 		Integer mouseY = Handler.getMouseManager().getY();
 		boolean leftClicked = Handler.getMouseManager().mouseIsClicked(Buttons.Left);
-		
+
 		if (leftClicked && (mouseX != null && mouseY != null)) {
 			if (Utilities.rectangleContainsPoint(attackButton, mouseX, mouseY)) {
 				playerAction = "Attack";
@@ -80,23 +78,23 @@ public class BattleState extends State {
 					this.doAction(playerAction, this.getRandomAction());
 
 					if (Handler.getPlayer().getCurrentHealth() <= 0) {
-						System.out.println("Game over, man!");
+						Utilities.Debug(("Game over, man!"));
 						this.gameOver();
 					}
 					if (creature.getCurrentHealth() <= 0) {
-						System.out.println("You won!!!");
+						Utilities.Debug("You won!!!");
 						this.leaveBattle();
 					}
 				}
 			}
 		}
 	}
-	
+
 	@Override
 	public void onEnter() {
 		Handler.getAudioManager().playTrack(Tracks.Battle);
 	}
-	
+
 	@Override
 	public void onExit() {
 		Handler.getAudioManager().stopCurrentTrack();
@@ -116,14 +114,13 @@ public class BattleState extends State {
 		if (enemyAction.equals("Attack")) {
 			turnResults[1] = Attack(creature, Handler.getPlayer());
 		}
-		//System.out.println(Arrays.toString(turnResults));
 		return turnResults;
 	}
 
 	public String getRandomAction() {
 		Integer randNumber = Utilities.getRandomNumber(1, actions.length);
-		System.out.println(randNumber - 1);
-		System.out.println(actions[randNumber - 1]);
+		Utilities.Debug(randNumber - 1);
+		Utilities.Debug(actions[randNumber - 1]);
 		return actions[randNumber - 1];
 	}
 
@@ -156,7 +153,7 @@ public class BattleState extends State {
 			attackMessage = attacker.getEntityName() + " missed!";
 			Utilities.Debug(attacker.getEntityName() + " missed!");
 		}
-		System.out.println(attackMessage);
+		Utilities.Debug(attackMessage);
 		return attackMessage;
 	}
 
@@ -179,8 +176,6 @@ public class BattleState extends State {
 
 		// Clear Screen
 		g.clearRect(0, 0, Handler.getWidth(), Handler.getHeight());
-
-		// System.out.println("I was called!");
 
 		g.clearRect(0, 0, Handler.getWidth(), Handler.getHeight());
 		g.drawImage(Handler.getWorld().getEntityManager().getPlayer().getAnimDown().getCurrentFrame(),

@@ -1,9 +1,8 @@
 {
+"tiles":[
 0:{"id":0,"cropX":192, "cropY":0, "isSolid":false}
 1:{"id":1,"cropX":288, "cropY":0, "isSolid":false}
 2:{"id":2,"cropX":240, "cropY":64, "isSolid":false}
 3:{"id":3,"cropX":208, "cropY":0, "isSolid":false}
-}
-
-
+]
 }
