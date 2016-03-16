@@ -21,7 +21,7 @@ public class StateManager {
 		states.put(State.Types.Battle, new BattleState(this));
 		states.put(State.Types.Dialog, new DialogState(this));
 
-		this.changeState(State.Types.Menu);
+		this.changeState(State.Types.Overworld);
 	}
 
 	public void update() {
