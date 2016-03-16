@@ -19,7 +19,7 @@ public class DialogState extends State {
 	private Font f;
 	// private Integer messageID = 0;
 	// Rather than have a test message, this state will be passed the id of the string to display and then look it up.
-	private String testMessage = "This is what I'm talking about, you know. This is what I'm talking about, you know that's right. This is what I'm talking about. This is what I'm talking about, you know that's right.";
+	private String testMessage = "Open the door, get on the floor. Everybody walk the dinosaur.";
 	private String currMessage = "";
 	private Integer currMessagePos = 0;
 
@@ -119,15 +119,17 @@ public class DialogState extends State {
 
 		if (newChar.equals(" ")) {
 			Integer nextSpacePos = this.testMessage.indexOf(" ", this.currMessagePos);
+			String nextWord;
 			
 			if (nextSpacePos != -1) {
-				String nextWord = this.testMessage.substring(this.currMessagePos, nextSpacePos);
-				if (this.currLinePos + nextWord.length() >= this.maxCharsOnLine) {
-					this.currMessage += "\n";
-					this.currLinePos = 0;
-				} else {
-					this.currMessage += " ";
-				}
+				nextWord = this.testMessage.substring(this.currMessagePos, nextSpacePos);
+			} else {
+				nextWord = this.testMessage.substring(this.currMessagePos);
+			}
+				
+			if (this.currLinePos + nextWord.length() >= this.maxCharsOnLine) {
+				this.currMessage += "\n";
+				this.currLinePos = 0;
 			} else {
 				this.currMessage += " ";
 			}
