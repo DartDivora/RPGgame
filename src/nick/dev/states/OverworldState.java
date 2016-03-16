@@ -14,7 +14,7 @@ public class OverworldState extends State {
 
 	public OverworldState(StateManager stateManager) {
 		super(stateManager);
-		world = new World(Utilities.getPropValue("world3", Utilities.getPropFile()));
+		world = new World(Utilities.getPropValue("world3"));
 		Handler.setWorld(world);
 	}
 

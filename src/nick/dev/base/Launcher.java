@@ -20,11 +20,11 @@ public class Launcher {
 
 		Utilities.Debug(width);
 		Utilities.Debug(height);
-		width = Integer.parseInt(Utilities.getPropValue("gameWidth", Utilities.getPropFile()));
-		height = Integer.parseInt(Utilities.getPropValue("gameHeight", Utilities.getPropFile()));
+		width = Integer.parseInt(Utilities.getPropValue("gameWidth"));
+		height = Integer.parseInt(Utilities.getPropValue("gameHeight"));
 		// width = 300;
 		// height = 300;
-		Game g = new Game(Utilities.getPropValue("gameTitle", Utilities.getPropFile()), width, height);
+		Game g = new Game(Utilities.getPropValue("gameTitle"), width, height);
 		g.start();
 	}
 

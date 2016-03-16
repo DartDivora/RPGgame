@@ -35,12 +35,12 @@ public class BattleState extends State {
 		actions[1] = "Defend";
 
 		f = new Font("arial", Font.BOLD, 25);
-		healthBarWidth = Integer.parseInt(Utilities.getPropValue("healthBarWidth", Utilities.getPropFile()));
-		healthBarHeight = Integer.parseInt(Utilities.getPropValue("healthBarHeight", Utilities.getPropFile()));
+		healthBarWidth = Integer.parseInt(Utilities.getPropValue("healthBarWidth"));
+		healthBarHeight = Integer.parseInt(Utilities.getPropValue("healthBarHeight"));
 		creatureDisplayWidth = Integer
-				.parseInt(Utilities.getPropValue("creatureDisplayWidth", Utilities.getPropFile()));
+				.parseInt(Utilities.getPropValue("creatureDisplayWidth"));
 		creatureDisplayHeight = Integer
-				.parseInt(Utilities.getPropValue("creatureDisplayHeight", Utilities.getPropFile()));
+				.parseInt(Utilities.getPropValue("creatureDisplayHeight"));
 
 		Integer mainButtonWidth = Handler.getWidth() / 4;
 		Integer mainButtonHeight = Handler.getHeight() / 5;

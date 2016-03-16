@@ -22,14 +22,14 @@ public class Player extends Creature {
 	public Player(float x, float y) {
 		super(x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 
-		bounds.x = Integer.parseInt(Utilities.getPropValue("playerBoundsX", Utilities.getPropFile()));
-		bounds.y = Integer.parseInt(Utilities.getPropValue("playerBoundsY", Utilities.getPropFile()));
-		bounds.width = Integer.parseInt(Utilities.getPropValue("playerBoundswidth", Utilities.getPropFile()));
-		bounds.height = Integer.parseInt(Utilities.getPropValue("playerBoundheight", Utilities.getPropFile()));
+		bounds.x = Integer.parseInt(Utilities.getPropValue("playerBoundsX"));
+		bounds.y = Integer.parseInt(Utilities.getPropValue("playerBoundsY"));
+		bounds.width = Integer.parseInt(Utilities.getPropValue("playerBoundswidth"));
+		bounds.height = Integer.parseInt(Utilities.getPropValue("playerBoundheight"));
 
 		// Animations
 
-		Integer playerAnimSpeed = Integer.parseInt(Utilities.getPropValue("playerAnimSpeed", Utilities.getPropFile()));
+		Integer playerAnimSpeed = Integer.parseInt(Utilities.getPropValue("playerAnimSpeed"));
 		animDown = new Animation(playerAnimSpeed, Assets.player_down);
 		animUp = new Animation(playerAnimSpeed, Assets.player_up);
 		animLeft = new Animation(playerAnimSpeed, Assets.player_left);

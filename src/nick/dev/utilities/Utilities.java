@@ -31,6 +31,7 @@ public class Utilities extends IOUtils {
 		if (Debug) {
 			System.out.println(message);
 		}
+
 	}
 
 	public static void Debug(Integer message) {
@@ -56,6 +57,24 @@ public class Utilities extends IOUtils {
 	public static Integer getRandomNumber(Integer min, Integer max) {
 		Random random = new Random();
 		return random.nextInt(max - min + 1) + min;
+	}
+
+	public static JSONObject getJSONObjectFromFile(String path) {
+		File f = new File(path);
+		InputStream is = null;
+		try {
+			is = new FileInputStream(f);
+		} catch (FileNotFoundException e) {
+			System.out.println("Could not find the file: " + f);
+			e.printStackTrace();
+		}
+		try {
+			return new JSONObject(IOUtils.toString(is, "UTF-8"));
+		} catch (JSONException | IOException e) {
+			System.out.println("Could not load the JSONObject from the path: " + path);
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public static String[] getFromJSONObject(String path, String[] keys) {
@@ -99,18 +118,18 @@ public class Utilities extends IOUtils {
 		return result;
 	}
 
-	public static String getPropValue(String PropertyName, String propFileName) {
+	public static String getPropValue(String PropertyName) {
 		String result = "";
 		Properties prop = new Properties();
 		// String propFileName = "config.properties";
 
 		InputStream inputStream;
 		try {
-			inputStream = new FileInputStream(propFileName);
+			inputStream = new FileInputStream(propFile);
 
 			prop.load(inputStream);
 		} catch (IOException e) {
-			Debug("An error occurred when reading the file: " + propFileName);
+			Debug("An error occurred when reading the file: " + propFile);
 			e.printStackTrace();
 		}
 		// this sets the property value from the file.

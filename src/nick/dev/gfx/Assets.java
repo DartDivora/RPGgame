@@ -18,14 +18,11 @@ public class Assets {
 
 	public static void init() {
 
-		width = Integer.parseInt(Utilities.getPropValue("tileWidth", Utilities.getPropFile()));
-		height = Integer.parseInt(Utilities.getPropValue("tileHeight", Utilities.getPropFile()));
-		SpriteSheet tileSheet = new SpriteSheet(
-				loadImage.loadImages(Utilities.getPropValue("tileSheet", Utilities.getPropFile())));
-		SpriteSheet characterSheet = new SpriteSheet(
-				loadImage.loadImages(Utilities.getPropValue("characterSheet", Utilities.getPropFile())));
-		SpriteSheet monsterSheet = new SpriteSheet(
-				loadImage.loadImages(Utilities.getPropValue("monsterSheet", Utilities.getPropFile())));
+		width = Integer.parseInt(Utilities.getPropValue("tileWidth"));
+		height = Integer.parseInt(Utilities.getPropValue("tileHeight"));
+		SpriteSheet tileSheet = new SpriteSheet(loadImage.loadImages(Utilities.getPropValue("tileSheet")));
+		SpriteSheet characterSheet = new SpriteSheet(loadImage.loadImages(Utilities.getPropValue("characterSheet")));
+		SpriteSheet monsterSheet = new SpriteSheet(loadImage.loadImages(Utilities.getPropValue("monsterSheet")));
 		player_down = new BufferedImage[2];
 		player_up = new BufferedImage[2];
 		player_right = new BufferedImage[2];
@@ -56,8 +53,8 @@ public class Assets {
 		grass = tileSheet.crop(192, 0, width, height);
 		dirt = tileSheet.crop(288, 0, width, height);
 		stone = tileSheet.crop(240, 64, width, height);
-		tree = tileSheet.crop(208, 144, width, height * 2);
 		sand = tileSheet.crop(208, 0, width, height);
+		tree = tileSheet.crop(208, 144, width, height * 2);
 		town = tileSheet.crop(416, 16, width, height);
 	}
 

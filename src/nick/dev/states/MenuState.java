@@ -52,7 +52,7 @@ public class MenuState extends State {
 		
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.draw(playButton);
-		g.drawString(Utilities.getPropValue("gameTitle", Utilities.getPropFile()), Handler.getWidth() / 3 - 50,
+		g.drawString(Utilities.getPropValue("gameTitle"), Handler.getWidth() / 3 - 50,
 				(Handler.getHeight() / 6));
 		g.drawString("Play", Handler.getWidth() / 3 + 45, (Handler.getHeight() / 4) + 50);
 	}

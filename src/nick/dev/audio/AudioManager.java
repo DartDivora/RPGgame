@@ -37,11 +37,11 @@ public class AudioManager {
 	 * This constructor adds the handler and initializes the tracks.
 	 */
 	public AudioManager() {
-		this.isMuted = Boolean.parseBoolean(Utilities.getPropValue("mute", Utilities.getPropFile()));
+		this.isMuted = Boolean.parseBoolean(Utilities.getPropValue("mute"));
 
-		this.addTrack(Tracks.Overworld, Utilities.getPropValue("musicOverworld", Utilities.getPropFile()));
-		this.addTrack(Tracks.Battle, Utilities.getPropValue("musicBattle", Utilities.getPropFile()));
-		this.addRepeatingSFX(Tracks.TalkSFX, Utilities.getPropValue("talkSFX", Utilities.getPropFile()));
+		this.addTrack(Tracks.Overworld, Utilities.getPropValue("musicOverworld"));
+		this.addTrack(Tracks.Battle, Utilities.getPropValue("musicBattle"));
+		this.addRepeatingSFX(Tracks.TalkSFX, Utilities.getPropValue("talkSFX"));
 	}
 
 	/**
