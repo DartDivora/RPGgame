@@ -2,10 +2,7 @@ package nick.dev.tiles;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.Collections;
-import java.util.HashMap;
 
-import nick.dev.gfx.Assets;
 import nick.dev.maps.Map;
 
 /**

@@ -7,7 +7,6 @@ import java.util.HashMap;
 import nick.dev.base.Handler;
 import nick.dev.base.entities.EntityManager;
 import nick.dev.base.entities.Player;
-import nick.dev.gfx.Assets;
 import nick.dev.maps.Map;
 import nick.dev.tiles.Tile;
 import nick.dev.utilities.Utilities;
