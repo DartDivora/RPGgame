@@ -2,10 +2,12 @@ package nick.dev.worlds;
 
 import java.awt.Graphics;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import nick.dev.base.Handler;
 import nick.dev.base.entities.EntityManager;
 import nick.dev.base.entities.Player;
+import nick.dev.gfx.Assets;
 import nick.dev.tiles.Tile;
 import nick.dev.utilities.Utilities;
 
@@ -20,6 +22,8 @@ public class World {
 	private int width, height;
 	private int spawnX, spawnY;
 	private int[][] worldTiles;
+	private HashMap<Integer, Tile> tileMap;;
+
 	String[] keys = new String[7];
 	String[] worldResults;
 	Integer chanceOfBattle = null;
@@ -41,6 +45,12 @@ public class World {
 		keys[5] = "worldEntities";
 		keys[6] = "chanceOfBattle";
 		worldResults = Utilities.getFromJSONObject(path, keys);
+
+		tileMap = new HashMap<Integer, Tile>();
+		tileMap.put(0, new Tile(0, Assets.grass, false));
+		tileMap.put(1, new Tile(1, Assets.dirt, false));
+		tileMap.put(2, new Tile(2, Assets.stone, true));
+		tileMap.put(3, new Tile(3, Assets.sand, false));
 
 		loadWorld(path);
 
@@ -78,12 +88,12 @@ public class World {
 
 	public Tile getTile(int x, int y) {
 		if (x < 0 || y < 0 || x >= width || y >= height) {
-			return Tile.grassTile;
+			return this.getTileMap().get(0);
 		}
 
-		Tile t = Tile.tiles[worldTiles[x][y]];
+		Tile t = this.getTileMap().get(worldTiles[x][y]);
 		if (t == null) {
-			return Tile.dirtTile;
+			return this.getTileMap().get(0);
 		}
 		return t;
 	}
@@ -123,5 +133,9 @@ public class World {
 
 	public EntityManager getEntityManager() {
 		return entityManager;
+	}
+
+	public HashMap<Integer, Tile> getTileMap() {
+		return tileMap;
 	}
 }
