@@ -72,8 +72,8 @@ public class Player extends Creature {
 			move();
 			/*
 			 * if (xMove > 0 || yMove > 0) { // TODO: Change this so that rather
-			 * than calling this function, // we just tell the state manager we
-			 * want to go to battle. // That probably won't be from the player,
+			 * than calling this function, we just tell the state manager we
+			 * want to go to battle. That probably won't be from the player,
 			 * but maybe.
 			 * this.setGoToBattle(Utilities.battleChance(getBattleChance())); }
 			 */

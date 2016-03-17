@@ -15,12 +15,12 @@ import nick.dev.utilities.Utilities;
  * @author nsanft,acharles
  * @version 1.1
  */
-public class MenuState extends State {
+public class TitleState extends State {
 
 	private Rectangle playButton;
 	public Font f;
 
-	public MenuState(StateManager stateManager) {
+	public TitleState(StateManager stateManager) {
 		super(stateManager);
 		f = new Font("arial", Font.BOLD, 30);
 		Integer mainButtonWidth = Handler.getWidth() / 4;
