@@ -26,6 +26,7 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;
 	private StateManager stateManager;
+	Handler handler;
 
 	// Camera
 
@@ -41,7 +42,8 @@ public class Game implements Runnable {
 
 	private void init() {
 
-		Handler.init(this);
+		handler = new Handler();
+		handler.init(this);
 
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(Handler.getKeyManager());

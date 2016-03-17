@@ -20,10 +20,10 @@ import nick.dev.base.Handler;
 public class SaveManager {
 
 	public static String[] saveFileKeys;
-	@SuppressWarnings("unused")
 	private Handler handler;
 
-	public SaveManager() {
+	public SaveManager(Handler handler) {
+		this.handler = handler;
 		saveFileKeys = new String[7];
 		saveFileKeys[0] = "CharacterName";
 		saveFileKeys[1] = "Attack";
@@ -34,7 +34,7 @@ public class SaveManager {
 		saveFileKeys[6] = "CurrentExperience";
 	}
 
-	public boolean saveGame(Handler handler, String saveFile) {
+	public boolean saveGame(String saveFile) {
 		JSONObject jo = new JSONObject();
 		try {
 			jo.put(saveFileKeys[0], Handler.getPlayer().getEntityName());
@@ -60,7 +60,7 @@ public class SaveManager {
 		return true;
 	}
 
-	public Handler loadGame(Handler handler, String saveFile) {
+	public Handler loadGame(String saveFile) {
 		String[] loadResults = Utilities.getFromJSONObject(saveFile, saveFileKeys);
 		Handler.getPlayer().setEntityName(loadResults[0]);
 		Handler.getPlayer().setAttack(Integer.parseInt(loadResults[1]));

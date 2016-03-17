@@ -27,10 +27,10 @@ public final class Handler {
 	private static DialogManager dialogManager;
 	private static Display display;
 
-	public static void init(Game g) {
+	public void init(Game g) {
 		game = g;
 		audioManager = new AudioManager();
-		saveManager = new SaveManager();
+		saveManager = new SaveManager(this);
 		keyManager = new KeyManager();
 		mouseManager = new MouseManager();
 	}

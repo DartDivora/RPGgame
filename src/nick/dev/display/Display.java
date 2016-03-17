@@ -5,10 +5,13 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+import nick.dev.base.Handler;
 
 /**
  * This class sets the basic Canvas and JFrames. May be removed in use of a
@@ -26,7 +29,7 @@ public class Display implements ActionListener {
 	private Canvas canvas;
 	private JMenu mainMenu;
 	private JMenuItem save, load;
-	private boolean saveGame, loadGame = false;
+	private JFileChooser jfc = new JFileChooser();
 
 	public Display(String title, int width, int height) {
 		this.title = title;
@@ -61,6 +64,7 @@ public class Display implements ActionListener {
 		canvas.setMinimumSize(new Dimension(width, height));
 		canvas.setFocusable(false);
 
+		jfc = new JFileChooser();
 		frame.setJMenuBar(menubar);
 		frame.add(canvas);
 		frame.pack();
@@ -78,30 +82,20 @@ public class Display implements ActionListener {
 		this.canvas = canvas;
 	}
 
-	public boolean isSaveGame() {
-		return saveGame;
-	}
-
-	public void setSaveGame(boolean saveGame) {
-		this.saveGame = saveGame;
-	}
-
-	public boolean isLoadGame() {
-		return loadGame;
-	}
-
-	public void setLoadGame(boolean loadGame) {
-		this.loadGame = loadGame;
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals(saveAction)) {
 			System.out.println("This will save a game!");
-			this.setSaveGame(true);
+			if (jfc.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
+				System.out.println(jfc.getSelectedFile());
+				Handler.getSaveManager().saveGame(jfc.getSelectedFile().toString());
+			}
 		} else if (e.getActionCommand().equals(loadAction)) {
 			System.out.println("This will load a game!");
-			this.setLoadGame(true);
+			if (jfc.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
+				System.out.println(jfc.getSelectedFile());
+				Handler.getSaveManager().loadGame(jfc.getSelectedFile().toString());
+			}
 		}
 	}
 
