@@ -16,9 +16,10 @@ import nick.dev.maps.Map;
  */
 public class Tile {
 
-	protected final boolean isSolid;
-	protected final int cropX, cropY;
-	protected BufferedImage texture;
+	private final boolean isSolid;
+	private final int cropX, cropY;
+	public String[] strings;
+	private BufferedImage texture;
 
 	public Tile(int id, int cropX, int cropY, boolean isSolid) {
 		this.isSolid = isSolid;

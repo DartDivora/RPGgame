@@ -1,6 +1,26 @@
 {
-	0 : {"cropX":192, "cropY":0, "isSolid":false},
-	1 : {"cropX":288, "cropY":0, "isSolid":false},
-	2 : {"cropX":240, "cropY":64, "isSolid":true},
-	3 : {"cropX":208, "cropY":0, "isSolid":false}
+	0 : {
+			"cropX" : 192,
+			"cropY" : 0,
+			"isSolid" : false,
+			"strings" : ["okay", "okay"]
+		},
+	1 : {
+			"cropX" : 288,
+			"cropY" : 0,
+			"isSolid" : false,
+			"strings" : ["okay", "okay"]
+		},
+	2 : {
+			"cropX" : 240,
+			"cropY" : 64,
+			"isSolid" : true,
+			"strings" : ["okay", "okay"]
+		},
+	3 : {
+			"cropX" : 208,
+			"cropY" : 0,
+			"isSolid" : false,
+			"strings" : ["okay", "okay"]
+		}
 }

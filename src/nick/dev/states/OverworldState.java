@@ -25,7 +25,11 @@ public class OverworldState extends State {
 			this.stateManager.changeState(Types.Battle);
 		}
 		if (Handler.getKeyManager().keyIsPressed(Keys.Talk)) {
-			this.stateManager.changeState(Types.Dialog);
+			StateArgument arg = new StateArgument();
+			// This will grab the line from the npc and send it to the new state, rather
+			// than sending 0.
+			arg.setDialogLine(0);
+			this.stateManager.changeState(Types.Dialog, arg);
 		}
 	}
 

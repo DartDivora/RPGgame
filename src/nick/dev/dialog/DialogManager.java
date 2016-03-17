@@ -11,18 +11,13 @@ import nick.dev.base.Handler;
  * @version 1.1
  */
 public class DialogManager {
-	@SuppressWarnings("unused")
-	private Handler handler;
 	private HashMap<Integer, String> dialogMap;
 
-	public DialogManager(Handler handler) {
-		this.handler = handler;
+	public DialogManager() {
 		this.dialogMap = new HashMap<Integer, String>();
 
 		dialogMap.put(0, "Hello, good friend.");
 		dialogMap.put(1, "Goodbye, good friend.");
-
-		this.getDialog(0);
 	}
 
 	public void printDialogMap() {

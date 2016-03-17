@@ -34,7 +34,6 @@ public class Map {
 	static {
 		Gson gson = new Gson();
 		String JSONString = Utilities.getStringFromFile(Utilities.getPropValue("tileJSON"));
-		System.out.println(JSONString);
 		
 		tileData = gson.fromJson(JSONString, new TypeToken<HashMap<String, Tile>>(){}.getType());
 		

@@ -40,6 +40,17 @@ public class StateManager {
 		this.currentStateStack.push(this.states.get(newStateType));
 		this.currentStateStack.peek().onEnter();
 	}
+	
+	// Overload in case you want to send arguments.
+	// Probably need to make this a little better so it's not repeating code.
+	public void changeState(State.Types newStateType, StateArgument args) {
+		if (!currentStateStack.isEmpty()) {
+			currentStateStack.peek().onExit();
+		}
+
+		this.currentStateStack.push(this.states.get(newStateType));
+		this.currentStateStack.peek().onEnter(args);
+	}
 
 	public boolean leaveState() {
 		if (!currentStateStack.isEmpty()) {
