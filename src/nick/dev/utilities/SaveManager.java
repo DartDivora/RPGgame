@@ -20,10 +20,8 @@ import nick.dev.base.Handler;
 public class SaveManager {
 
 	public static String[] saveFileKeys;
-	private Handler handler;
 
-	public SaveManager(Handler handler) {
-		this.handler = handler;
+	public SaveManager() {
 		saveFileKeys = new String[7];
 		saveFileKeys[0] = "CharacterName";
 		saveFileKeys[1] = "Attack";
@@ -60,7 +58,7 @@ public class SaveManager {
 		return true;
 	}
 
-	public Handler loadGame(String saveFile) {
+	public void loadGame(String saveFile) {
 		String[] loadResults = Utilities.getFromJSONObject(saveFile, saveFileKeys);
 		Handler.getPlayer().setEntityName(loadResults[0]);
 		Handler.getPlayer().setAttack(Integer.parseInt(loadResults[1]));
@@ -69,6 +67,5 @@ public class SaveManager {
 		Handler.getPlayer().setMaxHealth(Integer.parseInt(loadResults[4]));
 		Handler.getPlayer().setSpeed(Float.parseFloat(loadResults[5]));
 		Handler.getPlayer().setCurrentExperience(Integer.parseInt(loadResults[6]));
-		return handler;
 	}
 }
