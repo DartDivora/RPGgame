@@ -44,7 +44,6 @@ public class Map {
 		for (Entry<String, Tile> entry : tileData.entrySet()) {
 			entry.getValue().initialize();
 		}
-		
 	}
 
 	private Integer mapWidth = 0;
