@@ -11,7 +11,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import nick.dev.base.Handler;
-import nick.dev.deserializers.TileMapSerializer;
 import nick.dev.gfx.SpriteSheet;
 import nick.dev.gfx.loadImage;
 import nick.dev.tiles.Tile;
