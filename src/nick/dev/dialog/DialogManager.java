@@ -2,8 +2,6 @@ package nick.dev.dialog;
 
 import java.util.HashMap;
 
-import nick.dev.base.Handler;
-
 /**
  * This class manages all dialog output in the game.
  * 
