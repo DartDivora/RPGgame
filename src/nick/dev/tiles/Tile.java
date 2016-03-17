@@ -4,10 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import nick.dev.gfx.Assets;
-import nick.dev.gfx.SpriteSheet;
-import nick.dev.gfx.loadImage;
 import nick.dev.maps.Map;
-import nick.dev.utilities.Utilities;
 
 /**
  * This class defines what a tile is and is responsible for drawing each one. It

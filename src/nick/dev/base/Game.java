@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.Arrays;
 
-import nick.dev.base.Handler;
 import nick.dev.display.Display;
 import nick.dev.gfx.Assets;
 import nick.dev.gfx.GameCamera;
@@ -88,6 +87,7 @@ public class Game implements Runnable {
 		long now;
 		long lastTime = System.nanoTime();
 		long timer = 0;
+		@SuppressWarnings("unused")
 		int ticks = 0;
 
 		while (running) {

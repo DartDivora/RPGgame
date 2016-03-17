@@ -1,13 +1,10 @@
 package nick.dev.maps;
 
 import java.awt.Graphics;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import nick.dev.base.Handler;
