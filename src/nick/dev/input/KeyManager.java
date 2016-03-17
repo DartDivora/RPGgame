@@ -23,7 +23,7 @@ import nick.dev.utilities.Utilities;
 public class KeyManager implements KeyListener {
 
 	public enum Keys {
-		Up, Down, Left, Right, Space, Mute, Talk
+		Up, Down, Left, Right, Space, Mute, Talk, ArrowDown, ArrowUp
 	};
 
 	/**
@@ -57,6 +57,8 @@ public class KeyManager implements KeyListener {
 		keybinds.put(Keys.Space, KeyEvent.VK_SPACE);
 		keybinds.put(Keys.Mute, KeyEvent.VK_M);
 		keybinds.put(Keys.Talk, KeyEvent.VK_ENTER);
+		keybinds.put(Keys.ArrowDown, KeyEvent.VK_DOWN);
+		keybinds.put(Keys.ArrowUp, KeyEvent.VK_UP);
 	}
 
 	/**
