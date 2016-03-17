@@ -50,6 +50,8 @@ public class Assets {
 		DEFAULT_ANIM_RIGHT[0] = monsterSheet.crop(96, 0, 16, 16);
 		DEFAULT_ANIM_RIGHT[1] = monsterSheet.crop(112, 0, 16, 16);
 		
+		grass = tileSheet.crop(192, 0, width, height);
+		
 		tree = tileSheet.crop(208, 144, width, height * 2);
 		town = tileSheet.crop(416, 16, width, height);
 	}

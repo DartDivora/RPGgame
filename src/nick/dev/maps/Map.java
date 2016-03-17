@@ -1,11 +1,17 @@
 package nick.dev.maps;
 
 import java.awt.Graphics;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import nick.dev.base.Handler;
+import nick.dev.deserializers.TileMapSerializer;
 import nick.dev.gfx.SpriteSheet;
 import nick.dev.gfx.loadImage;
 import nick.dev.tiles.Tile;
@@ -28,29 +34,27 @@ public class Map {
 		return tileSheet;
 	}
 
-	private static final HashMap<Integer, Tile> tileData;
+	private static HashMap<String, Tile> tileData;
 	static {
-
-		tileData = new HashMap<Integer, Tile>();
-		tileData.put(0, new Tile(0, 192, 0, false));
-		tileData.put(1, new Tile(1, 288, 0, false));
-		tileData.put(2, new Tile(2, 240, 64, true));
-		tileData.put(3, new Tile(3, 208, 0, false));
+		Gson gson = new Gson();
+		String JSONString = Utilities.getStringFromFile(Utilities.getPropValue("tileJSON"));
+		System.out.println(JSONString);
+		
+		tileData = gson.fromJson(JSONString, new TypeToken<HashMap<String, Tile>>(){}.getType());
+		
+		for (Entry<String, Tile> entry : tileData.entrySet()) {
+			entry.getValue().initialize();
+		}
+		
 	}
 
 	private Integer mapWidth = 0;
 	private Integer mapHeight = 0;
 
-	private int[][] mapData;
+	private Integer[][] mapData;
 	
 	public Map(String newMapData, Integer width, Integer height) {
-		Gson gson = new Gson();
-		String JSONString = Utilities.getStringFromFile(Utilities.getPropValue("tileJSON"));
-		System.out.println(JSONString);
-		Tile t = gson.fromJson(Utilities.getStringFromFile(Utilities.getPropValue("tileJSON")), Tile.class);
-		System.out.println(t.getId());
-
-		this.mapData = new int[width][height];
+		this.mapData = new Integer[width][height];
 
 		this.mapWidth = width;
 		this.mapHeight = height;
@@ -80,13 +84,14 @@ public class Map {
 
 		for (int x = xStart; x < xEnd; ++x) {
 			for (int y = yStart; y < yEnd; ++y) {
-				tileData.get(mapData[x][y]).render(g, (int) (x * Map.TileWidth - xOff),
-						(int) (y * Map.TileHeight - yOff));
+				Tile t = tileData.get(mapData[x][y].toString());
+				t.render(g, (int) (x * Map.TileWidth - xOff), (int) (y * Map.TileHeight - yOff));
 			}
 		}
 	}
 
 	public boolean tileIsSolid(Integer x, Integer y) {
-		return tileData.get(mapData[x][y]).isSolid();
+		Tile tileToCheck = tileData.get(mapData[x][y].toString());
+		return tileToCheck.isSolid();
 	}
 }

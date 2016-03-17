@@ -1,8 +1,6 @@
 {
-"tiles":[
-{"id":0,"cropX":192, "cropY":0, "isSolid":false},
-{"id":1,"cropX":288, "cropY":0, "isSolid":false},
-{"id":2,"cropX":240, "cropY":64, "isSolid":false},
-{"id":3,"cropX":208, "cropY":0, "isSolid":false}
-]
+	0 : {"cropX":192, "cropY":0, "isSolid":false},
+	1 : {"cropX":288, "cropY":0, "isSolid":false},
+	2 : {"cropX":240, "cropY":64, "isSolid":true},
+	3 : {"cropX":208, "cropY":0, "isSolid":false}
 }

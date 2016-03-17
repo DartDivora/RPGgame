@@ -4,7 +4,10 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import nick.dev.gfx.Assets;
+import nick.dev.gfx.SpriteSheet;
+import nick.dev.gfx.loadImage;
 import nick.dev.maps.Map;
+import nick.dev.utilities.Utilities;
 
 /**
  * This class defines what a tile is and is responsible for drawing each one. It
@@ -16,16 +19,17 @@ import nick.dev.maps.Map;
  */
 public class Tile {
 
-	protected final int id;
 	protected final boolean isSolid;
 	protected final int cropX, cropY;
 	protected BufferedImage texture;
 
 	public Tile(int id, int cropX, int cropY, boolean isSolid) {
-		this.id = id;
 		this.isSolid = isSolid;
 		this.cropX = cropX;
 		this.cropY = cropY;
+	}
+	
+	public void initialize() {
 		this.texture = Map.getTileSheet().crop(cropX, cropY, Assets.getHeight(), Assets.getWidth());
 	}
 
@@ -38,10 +42,6 @@ public class Tile {
 	}
 
 	public void render(Graphics g, int x, int y) {
-		g.drawImage(texture, x, y, Map.TileWidth, Map.TileHeight, null);
-	}
-
-	public int getId() {
-		return id;
+		g.drawImage(this.texture, x, y, Map.TileWidth, Map.TileHeight, null);
 	}
 }
