@@ -9,8 +9,8 @@ import nick.dev.gfx.Assets;
 import nick.dev.maps.Map;
 
 /**
- * This abstract class is the basis for all non-static entities. Extends the Entity
- * class.
+ * This abstract class is the basis for all non-static entities. Extends the
+ * Entity class.
  * 
  * @author nsanft,acharles
  * @version 1.1
@@ -18,22 +18,58 @@ import nick.dev.maps.Map;
 public abstract class Creature extends Entity {
 	protected Animation animDown, animUp, animLeft, animRight;
 
-	public static final int DEFAULT_HEALTH = 10;
-	public static final int DEFAULT_ATTACK = 1;
+	public static final int DEFAULT_HP = 10;
+	public static final int DEFAULT_MP = 0;
+	public static final int DEFAULT_STRENGTH = 1;
+	public static final int DEFAULT_INTELLIGENCE = 1;
+	public static final int DEFAULT_DEXTERITY = 1;
+	public static final int DEFAULT_LUCK = 1;
 	public static final int DEFAULT_DEFENSE = 0;
 	public static final float DEFAULT_SPEED = 3.0f;
 	public static final int DEFAULT_ANIM_SPEED = 1000;
 	public static final int DEFAULT_CREATURE_WIDTH = 64, DEFAULT_CREATURE_HEIGHT = 64;
 
-	protected int currentHealth;
-	protected int maxHealth;
-	protected int attack;
+	protected int currentHP, maxHP;
+	protected int currentMP, maxMP;
 	protected int defense;
 	protected float speed;
 	protected int level;
 	protected int expToGive;
 	protected float xMove, yMove;
 	protected boolean isDefending = false;
+	public int strength, vitality, intelligence, wisdom, dexterity, luck;
+
+	public int getDexterity() {
+		return dexterity;
+	}
+
+	public void setDexterity(int dexterity) {
+		this.dexterity = dexterity;
+	}
+
+	public int getLuck() {
+		return luck;
+	}
+
+	public void setLuck(int luck) {
+		this.luck = luck;
+	}
+
+	public int getVitality() {
+		return vitality;
+	}
+
+	public void setVitality(int vitality) {
+		this.vitality = vitality;
+	}
+
+	public int getWisdom() {
+		return wisdom;
+	}
+
+	public void setWisdom(int wisdom) {
+		this.wisdom = wisdom;
+	}
 
 	public int getExpToGive() {
 		return expToGive;
@@ -53,10 +89,13 @@ public abstract class Creature extends Entity {
 
 	public Creature(float x, float y, int width, int height) {
 		super(x, y, width, height);
-		currentHealth = DEFAULT_HEALTH;
-		maxHealth = DEFAULT_HEALTH;
+		currentHP = DEFAULT_HP;
+		maxHP = DEFAULT_HP;
+		currentMP = DEFAULT_MP;
+		maxMP = DEFAULT_MP;
 		speed = DEFAULT_SPEED;
-		attack = DEFAULT_ATTACK;
+		strength = DEFAULT_STRENGTH;
+		intelligence = DEFAULT_INTELLIGENCE;
 		defense = DEFAULT_DEFENSE;
 		animDown = new Animation(DEFAULT_ANIM_SPEED, Assets.DEFAULT_ANIM_DOWN);
 		animUp = new Animation(DEFAULT_ANIM_SPEED, Assets.DEFAULT_ANIM_UP);
@@ -64,6 +103,8 @@ public abstract class Creature extends Entity {
 		animRight = new Animation(DEFAULT_ANIM_SPEED, Assets.DEFAULT_ANIM_RIGHT);
 		xMove = 0;
 		yMove = 0;
+		this.setMaxHP();
+		this.setMaxMP();
 	}
 
 	void randomMove(int randX, int randY) {
@@ -84,14 +125,6 @@ public abstract class Creature extends Entity {
 
 	public void setDefending(boolean isDefending) {
 		this.isDefending = isDefending;
-	}
-
-	public int getAttack() {
-		return attack;
-	}
-
-	public void setAttack(int attack) {
-		this.attack = attack;
 	}
 
 	public int getDefense() {
@@ -215,20 +248,60 @@ public abstract class Creature extends Entity {
 		return yMove;
 	}
 
-	public int getCurrentHealth() {
-		return currentHealth;
+	public int getCurrentHP() {
+		return currentHP;
 	}
 
-	public void setCurrentHealth(int currentHealth) {
-		this.currentHealth = currentHealth;
+	public void setCurrentHP(int currentHP) {
+		this.currentHP = currentHP;
 	}
 
-	public int getMaxHealth() {
-		return maxHealth;
+	public int getMaxHP() {
+		return maxHP;
 	}
 
-	public void setMaxHealth(int maxHealth) {
-		this.maxHealth = maxHealth;
+	public void setMaxHP() {
+		this.maxHP = 10 + (this.getVitality() * 4);
+	}
+
+	public void setMaxHP(int maxHP) {
+		this.maxHP = maxHP;
+	}
+
+	public int getCurrentMP() {
+		return currentMP;
+	}
+
+	public void setCurrentMP(int currentMP) {
+		this.currentMP = currentMP;
+	}
+
+	public int getMaxMP() {
+		return maxMP;
+	}
+
+	public void setMaxMP(int maxMP) {
+		this.maxMP = maxMP;
+	}
+
+	public void setMaxMP() {
+		this.maxMP = (wisdom * 5);
+	}
+
+	public int getStrength() {
+		return strength;
+	}
+
+	public void setStrength(int strength) {
+		this.strength = strength;
+	}
+
+	public int getIntelligence() {
+		return intelligence;
+	}
+
+	public void setIntelligence(int intelligence) {
+		this.intelligence = intelligence;
 	}
 
 	public void setyMove(float yMove) {

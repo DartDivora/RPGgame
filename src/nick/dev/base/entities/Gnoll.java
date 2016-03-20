@@ -13,8 +13,8 @@ public class Gnoll extends Creature {
 	public Gnoll(float x, float y, int width, int height) {
 		super(x, y, width, height);
 		this.setDefense(0);
-		this.setAttack(3);
-		this.setCurrentHealth(10);
+		this.setStrength(3);
+		this.setCurrentHP(10);
 		this.setExpToGive(100);
 	}
 

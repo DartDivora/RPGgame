@@ -35,7 +35,8 @@ public class Player extends Creature {
 		animLeft = new Animation(playerAnimSpeed, Assets.player_left);
 		animRight = new Animation(playerAnimSpeed, Assets.player_right);
 
-		this.setAttack(3);
+		this.setStrength(3);
+		this.setIntelligence(3);
 		this.setDefense(2);
 		this.setEntityName("Alex");
 		this.setCurrentExperience(0);
@@ -49,6 +50,9 @@ public class Player extends Creature {
 		}
 
 		Utilities.Debug("Levels: " + Arrays.toString(levelArray));
+
+		this.setMaxHP();
+		this.setMaxMP();
 	}
 
 	public Integer getCurrentExperience() {
@@ -73,8 +77,8 @@ public class Player extends Creature {
 			/*
 			 * if (xMove > 0 || yMove > 0) { // TODO: Change this so that rather
 			 * than calling this function, we just tell the state manager we
-			 * want to go to battle. That probably won't be from the player,
-			 * but maybe.
+			 * want to go to battle. That probably won't be from the player, but
+			 * maybe.
 			 * this.setGoToBattle(Utilities.battleChance(getBattleChance())); }
 			 */
 			Handler.getGameCamera().centerOnEntity(this);
@@ -88,21 +92,35 @@ public class Player extends Creature {
 
 	private void levelUp() {
 		this.setLevel(this.getLevel() + 1);
-		this.setAttack(this.getAttack() + 1);
+		this.setStrength(this.getStrength() + 1);
+		this.setVitality(this.getVitality() + 1);
+		this.setIntelligence(this.getIntelligence() + 1);
+		this.setWisdom(this.getWisdom() + 1);
+		this.setDexterity(this.getDexterity() + 1);
+		this.setLuck(this.getLuck() + 1);
 		this.setDefense(this.getDefense() + 1);
 		this.setSpeed(this.getSpeed() + 1);
-		this.setCurrentHealth(this.getCurrentHealth() + 10);
-		this.setMaxHealth(this.getMaxHealth() + 10);
+		this.setMaxHP();
+		this.setMaxMP();
+		this.setCurrentHP(this.getMaxHP());
+		this.setCurrentMP(this.getMaxMP());
 		this.getStats();
 	}
 
 	public void getStats() {
 		System.out.println("Level: " + this.getLevel());
-		System.out.println("Attack: " + this.getAttack());
+		System.out.println("Strength: " + this.getStrength());
+		System.out.println("Vitality: " + this.getVitality());
+		System.out.println("Intelligence: " + this.getIntelligence());
+		System.out.println("Wisdom: " + this.getWisdom());
+		System.out.println("Dexterity: " + this.getDexterity());
+		System.out.println("Luck: " + this.getLuck());
 		System.out.println("Defense: " + this.getDefense());
 		System.out.println("Speed: " + this.getSpeed());
-		System.out.println("Maximum Health: " + this.getMaxHealth());
-		System.out.println("Current Health: " + this.getCurrentHealth());
+		System.out.println("Maximum Health: " + this.getMaxHP());
+		System.out.println("Current Health: " + this.getCurrentHP());
+		System.out.println("Maximum Magic Points: " + this.getMaxMP());
+		System.out.println("Current Magic Points: " + this.getCurrentMP());
 		System.out.println("Current Experience: " + this.getCurrentExperience());
 	}
 
