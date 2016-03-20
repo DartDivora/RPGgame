@@ -74,14 +74,14 @@ public class BattleState extends State {
 			}
 
 			if (playerAction != null) {
-				if (Handler.getPlayer().getCurrentHealth() > 0 && creature.getCurrentHealth() > 0) {
+				if (Handler.getPlayer().getCurrentHP() > 0 && creature.getCurrentHP() > 0) {
 					this.doAction(playerAction, this.getRandomAction());
 
-					if (Handler.getPlayer().getCurrentHealth() <= 0) {
+					if (Handler.getPlayer().getCurrentHP() <= 0) {
 						Utilities.Debug(("Game over, man!"));
 						this.gameOver();
 					}
-					if (creature.getCurrentHealth() <= 0) {
+					if (creature.getCurrentHP() <= 0) {
 						Utilities.Debug("You won!!!");
 						this.leaveBattle();
 					}
@@ -133,7 +133,7 @@ public class BattleState extends State {
 
 		Handler.getPlayer().setCurrentExperience(Handler.getPlayer().getCurrentExperience() + creature.getExpToGive());// DBC
 		Handler.getPlayer().getStats();// DBC
-		creature.setCurrentHealth(10); // DBC
+		creature.setCurrentHP(10); // DBC
 	}
 
 	public String Attack(Creature attacker, Creature defender) {
@@ -144,11 +144,11 @@ public class BattleState extends State {
 			Utilities.Debug("Defending! Doubling defense to " + defenderDefense);
 			defender.setDefending(false);
 		}
-		Integer enemyAttack = Utilities.getRandomNumber(0, attacker.getAttack()) - defenderDefense;
+		Integer enemyAttack = Utilities.getRandomNumber(0, attacker.getStrength()) - defenderDefense;
 		if (enemyAttack > 0) {
 			attackMessage = defender.getEntityName() + " takes:" + enemyAttack + " damage!";
 			Utilities.Debug(attackMessage);
-			defender.setCurrentHealth(defender.getCurrentHealth() - enemyAttack);
+			defender.setCurrentHP(defender.getCurrentHP() - enemyAttack);
 		} else {
 			attackMessage = attacker.getEntityName() + " missed!";
 			Utilities.Debug(attacker.getEntityName() + " missed!");
@@ -188,11 +188,11 @@ public class BattleState extends State {
 		g.fillRect(Handler.getWidth() / 2, Handler.getHeight() / 3 + 150, healthBarWidth, healthBarHeight);
 		g.setColor(java.awt.Color.green);
 		g.fillRect(Handler.getWidth() / 6, Handler.getHeight() / 3 + 150,
-				(int) (((double) Handler.getPlayer().getCurrentHealth() / (double) Handler.getPlayer().getMaxHealth())
+				(int) (((double) Handler.getPlayer().getCurrentHP() / (double) Handler.getPlayer().getMaxHP())
 						* healthBarWidth),
 				healthBarHeight);
 		g.fillRect(Handler.getWidth() / 2, Handler.getHeight() / 3 + 150,
-				(int) (((double) creature.getCurrentHealth() / (double) creature.getMaxHealth()) * healthBarWidth),
+				(int) (((double) creature.getCurrentHP() / (double) creature.getMaxHP()) * healthBarWidth),
 				healthBarHeight);
 
 		g.setColor(java.awt.Color.BLACK);
