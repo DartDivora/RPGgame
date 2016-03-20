@@ -24,3 +24,4 @@ Things to do:
 - Save/Load the entire game as a file (current world, X/Y, etc.)
 - Make a different Overworld map and inner map with a way to switch between the two.
 - Add spells as an option in the BattleState (and possibly in the overworld).
+- Use TitleState selection code for the BattleState. (move up and down, enter for the choice)
