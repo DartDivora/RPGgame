@@ -4,6 +4,9 @@ import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Stack;
 
+import nick.dev.base.Handler;
+import nick.dev.input.KeyManager.Keys;
+
 /**
  * This class manages states. Enough said.
  * 
@@ -26,6 +29,9 @@ public class StateManager {
 
 	public void update() {
 		currentStateStack.peek().update();
+		if (Handler.getKeyManager().keyIsPressed(Keys.Quit)) {
+			System.exit(0);
+		}
 	}
 
 	public void render(Graphics graphics) {
@@ -40,7 +46,7 @@ public class StateManager {
 		this.currentStateStack.push(this.states.get(newStateType));
 		this.currentStateStack.peek().onEnter();
 	}
-	
+
 	// Overload in case you want to send arguments.
 	// Probably need to make this a little better so it's not repeating code.
 	public void changeState(State.Types newStateType, StateArgument args) {

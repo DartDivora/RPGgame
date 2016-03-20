@@ -2,12 +2,9 @@ package nick.dev.states;
 
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
 
 import nick.dev.base.Handler;
 import nick.dev.input.KeyManager.Keys;
-import nick.dev.input.MouseManager.Buttons;
 import nick.dev.utilities.Utilities;
 
 /**
@@ -18,7 +15,7 @@ import nick.dev.utilities.Utilities;
  */
 public class TitleState extends State {
 
-	private Rectangle playButton;
+	//private Rectangle playButton;
 	private String[] optionList = new String[2];
 	private Runnable[] optionActions = new Runnable[2];
 	private Integer currentChoice = 0;
@@ -32,26 +29,21 @@ public class TitleState extends State {
 		this.optionActions[0] = (() -> this.stateManager.changeState(State.Types.Overworld));
 		this.optionList[1] = "Quit";
 		this.optionActions[1] = (() -> System.exit(0));
-		
-		Integer mainButtonWidth = Handler.getWidth() / 4;
-		Integer mainButtonHeight = Handler.getHeight() / 8;
-		Integer playButtonX = Handler.getWidth() / 3;
-		Integer playButtonY = Handler.getHeight() / 4;
-		playButton = new Rectangle(playButtonX, playButtonY, mainButtonWidth, mainButtonHeight);
+
 	}
 
 	@Override
 	public void update() {
 
-		boolean leftClicked = Handler.getMouseManager().mouseIsClicked(Buttons.Left);
-		if (leftClicked) {
-			Integer mouseX = Handler.getMouseManager().getX();
-			Integer mouseY = Handler.getMouseManager().getY();
-
-			if (Utilities.rectangleContainsPoint(playButton, mouseX, mouseY)) {
-				this.stateManager.changeState(State.Types.Overworld);
-			}
-		}
+//		boolean leftClicked = Handler.getMouseManager().mouseIsClicked(Buttons.Left);
+//		if (leftClicked) {
+//			Integer mouseX = Handler.getMouseManager().getX();
+//			Integer mouseY = Handler.getMouseManager().getY();
+//
+//			if (Utilities.rectangleContainsPoint(playButton, mouseX, mouseY)) {
+//				this.stateManager.changeState(State.Types.Overworld);
+//			}
+//		}
 		
 		if (Handler.getKeyManager().keyIsPressed(Keys.ArrowDown)) {
 			this.currentChoice = Math.abs((this.currentChoice + 1) % this.optionList.length);
@@ -86,8 +78,8 @@ public class TitleState extends State {
 		int yPos = Handler.getHeight()/6;
 		g.drawString(title, xPos, yPos);
 		
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.draw(playButton);
+//		Graphics2D g2d = (Graphics2D) g;
+//		g2d.draw(playButton);
 	}
 
 }

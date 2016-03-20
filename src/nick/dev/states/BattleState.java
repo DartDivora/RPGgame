@@ -2,13 +2,13 @@ package nick.dev.states;
 
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.util.HashMap;
+
 import nick.dev.audio.AudioManager.Tracks;
 import nick.dev.base.Handler;
 import nick.dev.base.entities.Creature;
 import nick.dev.base.entities.Gnoll;
-import nick.dev.input.MouseManager.Buttons;
+import nick.dev.input.KeyManager.Keys;
 import nick.dev.utilities.Utilities;
 
 /**
@@ -19,20 +19,21 @@ import nick.dev.utilities.Utilities;
  */
 public class BattleState extends State {
 	private Gnoll creature;
-	private String[] actions;
-	public Rectangle attackButton, defendButton;
 	int healthBarWidth, healthBarHeight, creatureDisplayWidth, creatureDisplayHeight;
 	String playerAction = null;
 	String[] turnResults = null;
+	private Integer currentChoice = 0;
+	private String[] optionList = new String[2];
+	private HashMap<Integer, String> actions;
 
 	Font f;
 
 	public BattleState(StateManager stateManager) {
 		super(stateManager);
 
-		actions = new String[2];
-		actions[0] = "Attack";
-		actions[1] = "Defend";
+		actions = new HashMap<Integer, String>();
+		actions.put(0, "Attack");
+		actions.put(1, "Defend");
 
 		f = new Font("arial", Font.BOLD, 25);
 		healthBarWidth = Integer.parseInt(Utilities.getPropValue("healthBarWidth"));
@@ -40,17 +41,10 @@ public class BattleState extends State {
 		creatureDisplayWidth = Integer.parseInt(Utilities.getPropValue("creatureDisplayWidth"));
 		creatureDisplayHeight = Integer.parseInt(Utilities.getPropValue("creatureDisplayHeight"));
 
-		Integer mainButtonWidth = Handler.getWidth() / 4;
-		Integer mainButtonHeight = Handler.getHeight() / 5;
-		Integer attackButtonX = 0;
-		Integer attackButtonY = Handler.getHeight() - (Handler.getHeight() / 4);
-		Integer defendButtonX = mainButtonWidth;
-		Integer defendButtonY = attackButtonY;
-
-		attackButton = new Rectangle(attackButtonX, attackButtonY, mainButtonWidth, mainButtonHeight);
-		defendButton = new Rectangle(defendButtonX, defendButtonY, mainButtonWidth, mainButtonHeight);
-
 		creature = new Gnoll(0, 0, 0, 0);
+
+		this.optionList[0] = "Attack";
+		this.optionList[1] = "Defend";
 	}
 
 	@Override
@@ -62,29 +56,27 @@ public class BattleState extends State {
 		creature.update();
 		playerAction = null;
 
-		Integer mouseX = Handler.getMouseManager().getX();
-		Integer mouseY = Handler.getMouseManager().getY();
-		boolean leftClicked = Handler.getMouseManager().mouseIsClicked(Buttons.Left);
+		if (Handler.getKeyManager().keyIsPressed(Keys.ArrowDown)) {
+			this.currentChoice = Math.abs((this.currentChoice + 1) % this.optionList.length);
+		} else if (Handler.getKeyManager().keyIsPressed(Keys.ArrowUp)) {
+			this.currentChoice = Math.abs((this.currentChoice - 1) % this.optionList.length);
+		}
 
-		if (leftClicked && (mouseX != null && mouseY != null)) {
-			if (Utilities.rectangleContainsPoint(attackButton, mouseX, mouseY)) {
-				playerAction = "Attack";
-			} else if (Utilities.rectangleContainsPoint(defendButton, mouseX, mouseY)) {
-				playerAction = "Defend";
-			}
+		if (Handler.getKeyManager().keyIsPressed(Keys.Talk)) {
+			playerAction = actions.get(this.currentChoice);
+		}
 
-			if (playerAction != null) {
-				if (Handler.getPlayer().getCurrentHP() > 0 && creature.getCurrentHP() > 0) {
-					this.doAction(playerAction, this.getRandomAction());
+		if (playerAction != null) {
+			if (Handler.getPlayer().getCurrentHP() > 0 && creature.getCurrentHP() > 0) {
+				this.doAction(playerAction, this.getRandomAction());
 
-					if (Handler.getPlayer().getCurrentHP() <= 0) {
-						Utilities.Debug(("Game over, man!"));
-						this.gameOver();
-					}
-					if (creature.getCurrentHP() <= 0) {
-						Utilities.Debug("You won!!!");
-						this.leaveBattle();
-					}
+				if (Handler.getPlayer().getCurrentHP() <= 0) {
+					Utilities.Debug(("Game over, man!"));
+					this.gameOver();
+				}
+				if (creature.getCurrentHP() <= 0) {
+					Utilities.Debug("You won!!!");
+					this.leaveBattle();
 				}
 			}
 		}
@@ -118,10 +110,10 @@ public class BattleState extends State {
 	}
 
 	public String getRandomAction() {
-		Integer randNumber = Utilities.getRandomNumber(1, actions.length);
+		Integer randNumber = Utilities.getRandomNumber(1, actions.size());
 		Utilities.Debug(randNumber - 1);
-		Utilities.Debug(actions[randNumber - 1]);
-		return actions[randNumber - 1];
+		Utilities.Debug(actions.get(randNumber - 1));
+		return actions.get(randNumber - 1);
 	}
 
 	public void leaveBattle() {
@@ -196,11 +188,6 @@ public class BattleState extends State {
 				healthBarHeight);
 
 		g.setColor(java.awt.Color.BLACK);
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.draw(attackButton);
-		g2d.draw(defendButton);
-		g.drawString("Attack", attackButton.x, attackButton.y + (int) (attackButton.getWidth() / 2));
-		g.drawString("Defend", defendButton.x, defendButton.y + (int) (defendButton.getWidth() / 2));
 
 		if (turnResults != null) {
 			g.setFont(f);
@@ -210,5 +197,16 @@ public class BattleState extends State {
 				}
 			}
 		}
+
+		for (int i = 0; i < this.optionList.length; ++i) {
+			int xPos = Handler.getWidth() / 2 - g.getFontMetrics().stringWidth(this.optionList[0]) / 2;
+			int yPos = (Handler.getHeight() - 100) + (g.getFontMetrics().getHeight() + 10) * i;
+			g.drawString(this.optionList[i], xPos, yPos);
+
+			if (this.currentChoice.equals(i)) {
+				g.drawString(">", xPos - 30, yPos);
+			}
+		}
+
 	}
 }
