@@ -41,6 +41,7 @@ public class DialogState extends State {
 		f = new Font("arial", Font.BOLD, 25);
 		
 		testMessage[0] = "Open the door, get on the floor. Everybody walk the dinosaur.";
+		testMessage[1] = "Wild Gnoll appears!";
 		// TODO discuss implementing the DialogManager.
 	}
 

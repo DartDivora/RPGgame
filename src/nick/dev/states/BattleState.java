@@ -29,6 +29,7 @@ public class BattleState extends State {
 	private HashMap<Integer, String> actions;
 	private Integer highlightLength = 0;
 	private Integer highlightLengthMax = 100;
+	private Boolean battleText = false;
 
 	Font f;
 
@@ -98,11 +99,18 @@ public class BattleState extends State {
 				}
 			}
 		}
+
+		if (!battleText) {
+			this.battleText = true;
+			StateArgument arg = new StateArgument();
+			arg.setDialogLine(1);
+			this.stateManager.changeState(Types.Dialog, arg);
+			Handler.getAudioManager().playTrack(Tracks.Battle);
+		}
 	}
 
 	@Override
 	public void onEnter() {
-		Handler.getAudioManager().playTrack(Tracks.Battle);
 	}
 
 	@Override
@@ -142,6 +150,7 @@ public class BattleState extends State {
 
 	public void leaveBattle() {
 		Utilities.Debug("Leaving battle!");
+		this.battleText = false;
 		this.stateManager.leaveState();
 		Handler.getAudioManager().stopCurrentTrack();
 		Handler.getAudioManager().playTrack(Tracks.Overworld);
