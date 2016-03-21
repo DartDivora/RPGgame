@@ -67,7 +67,11 @@ public class BattleState extends State {
 			this.highlightLength = 0;
 			Handler.getAudioManager().playSFX(Tracks.MenuChangeSFX);
 		} else if (Handler.getKeyManager().keyIsPressed(Keys.ArrowUp)) {
-			this.currentChoice = Math.abs((this.currentChoice - 1) % this.optionList.length);
+			if (this.currentChoice - 1 != -1) {
+				this.currentChoice = Math.abs((this.currentChoice - 1) % this.optionList.length);
+			} else {
+				this.currentChoice = (optionList.length - 1);
+			}
 			this.highlightLength = 0;
 			Handler.getAudioManager().playSFX(Tracks.MenuChangeSFX);
 		}
