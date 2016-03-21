@@ -111,6 +111,7 @@ public class BattleState extends State {
 
 	@Override
 	public void onEnter() {
+		this.battleText = false;
 	}
 
 	@Override
@@ -150,7 +151,6 @@ public class BattleState extends State {
 
 	public void leaveBattle() {
 		Utilities.Debug("Leaving battle!");
-		this.battleText = false;
 		this.stateManager.leaveState();
 		Handler.getAudioManager().stopCurrentTrack();
 		Handler.getAudioManager().playTrack(Tracks.Overworld);
