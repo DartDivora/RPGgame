@@ -20,7 +20,7 @@ import nick.dev.utilities.Utilities;
 public class AudioManager {
 
 	public enum Tracks {
-		Overworld, Battle, TalkSFX
+		Overworld, Battle, TalkSFX, MenuChangeSFX
 	};
 
 	@SuppressWarnings("unused")
@@ -41,6 +41,7 @@ public class AudioManager {
 
 		this.addTrack(Tracks.Overworld, Utilities.getPropValue("musicOverworld"));
 		this.addTrack(Tracks.Battle, Utilities.getPropValue("musicBattle"));
+		this.addSFX(Tracks.MenuChangeSFX, Utilities.getPropValue("menuChangeSFX"));
 		this.addRepeatingSFX(Tracks.TalkSFX, Utilities.getPropValue("talkSFX"));
 	}
 
@@ -56,7 +57,19 @@ public class AudioManager {
 
 		this.tracks.put(track, new MediaPlayer(m));
 	}
+	
+	/**
+	 * Used by the constructor to add a SFX to the list of tracks.
+	 * 
+	 * @param track
+	 * @param path
+	 */
+	private void addSFX(Tracks track, String path) {
+		URL resource = getClass().getResource(path);
+		Media m = new Media(resource.toString());
 
+		this.tracks.put(track, new MediaPlayer(m));
+	}
 	/**
 	 * Do not keep this!! Have to figure out how to either fix or replace
 	 * MediaPlayer before we can get rid of this. Starting and stopping a
@@ -103,6 +116,18 @@ public class AudioManager {
 			if (!this.isMuted) {
 				tracks.get(currentTrack).play();
 			}
+		}
+	}
+	
+	/**
+	 * Play specified sfx. 
+	 * 
+	 * @param track
+	 */
+	public void playSFX(Tracks track) {
+		if (!this.isMuted) {
+			tracks.get(track).stop();
+			tracks.get(track).play();
 		}
 	}
 

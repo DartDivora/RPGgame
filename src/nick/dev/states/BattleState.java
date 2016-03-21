@@ -169,7 +169,6 @@ public class BattleState extends State {
 		// Clear Screen
 		g.clearRect(0, 0, Handler.getWidth(), Handler.getHeight());
 
-		g.clearRect(0, 0, Handler.getWidth(), Handler.getHeight());
 		g.drawImage(Handler.getWorld().getEntityManager().getPlayer().getAnimDown().getCurrentFrame(),
 				Handler.getWidth() / 6, Handler.getHeight() / 3, creatureDisplayWidth, creatureDisplayHeight, null);
 		g.drawImage(creature.getAnimDown().getCurrentFrame(), Handler.getWidth() / 2, Handler.getHeight() / 3,

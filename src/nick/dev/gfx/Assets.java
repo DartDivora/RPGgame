@@ -13,6 +13,7 @@ import nick.dev.utilities.Utilities;
 public class Assets {
 	private static int width, height;
 	public static BufferedImage dirt, sand, grass, stone, tree, town;
+	public static BufferedImage finger;
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 	public static BufferedImage[] DEFAULT_ANIM_DOWN, DEFAULT_ANIM_UP, DEFAULT_ANIM_LEFT, DEFAULT_ANIM_RIGHT;
 
@@ -51,6 +52,8 @@ public class Assets {
 		DEFAULT_ANIM_RIGHT[1] = monsterSheet.crop(112, 0, 16, 16);
 		
 		grass = tileSheet.crop(192, 0, width, height);
+		
+		finger = loadImage.loadImages(Utilities.getPropValue("finger"));
 		
 		tree = tileSheet.crop(208, 144, width, height * 2);
 		town = tileSheet.crop(416, 16, width, height);
