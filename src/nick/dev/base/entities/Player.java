@@ -36,7 +36,7 @@ public class Player extends Creature {
 		animRight = new Animation(playerAnimSpeed, Assets.player_right);
 
 		this.setStrength(3);
-		this.setIntelligence(3);
+		this.setIntelligence(20); // Mage to be OP
 		this.setDefense(2);
 		this.setEntityName("Alex");
 		this.setCurrentExperience(0);

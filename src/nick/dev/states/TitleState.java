@@ -3,16 +3,11 @@ package nick.dev.states;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 
 import nick.dev.audio.AudioManager.Tracks;
 import nick.dev.base.Handler;
 import nick.dev.gfx.Assets;
-import nick.dev.gfx.SpriteSheet;
-import nick.dev.gfx.loadImage;
 import nick.dev.input.KeyManager.Keys;
-import nick.dev.maps.Map;
 import nick.dev.utilities.Utilities;
 
 /**

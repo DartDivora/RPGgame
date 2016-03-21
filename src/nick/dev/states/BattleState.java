@@ -1,5 +1,6 @@
 package nick.dev.states;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import nick.dev.audio.AudioManager.Tracks;
 import nick.dev.base.Handler;
 import nick.dev.base.entities.Creature;
 import nick.dev.base.entities.Gnoll;
+import nick.dev.gfx.Assets;
 import nick.dev.input.KeyManager.Keys;
 import nick.dev.utilities.Utilities;
 
@@ -23,8 +25,10 @@ public class BattleState extends State {
 	String playerAction = null;
 	String[] turnResults = null;
 	private Integer currentChoice = 0;
-	private String[] optionList = new String[2];
+	private String[] optionList = new String[3];
 	private HashMap<Integer, String> actions;
+	private Integer highlightLength = 0;
+	private Integer highlightLengthMax = 100;
 
 	Font f;
 
@@ -34,6 +38,7 @@ public class BattleState extends State {
 		actions = new HashMap<Integer, String>();
 		actions.put(0, "Attack");
 		actions.put(1, "Defend");
+		actions.put(2, "Spell");
 
 		f = new Font("arial", Font.BOLD, 25);
 		healthBarWidth = Integer.parseInt(Utilities.getPropValue("healthBarWidth"));
@@ -45,6 +50,7 @@ public class BattleState extends State {
 
 		this.optionList[0] = "Attack";
 		this.optionList[1] = "Defend";
+		this.optionList[2] = "Spell";
 	}
 
 	@Override
@@ -58,12 +64,20 @@ public class BattleState extends State {
 
 		if (Handler.getKeyManager().keyIsPressed(Keys.ArrowDown)) {
 			this.currentChoice = Math.abs((this.currentChoice + 1) % this.optionList.length);
+			this.highlightLength = 0;
+			Handler.getAudioManager().playSFX(Tracks.MenuChangeSFX);
 		} else if (Handler.getKeyManager().keyIsPressed(Keys.ArrowUp)) {
 			this.currentChoice = Math.abs((this.currentChoice - 1) % this.optionList.length);
+			this.highlightLength = 0;
+			Handler.getAudioManager().playSFX(Tracks.MenuChangeSFX);
 		}
 
 		if (Handler.getKeyManager().keyIsPressed(Keys.Talk)) {
 			playerAction = actions.get(this.currentChoice);
+		}
+
+		if (this.highlightLength <= this.highlightLengthMax) {
+			this.highlightLength = Math.min(this.highlightLength + 12, this.highlightLengthMax);
 		}
 
 		if (playerAction != null) {
@@ -105,6 +119,12 @@ public class BattleState extends State {
 		}
 		if (enemyAction.equals("Attack")) {
 			turnResults[1] = Attack(creature, Handler.getPlayer());
+		}
+		if (playerAction.equals("Spell")) {
+			turnResults[0] = Spell(Handler.getPlayer(), creature);
+		}
+		if (enemyAction.equals("Spell")) {
+			turnResults[1] = Spell(creature, Handler.getPlayer());
 		}
 		return turnResults;
 	}
@@ -149,6 +169,27 @@ public class BattleState extends State {
 		return attackMessage;
 	}
 
+	public String Spell(Creature attacker, Creature defender) {
+		String attackMessage = null;
+		Integer defenderDefense = defender.getDefense();
+		if (defender.isDefending()) {
+			defenderDefense = defenderDefense * 2;
+			Utilities.Debug("Defending! Doubling defense to " + defenderDefense);
+			defender.setDefending(false);
+		}
+		Integer enemyAttack = Utilities.getRandomNumber(0, attacker.getIntelligence()) - defenderDefense;
+		if (enemyAttack > 0) {
+			attackMessage = defender.getEntityName() + " takes:" + enemyAttack + " damage!";
+			Utilities.Debug(attackMessage);
+			defender.setCurrentHP(defender.getCurrentHP() - enemyAttack);
+		} else {
+			attackMessage = attacker.getEntityName() + " missed!";
+			Utilities.Debug(attacker.getEntityName() + " missed!");
+		}
+		Utilities.Debug(attackMessage);
+		return attackMessage;
+	}
+
 	public String Defend(Creature c) {
 		String defendMessage = null;
 		defendMessage = c.getEntityName() + " is defending!";
@@ -168,6 +209,9 @@ public class BattleState extends State {
 
 		// Clear Screen
 		g.clearRect(0, 0, Handler.getWidth(), Handler.getHeight());
+
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, Handler.getWidth(), Handler.getHeight());
 
 		g.drawImage(Handler.getWorld().getEntityManager().getPlayer().getAnimDown().getCurrentFrame(),
 				Handler.getWidth() / 6, Handler.getHeight() / 3, creatureDisplayWidth, creatureDisplayHeight, null);
@@ -198,13 +242,23 @@ public class BattleState extends State {
 		}
 
 		for (int i = 0; i < this.optionList.length; ++i) {
+
 			int xPos = Handler.getWidth() / 2 - g.getFontMetrics().stringWidth(this.optionList[0]) / 2;
 			int yPos = (Handler.getHeight() - 100) + (g.getFontMetrics().getHeight() + 10) * i;
-			g.drawString(this.optionList[i], xPos, yPos);
 
 			if (this.currentChoice.equals(i)) {
-				g.drawString(">", xPos - 30, yPos);
+				int fingerPosX = xPos - 64;
+				int fingerPosY = yPos - 30;
+				g.drawImage(Assets.finger, fingerPosX, fingerPosY, 50, 50, null);
+
+				g.setColor(new Color(240, 240, 240));
+
+				this.highlightLengthMax = g.getFontMetrics().stringWidth(this.optionList[0]);
+
+				g.fillRect(xPos - 5, fingerPosY, this.highlightLength + 10, 40);
 			}
+			g.setColor(Color.DARK_GRAY);
+			g.drawString(this.optionList[i], xPos, yPos);
 		}
 
 	}
