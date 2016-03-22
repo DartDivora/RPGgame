@@ -67,7 +67,9 @@ public class TitleState extends State {
 			} else {
 				this.currentChoice = (optionList.length - 1);
 			}
-			Handler.getAudioManager().playSFX(Tracks.MenuChangeSFX);
+			// The audio stuff slows down the system way too much. Will have to figure out
+			// how to make that play nicer or use something else.
+//			Handler.getAudioManager().playSFX(Tracks.MenuChangeSFX);
 		}
 
 		if (Handler.getKeyManager().keyIsPressed(Keys.Talk)) {

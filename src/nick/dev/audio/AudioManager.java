@@ -7,6 +7,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
+import javafx.util.Duration;
 import nick.dev.base.Handler;
 import nick.dev.input.KeyManager.Keys;
 import nick.dev.utilities.Utilities;
@@ -126,7 +127,7 @@ public class AudioManager {
 	 */
 	public void playSFX(Tracks track) {
 		if (!this.isMuted) {
-			tracks.get(track).stop();
+			tracks.get(track).seek(Duration.ZERO);
 			tracks.get(track).play();
 		}
 	}

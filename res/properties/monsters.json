@@ -1,0 +1,14 @@
+{
+    "gnoll" : {
+            "cropX" : 192,
+            "cropY" : 0,
+            "isSolid" : false,
+            "strings" : ["okay", "okay"]
+        },
+    "alexsanft" : {
+            "cropX" : 288,
+            "cropY" : 0,
+            "isSolid" : false,
+            "strings" : ["okay", "okay"]
+        }
+}

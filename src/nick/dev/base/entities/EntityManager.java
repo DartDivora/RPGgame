@@ -3,8 +3,15 @@ package nick.dev.base.entities;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map.Entry;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import nick.dev.base.entities.NPCs.NPC;
+import nick.dev.tiles.Tile;
+import nick.dev.utilities.Utilities;
 
 /**
  * This class manages all entities in-game through an ArrayList of entities.
@@ -13,6 +20,18 @@ import nick.dev.base.entities.NPCs.NPC;
  * @version 1.1
  */
 public class EntityManager {
+	
+	/*private static HashMap<String, Monster> monsterData;
+	static {
+		Gson gson = new Gson();
+		String JSONString = Utilities.getStringFromFile(Utilities.getPropValue("monsterJSON"));
+		
+		monsterData = gson.fromJson(JSONString, new TypeToken<HashMap<String, Monster>>(){}.getType());
+		
+		for (Entry<String, Tile> entry : monsterData.entrySet()) {
+			entry.getValue().initialize();
+		}
+	}*/
 
 	private Player player;
 	private ArrayList<Entity> entities;
