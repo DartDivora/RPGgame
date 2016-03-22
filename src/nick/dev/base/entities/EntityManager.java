@@ -21,19 +21,39 @@ import nick.dev.utilities.Utilities;
  */
 public class EntityManager {
 	
-	/*private static HashMap<String, Monster> monsterData;
+	/**************************************************************
+	 * Stores the data for the monsters in the game. Reads from
+	 * a JSON file and loads the data. When creating a new monster
+	 * in the game, it will use this collection as the template.
+	 **************************************************************/
+	private static HashMap<String, Monster> monsterData;
 	static {
 		Gson gson = new Gson();
 		String JSONString = Utilities.getStringFromFile(Utilities.getPropValue("monsterJSON"));
 		
 		monsterData = gson.fromJson(JSONString, new TypeToken<HashMap<String, Monster>>(){}.getType());
 		
-		for (Entry<String, Tile> entry : monsterData.entrySet()) {
-			entry.getValue().initialize();
+		for (Entry<String, Monster> entry : monsterData.entrySet()) {
+			entry.getValue().printStats();
 		}
-	}*/
-
+	}
+	/**************************************************************/
+	
+	private Monster[] monsters;
 	private Player player;
+	
+	/**************************************************************
+	 * Adds a new monster to the collection based off of monsterData
+	 **************************************************************/
+	public void createNewMonster(String name, Integer x, Integer y) {
+		Integer newIndex = monsters.length;
+		monsters[newIndex] = new Monster(monsterData.get(name));
+	}
+
+	
+	/**************************************************************
+	 * Old section
+	 **************************************************************/
 	private ArrayList<Entity> entities;
 	private Comparator<Entity> renderSorter = new Comparator<Entity>() {
 
@@ -46,15 +66,7 @@ public class EntityManager {
 			}
 		}
 	};
-
-	public void update() {
-		for (int i = 0; i < entities.size(); i++) {
-			Entity e = entities.get(i);
-			e.update();
-		}
-		entities.sort(renderSorter);
-	}
-
+	
 	public EntityManager(Player player) {
 		this.player = player;
 		// hardcoded Gnoll and NPC, forgive me.
@@ -65,6 +77,16 @@ public class EntityManager {
 		addEntity(g);
 		addEntity(n);
 	}
+
+	public void update() {
+		for (int i = 0; i < entities.size(); i++) {
+			Entity e = entities.get(i);
+			e.update();
+		}
+		entities.sort(renderSorter);
+	}
+
+	
 
 	public void render(Graphics g) {
 		for (Entity e : entities) {

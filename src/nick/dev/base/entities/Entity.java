@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import nick.dev.base.Handler;
+import nick.dev.combat.Stats;
 
 /**
  * This abstract class is the base for any in-game entities rendered on the map.
@@ -19,6 +20,22 @@ public abstract class Entity {
 	protected String entityName = this.getClass().getSimpleName();
 	protected boolean canTalk = false;
 	private Integer currentDialog;
+
+	protected Stats stats;
+	
+	public Entity(float x, float y, int width, int height) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.setCurrentDialog(0); // DBC
+
+		bounds = new Rectangle(0, 0, width, height);
+	}
+	
+	public Entity(Entity copyFrom) {
+		
+	}
 
 	public String getEntityName() {
 		return entityName;
@@ -36,15 +53,7 @@ public abstract class Entity {
 		this.canTalk = canTalk;
 	}
 
-	public Entity(float x, float y, int width, int height) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.setCurrentDialog(0); // DBC
-
-		bounds = new Rectangle(0, 0, width, height);
-	}
+	
 
 	public boolean checkEntityCollisions(float xOffset, float yOffset) {
 		for (Entity e : Handler.getWorld().getEntityManager().getEntities()) {

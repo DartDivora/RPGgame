@@ -2,10 +2,41 @@ package nick.dev.combat;
 
 public class Stats {
 	
+	/*****************************************************
+	 * Default constructor. Doesn't need to do anything 
+	 * now since the stats are all initialized.
+	 *****************************************************/
+	public Stats() {}
+	
+	/*****************************************************
+	 * Copy constructor. Copies an existing stats object 
+	 * to create a new one. (may not need)
+	 *****************************************************/
+	public Stats(Stats copyFrom) {
+		this.level = copyFrom.level;
+		this.HP = copyFrom.HP;
+		this.MP = copyFrom.MP;
+		this.Strength = copyFrom.Strength;
+		this.Defense = copyFrom.Defense;
+		this.Intelligence = copyFrom.Intelligence;
+		this.Dexterity = copyFrom.Dexterity;
+		this.Speed = copyFrom.Speed;
+	}
+	
+	/*****************************************************
+	 * Prints out stats (debug)
+	 *****************************************************/
+	public void printStats() {
+		System.out.println("Level, HP, MP, Str, Def, Int, Dex, Spd");
+		System.out.print(this.level + " " + this.HP + " " + this.MP + " ");
+		System.out.print(this.Strength + " " + this.Defense + " " + this.Intelligence + " ");
+		System.out.print(this.Dexterity + " " + this.Speed + "\n");
+	}
+	
 	/************************
 	 * LEVEL
 	 ************************/
-	private Integer level;
+	private Integer level = 1;
 	public Integer getLevel() {
 		return level;
 	}

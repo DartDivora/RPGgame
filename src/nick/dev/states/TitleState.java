@@ -58,7 +58,7 @@ public class TitleState extends State {
 
 			this.currentChoice = Math.abs((this.currentChoice + 1) % this.optionList.length);
 			this.highlightLength = 0;
-			Handler.getAudioManager().playSFX(Tracks.MenuChangeSFX);
+//			Handler.getAudioManager().playSFX(Tracks.MenuChangeSFX);
 
 		} else if (Handler.getKeyManager().keyIsPressed(Keys.ArrowUp)) {
 			if (this.currentChoice - 1 != -1) {

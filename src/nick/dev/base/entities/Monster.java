@@ -3,15 +3,24 @@ package nick.dev.base.entities;
 import java.awt.Graphics;
 
 import nick.dev.combat.Stats;
+import nick.dev.maps.Map;
 
 public class Monster extends Entity {
 	
 	private String name;
-	private Stats stats;
 
-	public Monster(float x, float y, int width, int height) {
-		super(x, y, width, height);
-		// TODO Auto-generated constructor stub
+	public Monster(float x, float y) {
+		// just getting it to work for now.
+		super(x, y, Map.TileWidth, Map.TileHeight);
+	}
+	
+	public Monster(Monster copyFrom) {
+		super(copyFrom);
+	}
+	
+	public void printStats() {
+		this.stats.printStats();
+		//System.out.println(this.x);
 	}
 
 	@Override
@@ -24,6 +33,10 @@ public class Monster extends Entity {
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public Stats getStats() {
+		return this.stats;
 	}
 	
 }

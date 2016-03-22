@@ -1,14 +1,16 @@
 {
     "gnoll" : {
-            "cropX" : 192,
-            "cropY" : 0,
-            "isSolid" : false,
-            "strings" : ["okay", "okay"]
+            "name" : "Gnoll",
+            "stats" : {
+            		"HP" : 5
+            		}
+          	
         },
     "alexsanft" : {
-            "cropX" : 288,
-            "cropY" : 0,
-            "isSolid" : false,
-            "strings" : ["okay", "okay"]
+            "name" : "Alex Sanft",
+            "stats" : {
+            		"Strength" : 5000
+            		}
+          	
         }
 }
