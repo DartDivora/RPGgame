@@ -4,7 +4,10 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import nick.dev.gfx.Assets;
+import nick.dev.gfx.SpriteSheet;
+import nick.dev.gfx.loadImage;
 import nick.dev.maps.Map;
+import nick.dev.utilities.Utilities;
 
 /**
  * This class defines what a tile is and is responsible for drawing each one. It
@@ -15,6 +18,8 @@ import nick.dev.maps.Map;
  * @version 1.1
  */
 public class Tile {
+	
+	private static SpriteSheet tileSheet = new SpriteSheet(loadImage.loadImages(Utilities.getPropValue("tileSheet")));
 
 	private final boolean isSolid;
 	private final int cropX, cropY;
@@ -28,7 +33,7 @@ public class Tile {
 	}
 	
 	public void initialize() {
-		this.texture = Map.getTileSheet().crop(cropX, cropY, Assets.getHeight(), Assets.getWidth());
+		this.texture = Tile.tileSheet.crop(cropX, cropY, Assets.getHeight(), Assets.getWidth());
 	}
 
 	public void update() {

@@ -43,20 +43,20 @@ public class Game implements Runnable {
 
 		Handler.init(this);
 
+		// Create display and attach the listeners.
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(Handler.getKeyManager());
-		// display.getFrame().addMouseListener(Handler.getMouseManager());
 		display.getCanvas().addMouseListener(Handler.getMouseManager());
 		display.getCanvas().addMouseMotionListener(Handler.getMouseManager());
 
+		// TODO: Make this not gross, init above and then setting display.
 		Handler.setDisplay(display);
-
-		Utilities.Debug(Arrays.toString(display.getCanvas().getMouseListeners()));
+		
+		// Initialize all of the assets for the game.
 		Assets.init();
 
 		stateManager = new StateManager();
 
-		gameCamera = new GameCamera(0, 0);
 	}
 
 	private void update() {

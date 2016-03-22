@@ -1,161 +1,78 @@
 package nick.dev.base.entities;
 
-import java.util.Arrays;
-
 import nick.dev.base.Handler;
 import nick.dev.gfx.Animation;
 import nick.dev.gfx.Assets;
 import nick.dev.input.KeyManager.Keys;
-import nick.dev.utilities.Utilities;
+import nick.dev.maps.Map;
 
-/**
+/******************************************************
  * Player class.
  * 
  * @author nsanft,acharles
  * @version 1.1
- */
-public class Player extends Creature {
-	private Integer battleChance, currentExperience;
-	private boolean goToBattle = false;
-	private int[] levelArray = new int[100];
+ *****************************************************/
+public class Player extends Entity {
+	
+	private float moveSpeed = 3.5f;
+	private int animSpeed = 30;
 
+	/*****************************************************
+	 * Constructor. Sets position and initializes animations.
+	 *****************************************************/
 	public Player(float x, float y) {
-		super(x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
-
-		bounds.x = Integer.parseInt(Utilities.getPropValue("playerBoundsX"));
-		bounds.y = Integer.parseInt(Utilities.getPropValue("playerBoundsY"));
-		bounds.width = Integer.parseInt(Utilities.getPropValue("playerBoundswidth"));
-		bounds.height = Integer.parseInt(Utilities.getPropValue("playerBoundheight"));
-
-		// Animations
-
-		Integer playerAnimSpeed = Integer.parseInt(Utilities.getPropValue("playerAnimSpeed"));
-		animDown = new Animation(playerAnimSpeed, Assets.player_down);
-		animUp = new Animation(playerAnimSpeed, Assets.player_up);
-		animLeft = new Animation(playerAnimSpeed, Assets.player_left);
-		animRight = new Animation(playerAnimSpeed, Assets.player_right);
-
-		this.setStrength(3);
-		this.setIntelligence(20); // Mage to be OP
-		this.setDefense(2);
-		this.setEntityName("Alex");
-		this.setCurrentExperience(0);
-
-		for (int i = 0; i < 100; i++) {
-			if (i == 0) {
-				levelArray[i] = 82;
-			} else {
-				levelArray[i] = levelArray[i - 1] + (levelArray[i - 1] / 2);
-			}
-		}
-
-		Utilities.Debug("Levels: " + Arrays.toString(levelArray));
-
-		this.setMaxHP();
-		this.setMaxMP();
+		super(x, y);
+		
+		// Initialize all of the animations.
+		this.animations[Direction.Up.ordinal()] = new Animation(this.animSpeed, Assets.player_up);
+		this.animations[Direction.Right.ordinal()] = new Animation(this.animSpeed, Assets.player_right);
+		this.animations[Direction.Down.ordinal()] = new Animation(this.animSpeed, Assets.player_down);
+		this.animations[Direction.Left.ordinal()] = new Animation(this.animSpeed, Assets.player_left);
+		
+		this.facingDirection = Direction.Down;
 	}
-
-	public Integer getCurrentExperience() {
-		return currentExperience;
-	}
-
-	public void setCurrentExperience(Integer currentExperience) {
-		this.currentExperience = currentExperience;
-	}
-
+	
+	/*****************************************************
+	 * Update called every frame. Handles movement and 
+	 * interaction with other entities.
+	 *****************************************************/
 	@Override
 	public void update() {
-		animDown.update();
-		animUp.update();
-		animLeft.update();
-		animRight.update();
-
-		// You can't go to battle if you're moving up and/or to the left :)
-		if (!isGoToBattle()) {
-			getInput();
-			move();
-			/*
-			 * if (xMove > 0 || yMove > 0) { // TODO: Change this so that rather
-			 * than calling this function, we just tell the state manager we
-			 * want to go to battle. That probably won't be from the player, but
-			 * maybe.
-			 * this.setGoToBattle(Utilities.battleChance(getBattleChance())); }
-			 */
-			Handler.getGameCamera().centerOnEntity(this);
-		}
-
-		if (this.getCurrentExperience() > levelArray[this.getLevel()]) {
-			System.out.println("Level Up!");
-			this.levelUp();
-		}
-	}
-
-	private void levelUp() {
-		this.setLevel(this.getLevel() + 1);
-		this.setStrength(this.getStrength() + 1);
-		this.setVitality(this.getVitality() + 1);
-		this.setIntelligence(this.getIntelligence() + 1);
-		this.setWisdom(this.getWisdom() + 1);
-		this.setDexterity(this.getDexterity() + 1);
-		this.setLuck(this.getLuck() + 1);
-		this.setDefense(this.getDefense() + 1);
-		this.setSpeed(this.getSpeed() + 1);
-		this.setMaxHP();
-		this.setMaxMP();
-		this.setCurrentHP(this.getMaxHP());
-		this.setCurrentMP(this.getMaxMP());
-		this.getStats();
-	}
-
-	public void getStats() {
-		System.out.println("Level: " + this.getLevel());
-		System.out.println("Strength: " + this.getStrength());
-		System.out.println("Vitality: " + this.getVitality());
-		System.out.println("Intelligence: " + this.getIntelligence());
-		System.out.println("Wisdom: " + this.getWisdom());
-		System.out.println("Dexterity: " + this.getDexterity());
-		System.out.println("Luck: " + this.getLuck());
-		System.out.println("Defense: " + this.getDefense());
-		System.out.println("Speed: " + this.getSpeed());
-		System.out.println("Maximum Health: " + this.getMaxHP());
-		System.out.println("Current Health: " + this.getCurrentHP());
-		System.out.println("Maximum Magic Points: " + this.getMaxMP());
-		System.out.println("Current Magic Points: " + this.getCurrentMP());
-		System.out.println("Current Experience: " + this.getCurrentExperience());
-	}
-
-	private void getInput() {
-		xMove = 0;
-		yMove = 0;
-
+		super.update();
+		
+		float newX = this.x;
+		float newY = this.y;
+		Integer xOffset = 0;
+		Integer yOffset = 0;
+		
+		// Get inputs and move based on them.
 		if (Handler.getKeyManager().keyIsDown(Keys.Up)) {
-			yMove = -speed;
+			this.facingDirection = Direction.Up;
+			newY -= this.moveSpeed;
+			
+		} else if (Handler.getKeyManager().keyIsDown(Keys.Right)) {
+			this.facingDirection = Direction.Right;
+			newX += this.moveSpeed;
+			xOffset = 1;
+			
+		} else if (Handler.getKeyManager().keyIsDown(Keys.Down)) {
+			this.facingDirection = Direction.Down;
+			newY += this.moveSpeed;
+			yOffset = 1;
+			
+		} else if (Handler.getKeyManager().keyIsDown(Keys.Left)) {
+			this.facingDirection = Direction.Left;
+			newX -= this.moveSpeed;
 		}
-		if (Handler.getKeyManager().keyIsDown(Keys.Down)) {
-			yMove = +speed;
+		
+		// Check for collision with the map
+		Integer destTileX = (int) Math.floor(newX  / Map.TileWidth) + xOffset;
+		Integer destTileY = (int) Math.floor(newY / Map.TileHeight) + yOffset;
+		
+		if (!Handler.getWorld().tileIsSolid(destTileX, destTileY)) {
+			this.x = newX;
+			this.y = newY;
 		}
-		if (Handler.getKeyManager().keyIsDown(Keys.Left)) {
-			xMove = -speed;
-		}
-		if (Handler.getKeyManager().keyIsDown(Keys.Right)) {
-			xMove = +speed;
-		}
-	}
-
-	public Integer getBattleChance() {
-		return battleChance;
-	}
-
-	public void setBattleChance(Integer battleChance) {
-		this.battleChance = battleChance;
-	}
-
-	public boolean isGoToBattle() {
-		return goToBattle;
-	}
-
-	public void setGoToBattle(boolean goToBattle) {
-		this.goToBattle = goToBattle;
 	}
 
 }

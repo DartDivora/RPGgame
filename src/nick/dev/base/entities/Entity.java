@@ -1,10 +1,9 @@
 package nick.dev.base.entities;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
-import nick.dev.base.Handler;
 import nick.dev.combat.Stats;
+import nick.dev.gfx.Animation;
 
 /**
  * This abstract class is the base for any in-game entities rendered on the map.
@@ -13,110 +12,80 @@ import nick.dev.combat.Stats;
  * @version 1.1
  */
 public abstract class Entity {
-
+	
+	/*****************************************************
+	 * The directions which an entity could be facing. 
+	 * Used to determine the animation that will be rendered.
+	 *****************************************************/
+	public enum Direction {
+		Up(0), Right(1), Down(2), Left(3);
+		
+		private final int value;
+		
+		private Direction(int value) {
+			this.value = value;
+		}
+		
+		// Used for the index for animations.
+		public int getValue() {
+			return this.value;
+		}
+	}
+	
+	/*****************************************************
+	 * Name, position, etc
+	 *****************************************************/
+	protected String name;
 	protected float x, y;
-	protected int width, height;
-	protected Rectangle bounds;
-	protected String entityName = this.getClass().getSimpleName();
-	protected boolean canTalk = false;
-	private Integer currentDialog;
-
+	
+	protected Animation[] animations = new Animation[4];
+	protected Direction facingDirection;
+	
 	protected Stats stats;
 	
-	public Entity(float x, float y, int width, int height) {
+	/*****************************************************
+	 * Default constructor
+	 *****************************************************/
+	public Entity(float x, float y) {
 		this.x = x;
 		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.setCurrentDialog(0); // DBC
-
-		bounds = new Rectangle(0, 0, width, height);
 	}
 	
-	public Entity(Entity copyFrom) {
+	/*****************************************************
+	 * Update is called every frame. Entity's method 
+	 * updates the current animation.
+	 *****************************************************/
+	public void update() {
+		Integer currAnim = facingDirection.getValue();
+		this.animations[currAnim].update();
+	}
+	
+	/*****************************************************
+	 * Renders the animation every frame.
+	 *****************************************************/
+	public void render(Graphics g) {
+		Integer currAnim = facingDirection.getValue();
+		this.animations[currAnim].render(g, this.x, this.y);
+	}
+	
+	/*****************************************************
+	 * Called when the user interacts with this entity
+	 *****************************************************/
+	public void onInteract() {
 		
 	}
-
-	public String getEntityName() {
-		return entityName;
-	}
-
-	public void setEntityName(String entityName) {
-		this.entityName = entityName;
-	}
-
-	public boolean isCanTalk() {
-		return canTalk;
-	}
-
-	public void setCanTalk(boolean canTalk) {
-		this.canTalk = canTalk;
-	}
-
 	
-
-	public boolean checkEntityCollisions(float xOffset, float yOffset) {
-		for (Entity e : Handler.getWorld().getEntityManager().getEntities()) {
-			if (e.equals(this)) {
-				continue;
-			}
-			if (e.getCollisionBounds(0, 0).intersects(getCollisionBounds(xOffset, yOffset))) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public void talkAction() {
-
-	}
-
-	public Rectangle getCollisionBounds(float xOffset, float yOffset) {
-		return new Rectangle((int) (x + bounds.x + xOffset), (int) (y + bounds.y + yOffset), bounds.width,
-				bounds.height);
-	}
-
+	
+	
+	/*****************************************************
+	 * Getters and Setters
+	 *****************************************************/
 	public float getX() {
-		return x;
-	}
-
-	public void setX(float x) {
-		this.x = x;
+		return this.x;
 	}
 
 	public float getY() {
-		return y;
+		return this.y;
 	}
-
-	public void setY(float y) {
-		this.y = y;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
-	public abstract void update();
-
-	public abstract void render(Graphics g);
-
-	public Integer getCurrentDialog() {
-		return currentDialog;
-	}
-
-	public void setCurrentDialog(Integer currentDialog) {
-		this.currentDialog = currentDialog;
-	}
+	
 }

@@ -46,7 +46,7 @@ public final class Handler {
 	}
 
 	public static GameCamera getGameCamera() {
-		return game.getGameCamera();
+		return world.getGameCamera();
 	}
 
 	public static KeyManager getKeyManager() {
@@ -81,9 +81,9 @@ public final class Handler {
 		display = d;
 	}
 
-	public static Player getPlayer() {
-		return getWorld().getEntityManager().getPlayer();
-	}
+//	public static Player getPlayer() {
+//		return getWorld().getEntityManager().getPlayer();
+//	}
 
 	public static AudioManager getAudioManager() {
 		return audioManager;

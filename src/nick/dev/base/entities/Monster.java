@@ -1,38 +1,51 @@
 package nick.dev.base.entities;
 
-import java.awt.Graphics;
+import java.util.HashMap;
+import java.util.Map.Entry;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import nick.dev.combat.Stats;
-import nick.dev.maps.Map;
+import nick.dev.utilities.Utilities;
 
-public class Monster extends Entity {
+/**************************************************************
+ * Information about a monster. Animation (or just sprite), 
+ * stats and name right now.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ **************************************************************/
+public class Monster {
+	
+	/**************************************************************
+	 * Stores the data for the monsters in the game. Reads from
+	 * a JSON file and loads the data. When creating a new monster
+	 * in the game, it will use this collection as the template.
+	 **************************************************************/
+	private static HashMap<String, Monster> monsterData;
+	static {
+		Gson gson = new Gson();
+		String JSONString = Utilities.getStringFromFile(Utilities.getPropValue("monsterJSON"));
+		
+		monsterData = gson.fromJson(JSONString, new TypeToken<HashMap<String, Monster>>(){}.getType());
+		
+		for (Entry<String, Monster> entry : monsterData.entrySet()) {
+			entry.getValue().printStats();
+		}
+	}
+	/*************************************************************/
 	
 	private String name;
+	private Stats stats;
 
-	public Monster(float x, float y) {
-		// just getting it to work for now.
-		super(x, y, Map.TileWidth, Map.TileHeight);
-	}
-	
-	public Monster(Monster copyFrom) {
-		super(copyFrom);
+	// May not need this.
+	public Monster() {
 	}
 	
 	public void printStats() {
 		this.stats.printStats();
 		//System.out.println(this.x);
-	}
-
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void render(Graphics g) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	public Stats getStats() {

@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import nick.dev.base.Handler;
 import nick.dev.gfx.SpriteSheet;
 import nick.dev.gfx.loadImage;
+import nick.dev.input.KeyManager.Keys;
 import nick.dev.tiles.Tile;
 import nick.dev.utilities.Utilities;
 
@@ -21,15 +22,10 @@ import nick.dev.utilities.Utilities;
  * @version 1.1
  */
 public class Map {
-
-	public static int TileWidth = 64;
-	public static int TileHeight = 64;
-	private static SpriteSheet tileSheet = new SpriteSheet(loadImage.loadImages(Utilities.getPropValue("tileSheet")));
-
-	public static SpriteSheet getTileSheet() {
-		return tileSheet;
-	}
-
+	
+	/**************************************************************
+	 * Stores and initializes the data for all of the different tiles.
+	 **************************************************************/
 	private static HashMap<String, Tile> tileData;
 	static {
 		Gson gson = new Gson();
@@ -41,10 +37,13 @@ public class Map {
 			entry.getValue().initialize();
 		}
 	}
+	/**************************************************************/
+
+	public static int TileWidth = 64;
+	public static int TileHeight = 64;
 
 	private Integer mapWidth = 0;
 	private Integer mapHeight = 0;
-
 	private Integer[][] mapData;
 	
 	public Map(String newMapData, Integer width, Integer height) {

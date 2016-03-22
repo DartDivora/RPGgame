@@ -7,8 +7,6 @@ import java.util.HashMap;
 
 import nick.dev.audio.AudioManager.Tracks;
 import nick.dev.base.Handler;
-import nick.dev.base.entities.Creature;
-import nick.dev.base.entities.Gnoll;
 import nick.dev.gfx.Assets;
 import nick.dev.input.KeyManager.Keys;
 import nick.dev.utilities.Utilities;
@@ -20,7 +18,38 @@ import nick.dev.utilities.Utilities;
  * @version 1.1
  */
 public class BattleState extends State {
-	private Gnoll creature;
+
+	public BattleState(StateManager stateManager) {
+		super(stateManager);
+	}
+	
+	@Override
+	public void update() {
+		
+	}
+	
+	@Override
+	public void render(Graphics g) {
+		g.fillRect(0, Handler.getHeight() / 4, Handler.getWidth(), Handler.getHeight() / 2);
+	}
+	
+	@Override
+	public void onEnter(StateArgument arg) {
+		
+	}
+	
+	@Override
+	public void onExit() {
+		
+	}
+	
+	
+	
+	
+	
+	
+}
+	/*private Gnoll creature;
 	int healthBarWidth, healthBarHeight, creatureDisplayWidth, creatureDisplayHeight;
 	String playerAction = null;
 	String[] turnResults = null;
@@ -275,4 +304,4 @@ public class BattleState extends State {
 		}
 
 	}
-}
+	*/

@@ -13,10 +13,17 @@ import nick.dev.maps.Map;
 public class GameCamera {
 
 	private float xOffset, yOffset;
+	private Entity target;
 
-	public GameCamera(float xOffset, float yOffset) {
-		this.xOffset = xOffset;
-		this.yOffset = yOffset;
+	public GameCamera() {
+		this.xOffset = 0;
+		this.yOffset = 0;
+	}
+	
+	public void update() {
+		xOffset = this.target.getX() - Handler.getWidth() / 2 + Map.TileWidth / 2;
+		yOffset = this.target.getY() - Handler.getHeight() / 2 + Map.TileHeight / 2;
+		//checkBlankSpace();
 	}
 
 	public void checkBlankSpace() {
@@ -33,31 +40,20 @@ public class GameCamera {
 
 	}
 
-	public void centerOnEntity(Entity e) {
-		xOffset = e.getX() - Handler.getWidth() / 2 + e.getWidth() / 2;
-		yOffset = e.getY() - Handler.getHeight() / 2 + e.getHeight() / 2;
-		checkBlankSpace();
+	public void setTarget(Entity target) {
+		this.target = target;
 	}
 
-	public void move(float xAmt, float yAmt) {
-		xOffset += xAmt;
-		yOffset += yAmt;
-		checkBlankSpace();
-	}
+//	public void move(float xAmt, float yAmt) {
+//		xOffset += xAmt;
+//		yOffset += yAmt;
+//		checkBlankSpace();
+//	}
 
 	public float getxOffset() {
 		return xOffset;
 	}
-
-	public void setxOffset(float xOffset) {
-		this.xOffset = xOffset;
-	}
-
 	public float getyOffset() {
 		return yOffset;
-	}
-
-	public void setyOffset(float yOffset) {
-		this.yOffset = yOffset;
 	}
 }

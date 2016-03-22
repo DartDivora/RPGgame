@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-import nick.dev.audio.AudioManager.Tracks;
 import nick.dev.base.Handler;
 import nick.dev.gfx.Assets;
 import nick.dev.input.KeyManager.Keys;
@@ -43,17 +42,6 @@ public class TitleState extends State {
 	@Override
 	public void update() {
 
-		// boolean leftClicked =
-		// Handler.getMouseManager().mouseIsClicked(Buttons.Left);
-		// if (leftClicked) {
-		// Integer mouseX = Handler.getMouseManager().getX();
-		// Integer mouseY = Handler.getMouseManager().getY();
-		//
-		// if (Utilities.rectangleContainsPoint(playButton, mouseX, mouseY)) {
-		// this.stateManager.changeState(State.Types.Overworld);
-		// }
-		// }
-
 		if (Handler.getKeyManager().keyIsPressed(Keys.ArrowDown)) {
 
 			this.currentChoice = Math.abs((this.currentChoice + 1) % this.optionList.length);
@@ -67,9 +55,11 @@ public class TitleState extends State {
 			} else {
 				this.currentChoice = (optionList.length - 1);
 			}
+			
 			// The audio stuff slows down the system way too much. Will have to figure out
 			// how to make that play nicer or use something else.
 //			Handler.getAudioManager().playSFX(Tracks.MenuChangeSFX);
+			
 		}
 
 		if (Handler.getKeyManager().keyIsPressed(Keys.Talk)) {

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import nick.dev.base.Handler;
 import nick.dev.base.entities.EntityManager;
 import nick.dev.base.entities.Player;
+import nick.dev.gfx.GameCamera;
 import nick.dev.maps.Map;
 import nick.dev.tiles.Tile;
 import nick.dev.utilities.Utilities;
@@ -18,11 +19,13 @@ import nick.dev.utilities.Utilities;
  * @version 1.1
  */
 public class World {
+	
+	private Player player = new Player(100, 100);
+	private Map currentMap;
+	private GameCamera camera = new GameCamera();
 
 	private int width, height;
 	private int spawnX, spawnY;
-	
-	private Map currentMap;
 	
 	private HashMap<Integer, Tile> tileMap;
 
@@ -34,11 +37,10 @@ public class World {
 	private EntityManager entityManager;
 
 	public World(String path) {
-
 		Handler.setWorld(this);
 
 		worldResults = new String[7];
-		entityManager = new EntityManager(new Player(100, 100));
+//		entityManager = new EntityManager(new Player(100, 100));
 		keys[0] = "mapWidth";
 		keys[1] = "mapHeight";
 		keys[2] = "spawnX";
@@ -49,21 +51,25 @@ public class World {
 		worldResults = Utilities.getFromJSONObject(path, keys);
 
 		loadWorld(path);
-
-		Utilities.Debug("spawnX: " + spawnX + " spawnY: " + spawnY);
-		entityManager.getPlayer().setX(spawnX);
-		entityManager.getPlayer().setY(spawnY);
-		entityManager.getPlayer().setBattleChance(Integer.parseInt(worldResults[6]));
+		
+		camera.setTarget(player);
+		
+//		Utilities.Debug("spawnX: " + spawnX + " spawnY: " + spawnY);
+//		entityManager.getPlayer().setX(spawnX);
+//		entityManager.getPlayer().setY(spawnY);
+//		entityManager.getPlayer().setBattleChance(Integer.parseInt(worldResults[6]));
 	}
 
 	public void update() {
 		currentMap.update();
-		entityManager.update();
+		player.update();
+		camera.update();
 	}
 
 	public void render(Graphics g) {
+		g.fillRect(0, 0, Handler.getWidth(), Handler.getHeight());
 		currentMap.render(g);
-		entityManager.render(g);
+		player.render(g);
 	}
 
 	private void loadWorld(String path) {
@@ -99,11 +105,7 @@ public class World {
 		return height;
 	}
 
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
-
-	public HashMap<Integer, Tile> getTileMap() {
-		return tileMap;
+	public GameCamera getGameCamera() {
+		return this.camera;
 	}
 }

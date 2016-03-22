@@ -1,6 +1,10 @@
 package nick.dev.gfx;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+
+import nick.dev.base.Handler;
+import nick.dev.maps.Map;
 
 /**
  * This class is an object used to store animations. These are stored in the
@@ -12,20 +16,18 @@ import java.awt.image.BufferedImage;
 public class Animation {
 
 	private int speed, index;
-	private long lastTime, timer;
+	private int timer;
 	private BufferedImage[] frames;
 
 	public Animation(int speed, BufferedImage[] frames) {
 		this.speed = speed;
 		this.frames = frames;
-		index = 0;
-		timer = 0;
-		lastTime = System.currentTimeMillis();
+		this.index = 0;
+		this.timer = 0;
 	}
 
 	public void update() {
-		timer += System.currentTimeMillis() - lastTime;
-		lastTime = System.currentTimeMillis();
+		timer++;
 
 		if (timer > speed) {
 			index++;
@@ -35,8 +37,10 @@ public class Animation {
 		}
 	}
 
-	public BufferedImage getCurrentFrame() {
-		return frames[index];
+	public void render(Graphics g, float x, float y) {
+		int xPos = (int) (x - Handler.getGameCamera().getxOffset());
+		int yPos = (int) (y - Handler.getGameCamera().getyOffset());
+		g.drawImage(frames[index], xPos, yPos, Map.TileWidth, Map.TileHeight, null);
 	}
 
 }
