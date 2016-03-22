@@ -93,5 +93,4 @@ public class Player extends Entity {
 		
 		return collidingWithMap || collidingWithEntity;
 	}
-
 }

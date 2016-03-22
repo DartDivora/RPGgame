@@ -10,12 +10,12 @@ import nick.dev.gfx.GameCamera;
 import nick.dev.maps.Map;
 import nick.dev.utilities.Utilities;
 
-/**
+/******************************************************
  * This class contains the world the player is rendered on.
  * 
  * @author nsanft,acharles
  * @version 1.1
- */
+ *****************************************************/
 public class World {
 	
 	private Map currentMap;
@@ -55,12 +55,18 @@ public class World {
 //		entityManager.getPlayer().setBattleChance(Integer.parseInt(worldResults[6]));
 	}
 
+	/*****************************************************
+	 * Update the map, entities, and camera every frame.
+	 *****************************************************/
 	public void update() {
 		currentMap.update();
 		entityManager.update();
 		camera.update();
 	}
-
+	
+	/*****************************************************
+	 * draw the map and entities every frame.
+	 *****************************************************/
 	public void render(Graphics g) {
 		g.fillRect(0, 0, Handler.getWidth(), Handler.getHeight());
 		currentMap.render(g);
@@ -88,10 +94,16 @@ public class World {
 		}
 	}
 	
+	/*****************************************************
+	 * Returns whether or not a tile on the current map is solid.
+	 *****************************************************/
 	public boolean tileIsSolid(Integer x, Integer y) {
 		return currentMap.tileIsSolid(x, y);
 	}
 
+	/*****************************************************
+	 * Getters and Setters
+	 *****************************************************/
 	public int getWidth() {
 		return width;
 	}
@@ -102,5 +114,9 @@ public class World {
 
 	public GameCamera getGameCamera() {
 		return this.camera;
+	}
+	
+	public EntityManager getEntityManager() {
+		return this.entityManager;
 	}
 }

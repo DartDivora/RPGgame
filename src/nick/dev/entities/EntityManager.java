@@ -56,6 +56,14 @@ public class EntityManager {
 	}
 	
 	/*****************************************************
+	 * Gets the entity at the given ID. 
+	 *****************************************************/
+	public Entity getEntity(Integer ID) {
+		Entity e = this.entityList.get(ID);
+		return (e == null) ? null : e;
+	}
+	
+	/*****************************************************
 	 * Checks if an entity e is colliding with any others
 	 * in the entityList. (x and y are the desired position,
 	 * not the current one.)
@@ -78,7 +86,45 @@ public class EntityManager {
 				}
 			}
 		}
-		
 		return false;
+	}
+	/*****************************************************
+	 * Checks if an entity e exists in the space given by
+	 * x and y (width and height are Map.TileWidth/Height/2.
+	 *****************************************************/
+	public Integer entityExistsHere(Integer x, Integer y) {
+		boolean left = false;
+		boolean right = false;
+		boolean top = false;
+		boolean bottom = false;
+		
+		for (Entity other : this.entityList) {
+			if (!(other instanceof Player)) {
+				left = x < other.getX() + Map.TileWidth/2;
+				right = x + Map.TileWidth/2 > other.getX();
+				top = y < other.getY() + Map.TileHeight/2;
+				bottom = y + Map.TileHeight/2 > other.getY();
+				
+				if (left && right && top && bottom) {
+					System.out.println("collision");
+					return this.entityList.indexOf(other);
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	/*****************************************************
+	 * Returns reference to the player.
+	 *****************************************************/
+	public Player getPlayer() {
+		for (Entity e : this.entityList) {
+			if (e instanceof Player) {
+				return (Player) e;
+			}
+		}
+		
+		return null;
 	}
 }

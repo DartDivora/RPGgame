@@ -96,4 +96,8 @@ public abstract class Entity {
 		return this.y;
 	}
 	
+	public Direction getDirection() {
+		return this.facingDirection;
+	}
+	
 }

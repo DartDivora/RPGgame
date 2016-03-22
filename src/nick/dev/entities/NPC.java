@@ -83,5 +83,9 @@ public class NPC extends Entity {
 	public void onInteract() {
 		System.out.println(dialogueID);
 	}
+	
+	public Integer getDialogueID() {
+		return this.dialogueID;
+	}
 
 }
