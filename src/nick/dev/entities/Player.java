@@ -72,14 +72,21 @@ public class Player extends Entity {
 			newX -= this.moveSpeed;
 		}
 		
-		// Check for collision with the map
-		Integer destTileX = (int) Math.floor(newX  / Map.TileWidth) + xOffset;
-		Integer destTileY = (int) Math.floor(newY / Map.TileHeight) + yOffset;
-		
-		if (!Handler.getWorld().tileIsSolid(destTileX, destTileY)) {
+		if (!this.isColliding(newX, newY, xOffset, yOffset)) {
 			this.x = newX;
 			this.y = newY;
 		}
+	}
+	
+	private boolean isColliding(float newX, float newY, Integer xOff, Integer yOff) {
+		// Check for collision with the map
+		Integer destTileX = (int) Math.floor(newX  / Map.TileWidth) + xOff;
+		Integer destTileY = (int) Math.floor(newY / Map.TileHeight) + yOff;
+		
+		boolean collidingWithMap = Handler.getWorld().tileIsSolid(destTileX, destTileY);
+		boolean collidingWithEntity = owner.isColliding(this, (int)newX, (int)newY);
+		
+		return collidingWithMap || collidingWithEntity;
 	}
 
 }

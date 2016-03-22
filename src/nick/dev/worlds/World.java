@@ -19,7 +19,7 @@ import nick.dev.utilities.Utilities;
 public class World {
 	
 	private Map currentMap;
-	private GameCamera camera = new GameCamera();
+	private GameCamera camera;
 	private EntityManager entityManager = new EntityManager();
 
 	private int width, height;
@@ -46,7 +46,7 @@ public class World {
 		loadWorld(path);
 		
 		Player player = new Player(spawnX, spawnY);
-		camera.setTarget(player);
+		camera = new GameCamera(player);
 		entityManager.addEntity(player);
 		
 //		Utilities.Debug("spawnX: " + spawnX + " spawnY: " + spawnY);

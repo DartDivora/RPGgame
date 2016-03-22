@@ -36,6 +36,8 @@ public abstract class Entity {
 	/*****************************************************
 	 * Name, position, etc
 	 *****************************************************/
+	protected EntityManager owner;
+	
 	protected String name;
 	protected float x, y;
 
@@ -79,11 +81,13 @@ public abstract class Entity {
 		
 	}
 	
-	
-	
 	/*****************************************************
 	 * Getters and Setters
 	 *****************************************************/
+	public void setOwner(EntityManager em) {
+		this.owner = em;
+	}
+	
 	public float getX() {
 		return this.x;
 	}

@@ -100,22 +100,34 @@ public class DialogState extends State {
 		}
 	}
 
+	/**************************************************************
+	 * Renders the dialog to the screen.
+	 **************************************************************/
 	@Override
 	public void render(Graphics g) {
 		g.setFont(f);
-		g.setColor(Color.black);
+		g.setColor(Color.WHITE);
+		g.fillRect(this.dialogStartX, this.dialogStartY - 5, this.dialogBoxLength, 5);
 
+		g.setColor(Color.DARK_GRAY);
 		g.fillRect(this.dialogStartX, this.dialogStartY, this.dialogBoxLength, this.dialogBoxHeight);
-		g.setColor(Color.white);
+		
+		g.setColor(Color.WHITE);
 		this.drawString(g, this.currMessage, this.dialogStartX + this.dialogBoxInnerMargin,
 				this.dialogStartY + this.dialogBoxInnerMargin);
 	}
 
+	/**************************************************************
+	 * Draws a string to the screen, done this way to account for newline.
+	 **************************************************************/
 	private void drawString(Graphics g, String text, int x, int y) {
 		for (String line : text.split("\n"))
 			g.drawString(line, x, y += g.getFontMetrics().getHeight());
 	}
 
+	/**************************************************************
+	 * Adds a character to the current message to be drawn.
+	 **************************************************************/
 	private void addCharacterToLine() {
 
 		// Get next character in our message.
@@ -145,11 +157,18 @@ public class DialogState extends State {
 		}
 	}
 
+	/**************************************************************
+	 * Called when the state is entered with no arguments,
+	 * but that doesn't make sense.
+	 **************************************************************/
 	@Override
 	public void onEnter() {
 		this.reinitialize();
 	}
 	
+	/**************************************************************
+	 * Called when the state is entered with a StateArgument
+	 **************************************************************/
 	@Override
 	public void onEnter(StateArgument arg) {
 		Integer dialogID = arg.getDialogLine();
@@ -157,6 +176,9 @@ public class DialogState extends State {
 		this.reinitialize();
 	}
 
+	/**************************************************************
+	 * Called when the state is leaving.
+	 **************************************************************/
 	@Override
 	public void onExit() {
 	}

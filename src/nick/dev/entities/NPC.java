@@ -30,7 +30,6 @@ public class NPC extends Entity {
 		npcData = gson.fromJson(JSONString, new TypeToken<HashMap<String, NPC>>(){}.getType());
 		
 		for (Entry<String, NPC> entry : npcData.entrySet()) {
-			System.out.println(entry.getValue().animSpeed);
 			entry.getValue().initialize();
 		}
 	}

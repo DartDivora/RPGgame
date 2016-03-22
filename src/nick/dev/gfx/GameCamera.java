@@ -20,6 +20,10 @@ public class GameCamera {
 		this.yOffset = 0;
 	}
 	
+	public GameCamera(Entity e) {
+		this.target = e;
+	}
+	
 	public void update() {
 		xOffset = this.target.getX() - Handler.getWidth() / 2 + Map.TileWidth / 2;
 		yOffset = this.target.getY() - Handler.getHeight() / 2 + Map.TileHeight / 2;
