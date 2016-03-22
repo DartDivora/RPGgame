@@ -1,4 +1,4 @@
-package nick.dev.base.entities;
+package nick.dev.entities;
 
 import java.util.HashMap;
 import java.util.Map.Entry;

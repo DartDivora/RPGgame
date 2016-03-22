@@ -1,6 +1,12 @@
 package nick.dev.dialog;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import nick.dev.utilities.Utilities;
 
 /**
  * This class manages all dialog output in the game.
@@ -9,21 +15,35 @@ import java.util.HashMap;
  * @version 1.1
  */
 public class DialogManager {
-	private HashMap<Integer, String> dialogMap;
+	
+	/**************************************************************
+	 * Stores the data for the dialogue in the game.
+	 **************************************************************/
+	private static HashMap<String, String> dialogueData;
+	static {
+		Gson gson = new Gson();
+		String JSONString = Utilities.getStringFromFile(Utilities.getPropValue("dialogueJSON"));
+		
+		dialogueData = gson.fromJson(JSONString, new TypeToken<HashMap<String, String>>(){}.getType());
+		
+		for (Entry<String, String> entry : dialogueData.entrySet()) {
+			entry.getValue().toString();
+		}
+	}
 
+	/**************************************************************
+	 * Constructor
+	 **************************************************************/
 	public DialogManager() {
-		this.dialogMap = new HashMap<Integer, String>();
-
-		dialogMap.put(0, "Hello, good friend.");
-		dialogMap.put(1, "Goodbye, good friend.");
+		// Not a thang
 	}
-
-	public void printDialogMap() {
-		System.out.println(dialogMap.entrySet());
+	
+	/**************************************************************
+	 * Gets the line of dialogue associated with the given ID.
+	 **************************************************************/
+	public String getLine(Integer id) {
+		String index = id.toString();
+		return DialogManager.dialogueData.get(index);
 	}
-
-	public void getDialog(Integer dialogID) {
-		dialogMap.get(dialogID);
-	}
-
+	
 }

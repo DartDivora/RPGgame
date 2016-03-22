@@ -1,7 +1,7 @@
 package nick.dev.gfx;
 
 import nick.dev.base.Handler;
-import nick.dev.base.entities.Entity;
+import nick.dev.entities.Entity;
 import nick.dev.maps.Map;
 
 /**

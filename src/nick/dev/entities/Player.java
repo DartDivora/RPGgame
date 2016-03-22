@@ -1,4 +1,4 @@
-package nick.dev.base.entities;
+package nick.dev.entities;
 
 import nick.dev.base.Handler;
 import nick.dev.gfx.Animation;
@@ -15,7 +15,6 @@ import nick.dev.maps.Map;
 public class Player extends Entity {
 	
 	private float moveSpeed = 3.5f;
-	private int animSpeed = 30;
 
 	/*****************************************************
 	 * Constructor. Sets position and initializes animations.
@@ -40,6 +39,14 @@ public class Player extends Entity {
 	public void update() {
 		super.update();
 		
+		this.doMovement();
+	}
+	
+	/*****************************************************
+	 * Handles the movement based on inputs for the player
+	 * character. Checks for collisions with the map.
+	 *****************************************************/
+	private void doMovement() {
 		float newX = this.x;
 		float newY = this.y;
 		Integer xOffset = 0;

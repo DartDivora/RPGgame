@@ -1,4 +1,4 @@
-package nick.dev.base.entities;
+package nick.dev.entities;
 
 import java.awt.Graphics;
 import java.util.ArrayList;

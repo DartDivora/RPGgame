@@ -1,4 +1,4 @@
-package nick.dev.base.entities;
+package nick.dev.entities;
 
 import java.awt.Graphics;
 
@@ -37,6 +37,9 @@ public abstract class Entity {
 	 *****************************************************/
 	protected String name;
 	protected float x, y;
+
+	// Animation speed in display frames per frame of animation
+	protected int animSpeed = 30;
 	
 	protected Animation[] animations = new Animation[4];
 	protected Direction facingDirection;

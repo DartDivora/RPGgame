@@ -1,9 +1,9 @@
 package nick.dev.base;
 
 import nick.dev.audio.AudioManager;
-import nick.dev.base.entities.Player;
 import nick.dev.dialog.DialogManager;
 import nick.dev.display.Display;
+import nick.dev.entities.Player;
 import nick.dev.gfx.GameCamera;
 import nick.dev.input.KeyManager;
 import nick.dev.input.MouseManager;

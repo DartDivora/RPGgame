@@ -6,6 +6,7 @@ import java.awt.Graphics;
 
 import nick.dev.audio.AudioManager.Tracks;
 import nick.dev.base.Handler;
+import nick.dev.dialog.DialogManager;
 import nick.dev.input.KeyManager.Keys;
 
 /**
@@ -15,12 +16,12 @@ import nick.dev.input.KeyManager.Keys;
  * @version 1.1
  */
 public class DialogState extends State {
+	
+	DialogManager dialogManager = new DialogManager();
 
-	private Font f;
-	// private Integer messageID = 0;
-	// Rather than have a test message, this state will be passed the id of the string to display and then look it up.
-	private String[] testMessage = new String[100];
-	private Integer dialogLineID;
+	private Font f = new Font("arial", Font.BOLD, 25);
+	
+	private String messageToSay;
 	private String currMessage = "";
 	private Integer currMessagePos = 0;
 
@@ -38,13 +39,11 @@ public class DialogState extends State {
 
 	public DialogState(StateManager stateManager) {
 		super(stateManager);
-		f = new Font("arial", Font.BOLD, 25);
-		
-		testMessage[0] = "Open the door, get on the floor. Everybody walk the dinosaur.";
-		testMessage[1] = "Wild Gnoll appears!";
-		// TODO discuss implementing the DialogManager.
 	}
 
+	/**************************************************************
+	 * Called when entering the state to reset the dialog box.
+	 **************************************************************/
 	private void reinitialize() {
 		this.currMessagePos = 0;
 		this.currLinePos = 0;
@@ -52,6 +51,9 @@ public class DialogState extends State {
 		this.currMessage = "";
 	}
 
+	/**************************************************************
+	 * Update, called eveery frame. Displays the message.
+	 **************************************************************/
 	@Override
 	public void update() {
 
@@ -59,10 +61,10 @@ public class DialogState extends State {
 		// all displayed, then show the message. If it was all displayed,
 		// leave the dialog state.
 		if (Handler.getKeyManager().keyIsPressed(Keys.Talk)) {
-			if (this.currMessagePos == this.testMessage[this.dialogLineID].length()) {
+			if (this.currMessagePos == this.messageToSay.length()) {
 				this.stateManager.leaveState();
 			} else {
-				while (this.currMessagePos != this.testMessage[this.dialogLineID].length()) {
+				while (this.currMessagePos != this.messageToSay.length()) {
 					this.addCharacterToLine();
 				}
 				Handler.getAudioManager().stopRepeatingSFX(Tracks.TalkSFX);
@@ -79,7 +81,7 @@ public class DialogState extends State {
 
 		// If the current message isn't all being shown, then just see if it's
 		// time to put a new character and make the fun sound.
-		if (currMessagePos != this.testMessage[this.dialogLineID].length()) {
+		if (currMessagePos != this.messageToSay.length()) {
 			this.framesSinceLastChar++;
 
 			// If it's time to add a new character to the dialog.
@@ -117,18 +119,18 @@ public class DialogState extends State {
 	private void addCharacterToLine() {
 
 		// Get next character in our message.
-		String newChar = this.testMessage[this.dialogLineID].substring(this.currMessagePos, this.currMessagePos + 1);
+		String newChar = this.messageToSay.substring(this.currMessagePos, this.currMessagePos + 1);
 		this.currMessagePos++;
 		this.currLinePos++;
 
 		if (newChar.equals(" ")) {
-			Integer nextSpacePos = this.testMessage[this.dialogLineID].indexOf(" ", this.currMessagePos);
+			Integer nextSpacePos = this.messageToSay.indexOf(" ", this.currMessagePos);
 			String nextWord;
 			
 			if (nextSpacePos != -1) {
-				nextWord = this.testMessage[this.dialogLineID].substring(this.currMessagePos, nextSpacePos);
+				nextWord = this.messageToSay.substring(this.currMessagePos, nextSpacePos);
 			} else {
-				nextWord = this.testMessage[this.dialogLineID].substring(this.currMessagePos);
+				nextWord = this.messageToSay.substring(this.currMessagePos);
 			}
 				
 			if (this.currLinePos + nextWord.length() >= this.maxCharsOnLine) {
@@ -150,7 +152,8 @@ public class DialogState extends State {
 	
 	@Override
 	public void onEnter(StateArgument arg) {
-		this.dialogLineID = arg.getDialogLine();
+		Integer dialogID = arg.getDialogLine();
+		this.messageToSay = dialogManager.getLine(dialogID);
 		this.reinitialize();
 	}
 

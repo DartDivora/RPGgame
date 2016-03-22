@@ -5,8 +5,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import nick.dev.base.Handler;
-import nick.dev.base.entities.EntityManager;
-import nick.dev.base.entities.Player;
+import nick.dev.entities.EntityManager;
+import nick.dev.entities.NPC;
+import nick.dev.entities.Player;
 import nick.dev.gfx.GameCamera;
 import nick.dev.maps.Map;
 import nick.dev.tiles.Tile;
@@ -21,6 +22,7 @@ import nick.dev.utilities.Utilities;
 public class World {
 	
 	private Player player = new Player(100, 100);
+	private NPC npc = new NPC(400, 400);
 	private Map currentMap;
 	private GameCamera camera = new GameCamera();
 
@@ -63,6 +65,7 @@ public class World {
 	public void update() {
 		currentMap.update();
 		player.update();
+		npc.update();
 		camera.update();
 	}
 
@@ -70,6 +73,7 @@ public class World {
 		g.fillRect(0, 0, Handler.getWidth(), Handler.getHeight());
 		currentMap.render(g);
 		player.render(g);
+		npc.render(g);
 	}
 
 	private void loadWorld(String path) {
