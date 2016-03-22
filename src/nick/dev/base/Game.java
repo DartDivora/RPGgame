@@ -2,7 +2,6 @@ package nick.dev.base;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.util.Arrays;
 
 import nick.dev.display.Display;
 import nick.dev.gfx.Assets;

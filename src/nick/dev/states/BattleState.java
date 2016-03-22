@@ -1,15 +1,8 @@
 package nick.dev.states;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.util.HashMap;
 
-import nick.dev.audio.AudioManager.Tracks;
 import nick.dev.base.Handler;
-import nick.dev.gfx.Assets;
-import nick.dev.input.KeyManager.Keys;
-import nick.dev.utilities.Utilities;
 
 /**
  * This class will handle the battle system. Extends the State class.

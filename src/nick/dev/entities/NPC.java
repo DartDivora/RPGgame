@@ -40,7 +40,6 @@ public class NPC extends Entity {
 	}
 	/*************************************************************/
 
-	private float moveSpeed = 3.5f;
 	private Integer dialogueID;
 
 	/*****************************************************
@@ -83,7 +82,7 @@ public class NPC extends Entity {
 	 *****************************************************/
 	@Override
 	public void onInteract() {
-		System.out.println("talking!");
+		System.out.println(dialogueID);
 	}
 
 }

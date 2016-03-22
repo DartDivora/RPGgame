@@ -1,7 +1,6 @@
 package nick.dev.dialog;
 
 import java.util.HashMap;
-import java.util.Map.Entry;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

@@ -45,7 +45,6 @@ public class Monster {
 	
 	public void printStats() {
 		this.stats.printStats();
-		//System.out.println(this.x);
 	}
 	
 	public Stats getStats() {

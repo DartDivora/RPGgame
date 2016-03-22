@@ -2,15 +2,12 @@ package nick.dev.worlds;
 
 import java.awt.Graphics;
 import java.util.Arrays;
-import java.util.HashMap;
 
 import nick.dev.base.Handler;
 import nick.dev.entities.EntityManager;
-import nick.dev.entities.NPC;
 import nick.dev.entities.Player;
 import nick.dev.gfx.GameCamera;
 import nick.dev.maps.Map;
-import nick.dev.tiles.Tile;
 import nick.dev.utilities.Utilities;
 
 /**
@@ -27,8 +24,6 @@ public class World {
 
 	private int width, height;
 	private int spawnX, spawnY;
-	
-	private HashMap<Integer, Tile> tileMap;
 
 	String[] keys = new String[7];
 	String[] worldResults;
