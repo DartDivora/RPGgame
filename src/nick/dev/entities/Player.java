@@ -44,7 +44,7 @@ public class Player extends Entity {
 	
 	/*****************************************************
 	 * Handles the movement based on inputs for the player
-	 * character. Checks for collisions with the map.
+	 * character. Checks for collisions.
 	 *****************************************************/
 	private void doMovement() {
 		float newX = this.x;
@@ -72,12 +72,17 @@ public class Player extends Entity {
 			newX -= this.moveSpeed;
 		}
 		
+		// Check if we are colliding. x and y offset are confusing, 
+		// so I want to change it eventually.
 		if (!this.isColliding(newX, newY, xOffset, yOffset)) {
 			this.x = newX;
 			this.y = newY;
 		}
 	}
-	
+	/*****************************************************
+	 * Check to see if the player is colliding with the map
+	 * or with any other entities.
+	 *****************************************************/
 	private boolean isColliding(float newX, float newY, Integer xOff, Integer yOff) {
 		// Check for collision with the map
 		Integer destTileX = (int) Math.floor(newX  / Map.TileWidth) + xOff;

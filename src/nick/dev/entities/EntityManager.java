@@ -58,7 +58,7 @@ public class EntityManager {
 	/*****************************************************
 	 * Checks if an entity e is colliding with any others
 	 * in the entityList. (x and y are the desired position,
-	 * not the current one.
+	 * not the current one.)
 	 *****************************************************/
 	public boolean isColliding(Entity e, Integer x, Integer y) {
 		boolean left = false;
@@ -72,9 +72,13 @@ public class EntityManager {
 				right = x + Map.TileWidth > other.getX();
 				top = y < other.getY() + Map.TileHeight;
 				bottom = y + Map.TileHeight > other.getY();
+				
+				if (left && right && top && bottom) {
+					return true;
+				}
 			}
 		}
 		
-		return (left && right && top && bottom);
+		return false;
 	}
 }
