@@ -8,12 +8,12 @@ import com.google.gson.reflect.TypeToken;
 
 import nick.dev.utilities.Utilities;
 
-/**
+/***************************************************************
  * This class manages all dialog output in the game.
  * 
  * @author nsanft,acharles
  * @version 1.1
- */
+ **************************************************************/
 public class DialogManager {
 	
 	/**************************************************************
@@ -25,10 +25,6 @@ public class DialogManager {
 		String JSONString = Utilities.getStringFromFile(Utilities.getPropValue("dialogueJSON"));
 		
 		dialogueData = gson.fromJson(JSONString, new TypeToken<HashMap<String, String>>(){}.getType());
-		
-		for (Entry<String, String> entry : dialogueData.entrySet()) {
-			entry.getValue().toString();
-		}
 	}
 
 	/**************************************************************
@@ -45,5 +41,4 @@ public class DialogManager {
 		String index = id.toString();
 		return DialogManager.dialogueData.get(index);
 	}
-	
 }

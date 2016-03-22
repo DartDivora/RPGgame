@@ -5,12 +5,13 @@ import java.awt.Graphics;
 import nick.dev.combat.Stats;
 import nick.dev.gfx.Animation;
 
-/**
- * This abstract class is the base for any in-game entities rendered on the map.
+/******************************************************
+ * This abstract class is the base for any in-game entities 
+ * rendered on the map.
  * 
  * @author nsanft,acharles
  * @version 1.1
- */
+ *****************************************************/
 public abstract class Entity {
 	
 	/*****************************************************

@@ -21,10 +21,9 @@ import nick.dev.utilities.Utilities;
  */
 public class World {
 	
-	private Player player = new Player(100, 100);
-	private NPC npc = new NPC(400, 400);
 	private Map currentMap;
 	private GameCamera camera = new GameCamera();
+	private EntityManager entityManager = new EntityManager();
 
 	private int width, height;
 	private int spawnX, spawnY;
@@ -34,9 +33,6 @@ public class World {
 	String[] keys = new String[7];
 	String[] worldResults;
 	Integer chanceOfBattle = null;
-
-	// Entities
-	private EntityManager entityManager;
 
 	public World(String path) {
 		Handler.setWorld(this);
@@ -54,7 +50,9 @@ public class World {
 
 		loadWorld(path);
 		
+		Player player = new Player(spawnX, spawnY);
 		camera.setTarget(player);
+		entityManager.addEntity(player);
 		
 //		Utilities.Debug("spawnX: " + spawnX + " spawnY: " + spawnY);
 //		entityManager.getPlayer().setX(spawnX);
@@ -64,16 +62,14 @@ public class World {
 
 	public void update() {
 		currentMap.update();
-		player.update();
-		npc.update();
+		entityManager.update();
 		camera.update();
 	}
 
 	public void render(Graphics g) {
 		g.fillRect(0, 0, Handler.getWidth(), Handler.getHeight());
 		currentMap.render(g);
-		player.render(g);
-		npc.render(g);
+		entityManager.render(g);
 	}
 
 	private void loadWorld(String path) {

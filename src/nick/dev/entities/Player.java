@@ -23,10 +23,10 @@ public class Player extends Entity {
 		super(x, y);
 		
 		// Initialize all of the animations.
-		this.animations[Direction.Up.ordinal()] = new Animation(this.animSpeed, Assets.player_up);
-		this.animations[Direction.Right.ordinal()] = new Animation(this.animSpeed, Assets.player_right);
-		this.animations[Direction.Down.ordinal()] = new Animation(this.animSpeed, Assets.player_down);
-		this.animations[Direction.Left.ordinal()] = new Animation(this.animSpeed, Assets.player_left);
+		this.animations[Direction.Up.getValue()] = new Animation(this.animSpeed, Assets.player_up);
+		this.animations[Direction.Right.getValue()] = new Animation(this.animSpeed, Assets.player_right);
+		this.animations[Direction.Down.getValue()] = new Animation(this.animSpeed, Assets.player_down);
+		this.animations[Direction.Left.getValue()] = new Animation(this.animSpeed, Assets.player_left);
 		
 		this.facingDirection = Direction.Down;
 	}

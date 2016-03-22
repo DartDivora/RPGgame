@@ -30,32 +30,48 @@ public class NPC extends Entity {
 		npcData = gson.fromJson(JSONString, new TypeToken<HashMap<String, NPC>>(){}.getType());
 		
 		for (Entry<String, NPC> entry : npcData.entrySet()) {
-			entry.getValue().toString();
+			System.out.println(entry.getValue().animSpeed);
+			entry.getValue().initialize();
 		}
+	}
+	
+	public static HashMap<String, NPC> getNPCData() {
+		return npcData;
 	}
 	/*************************************************************/
 
 	private float moveSpeed = 3.5f;
-	private Integer dialogID;
+	private Integer dialogueID;
 
 	/*****************************************************
-	 * Constructor. Sets position and initializes animations.
+	 * Constructor. Probably won't do anything since we're 
+	 * using GSON.
 	 *****************************************************/
 	public NPC(float x, float y) {
 		super(x, y);
+	}
+	
+	/*****************************************************
+	 * Called when gson creates the instances from the 
+	 * json file.
+	 *****************************************************/
+	public void initialize() {
+		
+		this.animSpeed = 30;
 		
 		// Initialize all of the animations.
-		this.animations[Direction.Up.ordinal()] = new Animation(this.animSpeed, Assets.DEFAULT_ANIM_UP);
-		this.animations[Direction.Right.ordinal()] = new Animation(this.animSpeed, Assets.DEFAULT_ANIM_RIGHT);
-		this.animations[Direction.Down.ordinal()] = new Animation(this.animSpeed, Assets.DEFAULT_ANIM_DOWN);
-		this.animations[Direction.Left.ordinal()] = new Animation(this.animSpeed, Assets.DEFAULT_ANIM_LEFT);
+		this.animations = new Animation[4];
+		this.animations[Direction.Up.getValue()] = new Animation(this.animSpeed, Assets.DEFAULT_ANIM_UP);
+		this.animations[Direction.Right.getValue()] = new Animation(this.animSpeed, Assets.DEFAULT_ANIM_RIGHT);
+		this.animations[Direction.Down.getValue()] = new Animation(this.animSpeed, Assets.DEFAULT_ANIM_DOWN);
+		this.animations[Direction.Left.getValue()] = new Animation(this.animSpeed, Assets.DEFAULT_ANIM_LEFT);
 		
 		this.facingDirection = Direction.Down;
 	}
 	
 	/*****************************************************
-	 * Update called every frame. Handles movement and 
-	 * interaction with other entities.
+	 * Update called every frame. Just calls super's update,
+	 * which updates the animation.
 	 *****************************************************/
 	@Override
 	public void update() {
@@ -67,7 +83,7 @@ public class NPC extends Entity {
 	 *****************************************************/
 	@Override
 	public void onInteract() {
-		
+		System.out.println("talking!");
 	}
 
 }
