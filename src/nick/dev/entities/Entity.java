@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import nick.dev.base.Handler;
-import nick.dev.combat.Stats;
 import nick.dev.gfx.Animation;
 import nick.dev.maps.Map;
 
