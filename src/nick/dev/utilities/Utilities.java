@@ -15,6 +15,8 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import nick.dev.maps.Map;
+
 /**
  * This class contains all methods that do not otherwise fit into a specific
  * class.
@@ -190,12 +192,12 @@ public class Utilities extends IOUtils {
 			}
 		}
 	}
-
-	public static boolean rectangleContainsPoint(Rectangle rect, float x, float y) {
-		if (x >= rect.getMinX() && x <= rect.getMaxX() && y >= rect.getMinY() && y <= rect.getMaxY()) {
-			return true;
-		}
-		return false;
+	
+	public static Rectangle tileToBoundingBox(int x, int y) {
+		int rectX = x * Map.TileWidth;
+		int rectY = y * Map.TileHeight;
+		
+		return new Rectangle(rectX, rectY, Map.TileWidth, Map.TileHeight);
 	}
 
 }

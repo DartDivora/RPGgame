@@ -58,8 +58,6 @@ public class Player extends Entity {
 	 * collisions.
 	 *****************************************************/
 	private void doMovement() {
-		Integer xOffset = 0;
-		Integer yOffset = 0;
 
 		// Get inputs and move based on them.
 		if (Handler.getKeyManager().keyIsDown(Keys.Up)) {
@@ -69,20 +67,17 @@ public class Player extends Entity {
 		} if (Handler.getKeyManager().keyIsDown(Keys.Right)) {
 			this.facingDirection = Direction.Right;
 			this.x += this.moveSpeed;
-			xOffset = 1;
 			
 		} if (Handler.getKeyManager().keyIsDown(Keys.Down)) {
 			this.facingDirection = Direction.Down;
 			this.y += this.moveSpeed;
-			yOffset = 1;
 			
 		} if (Handler.getKeyManager().keyIsDown(Keys.Left)) {
 			this.facingDirection = Direction.Left;
 			this.x -= this.moveSpeed;
 		}
 
-		// Check if we are colliding. x and y offset are confusing,
-		// so I want to change it eventually.
-		this.resolveCollisions(this.x, this.y, xOffset, yOffset);
+		this.resolveEntityCollisions();
+		this.resolveMapCollisions();
 	}
 }

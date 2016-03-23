@@ -6,6 +6,8 @@ import java.awt.Rectangle;
 import nick.dev.base.Handler;
 import nick.dev.gfx.Animation;
 import nick.dev.maps.Map;
+import nick.dev.utilities.Utilities;
+import nick.dev.worlds.World;
 
 /******************************************************
  * This abstract class is the base for any in-game entities 
@@ -85,42 +87,77 @@ public abstract class Entity {
 	 * Check to see if the player is colliding with the map
 	 * or with any other entities.
 	 *****************************************************/
-	protected boolean resolveCollisions(float newX, float newY, Integer xOff, Integer yOff) {
-		// Check for collision with the map
-		Integer destTileX = (int) Math.floor(newX  / Map.TileWidth) + xOff;
-		Integer destTileY = (int) Math.floor(newY / Map.TileHeight) + yOff;
+	protected void resolveCollision(Rectangle collision) {
 		
-		boolean collidingWithMap = Handler.getWorld().tileIsSolid(destTileX, destTileY);
-		Rectangle collisionWithEntity = owner.isColliding(this);
-		
-		if (collisionWithEntity != null) {
+		if (collision != null) {
 			// if we collided on the left or right, not the top or bottom.
-			if (collisionWithEntity.getWidth() < collisionWithEntity.getHeight()) {
-				if ((int) this.x + Map.TileWidth == collisionWithEntity.getMaxX()) {
-					// Collision on the left;
-					this.x -= collisionWithEntity.getWidth();
+			if (collision.getWidth() < collision.getHeight()) {
+				if ((int) this.x + Map.TileWidth == collision.getMaxX()) {
+					// Collision on the left
+					this.x -= collision.getWidth();
 					this.x = (int)this.x;
 				} else {
 					// Collision on the right
-					this.x += collisionWithEntity.getWidth();
+					this.x += collision.getWidth();
 					this.x = (int)this.x;
 				}
 			} else {
-				if ((int) this.y + Map.TileHeight == collisionWithEntity.getMaxY()) {
-					// Collision on the top;
-					this.y -= collisionWithEntity.getHeight();
+				if ((int) this.y + Map.TileHeight == collision.getMaxY()) {
+					// Collision on the top
+					this.y -= collision.getHeight();
 					this.y = (int)this.y;
 				} else {
 					// Collision on the bottom
-					this.y += collisionWithEntity.getHeight();
+					this.y += collision.getHeight();
 					this.y = (int)this.y;
 				}
 			}
 		}
-		
-		return collidingWithMap || (collisionWithEntity != null);
 	}
 	
+	/*****************************************************
+	 * Resolves collisions with the map.
+	 *****************************************************/
+	protected void resolveMapCollisions() {
+		Rectangle bounds = this.getBoundingBox();
+		World world = Handler.getWorld();
+		
+		
+		// Checks all four corners - if the block there is solid, 
+		// check if we're colliding with it. If we are, resolve it.
+		int[] checkX = new int[4];
+		int[] checkY = new int[4];
+		
+		checkX[0] = bounds.x / Map.TileWidth;
+		checkX[1] = (int)bounds.getMaxX() / Map.TileWidth;
+		checkX[2] = (int)bounds.getMaxX() / Map.TileWidth;
+		checkX[3] = bounds.x / Map.TileWidth;
+		
+		checkY[0] = bounds.y / Map.TileHeight;
+		checkY[1] = bounds.y / Map.TileHeight;
+		checkY[2] = (int)bounds.getMaxY() / Map.TileHeight;
+		checkY[3] = (int)bounds.getMaxY() / Map.TileHeight;
+		
+		for (int i = 0; i < 4; ++i) {
+			if (world.tileIsSolid(checkX[i], checkY[i])) {
+				Rectangle tileBB = Utilities.tileToBoundingBox(checkX[i], checkY[i]);
+				Rectangle collision = this.getBoundingBox().intersection(tileBB);
+				this.resolveCollision(collision);
+			}
+		}
+	}
+	
+	/*****************************************************
+	 * Resolves collisions with other entities.
+	 *****************************************************/
+	protected void resolveEntityCollisions() {
+		Rectangle collisionWithEntity = owner.isColliding(this);
+		this.resolveCollision(collisionWithEntity);
+	}
+	
+	/*****************************************************
+	 * Gets the bounding box for the entity.
+	 *****************************************************/
 	public Rectangle getBoundingBox() {
 		return new Rectangle((int)this.x, (int)this.y, Map.TileWidth, Map.TileHeight);
 	}
