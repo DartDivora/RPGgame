@@ -84,38 +84,6 @@ public abstract class Entity {
 	}
 	
 	/*****************************************************
-	 * Check to see if the player is colliding with the map
-	 * or with any other entities.
-	 *****************************************************/
-	protected void resolveCollision(Rectangle collision) {
-		
-		if (collision != null) {
-			// if we collided on the left or right, not the top or bottom.
-			if (collision.getWidth() < collision.getHeight()) {
-				if ((int) this.x + Map.TileWidth == collision.getMaxX()) {
-					// Collision on the left
-					this.x -= collision.getWidth();
-					this.x = (int)this.x;
-				} else {
-					// Collision on the right
-					this.x += collision.getWidth();
-					this.x = (int)this.x;
-				}
-			} else {
-				if ((int) this.y + Map.TileHeight == collision.getMaxY()) {
-					// Collision on the top
-					this.y -= collision.getHeight();
-					this.y = (int)this.y;
-				} else {
-					// Collision on the bottom
-					this.y += collision.getHeight();
-					this.y = (int)this.y;
-				}
-			}
-		}
-	}
-	
-	/*****************************************************
 	 * Resolves collisions with the map.
 	 *****************************************************/
 	protected void resolveMapCollisions() {
@@ -153,6 +121,37 @@ public abstract class Entity {
 	protected void resolveEntityCollisions() {
 		Rectangle collisionWithEntity = owner.isColliding(this);
 		this.resolveCollision(collisionWithEntity);
+	}
+	
+	/*****************************************************
+	 * Resolves a collision between this bounding box and another.
+	 *****************************************************/
+	protected void resolveCollision(Rectangle collision) {
+		
+		if (collision != null) {
+			// if we collided on the left or right, not the top or bottom.
+			if (collision.getWidth() < collision.getHeight()) {
+				if ((int) this.x + Map.TileWidth == collision.getMaxX()) {
+					// Collision on the left
+					this.x -= collision.getWidth();
+					this.x = (int)this.x;
+				} else {
+					// Collision on the right
+					this.x += collision.getWidth();
+					this.x = (int)this.x;
+				}
+			} else {
+				if ((int) this.y + Map.TileHeight == collision.getMaxY()) {
+					// Collision on the top
+					this.y -= collision.getHeight();
+					this.y = (int)this.y;
+				} else {
+					// Collision on the bottom
+					this.y += collision.getHeight();
+					this.y = (int)this.y;
+				}
+			}
+		}
 	}
 	
 	/*****************************************************
