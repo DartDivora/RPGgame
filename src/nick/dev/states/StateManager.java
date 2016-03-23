@@ -23,6 +23,7 @@ public class StateManager {
 		states.put(State.Types.Overworld, new OverworldState(this));
 		states.put(State.Types.Battle, new BattleState(this));
 		states.put(State.Types.Dialog, new DialogState(this));
+		states.put(State.Types.Menu, new MenuState(this));
 
 		this.changeState(State.Types.Title);
 	}

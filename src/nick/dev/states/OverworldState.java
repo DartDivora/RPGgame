@@ -31,11 +31,14 @@ public class OverworldState extends State {
 	@Override
 	public void update() {
 		world.update();
-		
+
 		if (Handler.getKeyManager().keyIsPressed(Keys.Space)) {
 			this.stateManager.changeState(Types.Battle);
 		}
-		
+		if (Handler.getKeyManager().keyIsPressed(Keys.Menu)) {
+			this.stateManager.changeState(Types.Menu);
+		}		
+
 		this.checkForDialog();
 	}
 
@@ -62,25 +65,24 @@ public class OverworldState extends State {
 	 *****************************************************/
 	@Override
 	public void onExit() {
-		//Handler.getAudioManager().stopCurrentTrack();
+		// Handler.getAudioManager().stopCurrentTrack();
 	}
-	
+
 	/*****************************************************
-	 * Checks to see if the player is facing something it 
-	 * can talk to.
+	 * Checks to see if the player is facing something it can talk to.
 	 *****************************************************/
 	private void checkForDialog() {
 		if (Handler.getKeyManager().keyIsPressed(Keys.Talk)) {
-			
+
 			// Get the player and its position/direction.
 			Player player = world.getEntityManager().getPlayer();
 			float checkX = player.getX();
 			float checkY = player.getY();
 			Direction dir = player.getDirection();
-			
+
 			// Change where we are checking depending on direction.
 			// Basically, look in front of the player.
-			switch(dir) {
+			switch (dir) {
 			case Up:
 				checkY -= Map.TileHeight;
 				break;
@@ -96,19 +98,20 @@ public class OverworldState extends State {
 			default:
 				break;
 			}
-			
+
 			// See if there's an NPC in a box in front of our player.
-			Integer npcID = world.getEntityManager().entityExistsHere((int)checkX, (int)checkY);
+			Integer npcID = world.getEntityManager().entityExistsHere((int) checkX, (int) checkY);
 			if (npcID != null) {
-				
-				// Get the NPC that our box collided with and send his dialogueID
+
+				// Get the NPC that our box collided with and send his
+				// dialogueID
 				// off to the Dialog State.
 				NPC npc = (NPC) world.getEntityManager().getEntity(npcID);
 				Integer dialogueID = npc.getDialogueID();
-				
+
 				StateArgument arg = new StateArgument();
 				arg.setDialogLine(dialogueID);
-				this.stateManager.changeState(Types.Dialog, arg);			
+				this.stateManager.changeState(Types.Dialog, arg);
 			}
 		}
 	}
