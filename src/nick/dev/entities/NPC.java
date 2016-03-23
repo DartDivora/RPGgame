@@ -31,8 +31,7 @@ public class NPC extends Entity {
 		Gson gson = new Gson();
 		String JSONString = Utilities.getStringFromFile(Utilities.getPropValue("npcJSON"));
 
-		npcData = gson.fromJson(JSONString, new TypeToken<HashMap<String, NPC>>() {
-		}.getType());
+		npcData = gson.fromJson(JSONString, new TypeToken<HashMap<String, NPC>>() {}.getType());
 
 		for (Entry<String, NPC> entry : npcData.entrySet()) {
 			entry.getValue().initialize();
@@ -58,8 +57,6 @@ public class NPC extends Entity {
 	 * Handles the movement for NPCs. Checks for collisions.
 	 *****************************************************/
 	private void doMovement() {
-		Integer xOffset = 0;
-		Integer yOffset = 0;
 
 		// Get inputs and move based on them.
 		if (Handler.getKeyManager().keyIsDown(Keys.Up)) {
@@ -70,13 +67,11 @@ public class NPC extends Entity {
 		if (Handler.getKeyManager().keyIsDown(Keys.Right)) {
 			this.facingDirection = Direction.Right;
 			this.x += this.moveSpeed;
-			xOffset = 1;
 
 		}
 		if (Handler.getKeyManager().keyIsDown(Keys.Down)) {
 			this.facingDirection = Direction.Down;
 			this.y += this.moveSpeed;
-			yOffset = 1;
 
 		}
 		if (Handler.getKeyManager().keyIsDown(Keys.Left)) {
@@ -84,9 +79,8 @@ public class NPC extends Entity {
 			this.x -= this.moveSpeed;
 		}
 
-		// Check if we are colliding. x and y offset are confusing,
-		// so I want to change it eventually.
-		this.resolveCollisions(this.x, this.y, xOffset, yOffset);
+		this.resolveEntityCollisions();
+		this.resolveMapCollisions();
 	}
 
 	/*****************************************************
