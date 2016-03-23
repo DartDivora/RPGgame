@@ -65,7 +65,6 @@ public class OverworldState extends State {
 	 *****************************************************/
 	@Override
 	public void onExit() {
-		Handler.getAudioManager().pauseCurrentTrack();
 	}
 
 	/*****************************************************
