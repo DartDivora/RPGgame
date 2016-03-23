@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import nick.dev.base.Handler;
+import nick.dev.entities.Player;
 
 /**
  * This class manages the saving and loading of the game.
@@ -40,53 +41,53 @@ public class SaveManager {
 	}
 
 	public boolean saveGame(String saveFile) {
-//		JSONObject jo = new JSONObject();
-//		try {
-//			jo.put(saveFileKeys[0], Handler.getPlayer().getEntityName());
-//			jo.put(saveFileKeys[1], Handler.getPlayer().getStrength());
-//			jo.put(saveFileKeys[2], Handler.getPlayer().getVitality());
-//			jo.put(saveFileKeys[3], Handler.getPlayer().getIntelligence());
-//			jo.put(saveFileKeys[4], Handler.getPlayer().getWisdom());
-//			jo.put(saveFileKeys[5], Handler.getPlayer().getDexterity());
-//			jo.put(saveFileKeys[6], Handler.getPlayer().getLuck());
-//			jo.put(saveFileKeys[7], Handler.getPlayer().getDefense());
-//			jo.put(saveFileKeys[8], Handler.getPlayer().getCurrentHP());
-//			jo.put(saveFileKeys[9], Handler.getPlayer().getMaxHP());
-//			jo.put(saveFileKeys[10], Handler.getPlayer().getCurrentMP());
-//			jo.put(saveFileKeys[11], Handler.getPlayer().getMaxMP());
-//			jo.put(saveFileKeys[12], Handler.getPlayer().getSpeed());
-//			jo.put(saveFileKeys[13], Handler.getPlayer().getCurrentExperience());
-//		} catch (JSONException e) {
-//			System.out.println("Failed to save file: " + saveFile);
-//		}
-//		System.out.println(jo.toString());
-//		try {
-//			Path p = Paths.get(saveFile);
-//			Files.deleteIfExists(p);
-//			PrintWriter out = new PrintWriter(saveFile);
-//			out.write(jo.toString());
-//			out.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		JSONObject jo = new JSONObject();
+		try {
+			jo.put(saveFileKeys[0], Handler.getWorld().getEntityManager().getPlayer().getName());
+			jo.put(saveFileKeys[1], Player.getStats().getStrength());
+			jo.put(saveFileKeys[2], Player.getStats().getVitality());
+			jo.put(saveFileKeys[3], Player.getStats().getIntelligence());
+			jo.put(saveFileKeys[4], Player.getStats().getWisdom());
+			jo.put(saveFileKeys[5], Player.getStats().getDexterity());
+			jo.put(saveFileKeys[6], Player.getStats().getLuck());
+			jo.put(saveFileKeys[7], Player.getStats().getDefense());
+			jo.put(saveFileKeys[8], Player.getStats().getCurrentHP());
+			jo.put(saveFileKeys[9], Player.getStats().getMaxHP());
+			jo.put(saveFileKeys[10], Player.getStats().getCurrentMP());
+			jo.put(saveFileKeys[11], Player.getStats().getMaxMP());
+			jo.put(saveFileKeys[12], Player.getStats().getSpeed());
+			jo.put(saveFileKeys[13], Player.getStats().getCurrentExp());
+		} catch (JSONException e) {
+			System.out.println("Failed to save file: " + saveFile);
+		}
+		System.out.println(jo.toString());
+		try {
+			Path p = Paths.get(saveFile);
+			Files.deleteIfExists(p);
+			PrintWriter out = new PrintWriter(saveFile);
+			out.write(jo.toString());
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return true;
 	}
 
 	public void loadGame(String saveFile) {
-//		String[] loadResults = Utilities.getFromJSONObject(saveFile, saveFileKeys);
-//		Handler.getPlayer().setEntityName(loadResults[0]);
-//		Handler.getPlayer().setStrength(Integer.parseInt(loadResults[1]));
-//		Handler.getPlayer().setVitality(Integer.parseInt(loadResults[2]));
-//		Handler.getPlayer().setIntelligence(Integer.parseInt(loadResults[3]));
-//		Handler.getPlayer().setWisdom(Integer.parseInt(loadResults[4]));
-//		Handler.getPlayer().setDexterity(Integer.parseInt(loadResults[5]));
-//		Handler.getPlayer().setLuck(Integer.parseInt(loadResults[6]));
-//		Handler.getPlayer().setDefense(Integer.parseInt(loadResults[7]));
-//		Handler.getPlayer().setCurrentHP(Integer.parseInt(loadResults[8]));
-//		Handler.getPlayer().setMaxHP(Integer.parseInt(loadResults[9]));
-//		Handler.getPlayer().setCurrentMP(Integer.parseInt(loadResults[10]));
-//		Handler.getPlayer().setMaxMP(Integer.parseInt(loadResults[11]));
-//		Handler.getPlayer().setSpeed(Integer.parseInt(loadResults[12]));
-//		Handler.getPlayer().setCurrentExperience(Integer.parseInt(loadResults[13]));
+		String[] loadResults = Utilities.getFromJSONObject(saveFile, saveFileKeys);
+		Handler.getWorld().getEntityManager().getPlayer().setName(loadResults[0]);
+		Player.getStats().setStrength(Integer.parseInt(loadResults[1]));
+		Player.getStats().setVitality(Integer.parseInt(loadResults[2]));
+		Player.getStats().setIntelligence(Integer.parseInt(loadResults[3]));
+		Player.getStats().setWisdom(Integer.parseInt(loadResults[4]));
+		Player.getStats().setDexterity(Integer.parseInt(loadResults[5]));
+		Player.getStats().setLuck(Integer.parseInt(loadResults[6]));
+		Player.getStats().setDefense(Integer.parseInt(loadResults[7]));
+		Player.getStats().setCurrentHP(Integer.parseInt(loadResults[8]));
+		Player.getStats().setMaxHP(Integer.parseInt(loadResults[9]));
+		Player.getStats().setCurrentMP(Integer.parseInt(loadResults[10]));
+		Player.getStats().setMaxMP(Integer.parseInt(loadResults[11]));
+		Player.getStats().setSpeed(Integer.parseInt(loadResults[12]));
+		Player.getStats().setCurrentExp(Integer.parseInt(loadResults[13]));
 	}
 }

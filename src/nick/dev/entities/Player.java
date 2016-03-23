@@ -31,6 +31,8 @@ public class Player extends Entity {
 	public Player(float x, float y) {
 		super(x, y);
 		
+		this.name = "AlexSanft";
+		
 		// Initialize all of the animations.
 		this.animations[Direction.Up.getValue()] = new Animation(this.animSpeed, Assets.player_up);
 		this.animations[Direction.Right.getValue()] = new Animation(this.animSpeed, Assets.player_right);

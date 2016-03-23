@@ -94,6 +94,14 @@ public abstract class Entity {
 		return this.y;
 	}
 	
+	public String getName() {
+		return this.name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public Direction getDirection() {
 		return this.facingDirection;
 	}

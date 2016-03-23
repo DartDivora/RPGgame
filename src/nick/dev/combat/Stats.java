@@ -14,9 +14,9 @@ public class Stats {
 	 *****************************************************/
 	public Stats(Stats copyFrom) {
 		this.level = copyFrom.level;
-		this.HP = copyFrom.HP;
+		this.MaxHP = copyFrom.MaxHP;
 		this.currentHP = copyFrom.currentHP;
-		this.MP = copyFrom.MP;
+		this.MaxMP = copyFrom.MaxMP;
 		this.currentMP = copyFrom.currentMP;
 		this.Strength = copyFrom.Strength;
 		this.Defense = copyFrom.Defense;
@@ -30,7 +30,7 @@ public class Stats {
 	 *****************************************************/
 	public void printStats() {
 		System.out.println("Level, HP, MP, Str, Def, Int, Dex, Spd");
-		System.out.print(this.level + " " + this.HP + " " + this.MP + " ");
+		System.out.print(this.level + " " + this.MaxHP + " " + this.MaxMP + " ");
 		System.out.print(this.Strength + " " + this.Defense + " " + this.Intelligence + " ");
 		System.out.print(this.Dexterity + " " + this.Speed + "\n");
 	}
@@ -47,14 +47,25 @@ public class Stats {
 	}
 	
 	/************************
-	 * HP
+	 * CURRENT EXP
 	 ************************/
-	private Integer HP = 10;
-	public Integer getHP() {
-		return HP;
+	private Integer Exp = 1;
+	public Integer getCurrentExp() {
+		return Exp;
 	}
-	public void setHP(Integer hp) {
-		this.HP = hp;
+	public void setCurrentExp(Integer exp) {
+		this.Exp = exp;
+	}
+	
+	/************************
+	 * MAX HP
+	 ************************/
+	private Integer MaxHP = 10;
+	public Integer getMaxHP() {
+		return MaxHP;
+	}
+	public void setMaxHP(Integer hp) {
+		this.MaxHP = hp;
 	}
 	
 	/************************
@@ -69,14 +80,14 @@ public class Stats {
 	}
 	
 	/************************
-	 * MP
+	 * MAX MP
 	 ************************/
-	private Integer MP = 0;
-	public Integer getMP() {
-		return MP;
+	private Integer MaxMP = 0;
+	public Integer getMaxMP() {
+		return MaxMP;
 	}
-	public void setMP(Integer mP) {
-		this.MP = mP;
+	public void setMaxMP(Integer mP) {
+		this.MaxMP = mP;
 	}
 	
 	/************************
@@ -88,6 +99,17 @@ public class Stats {
 	}
 	public void setCurrentMP(Integer mp) {
 		this.currentHP = mp;
+	}
+	
+	/************************
+	 * VITALITY
+	 ************************/
+	private Integer Vitality = 0;
+	public Integer getVitality() {
+		return Vitality;
+	}
+	public void setVitality(Integer vitality) {
+		this.Vitality = vitality;
 	}
 	
 	/************************
@@ -124,6 +146,17 @@ public class Stats {
 	}
 	
 	/************************
+	 * WISDOM
+	 ************************/
+	private Integer Wisdom = 1;
+	public Integer getWisdom() {
+		return Wisdom;
+	}
+	public void setWisdom(Integer wisdom) {
+		this.Wisdom = wisdom;
+	}
+	
+	/************************
 	 * DEXTERITY
 	 ************************/
 	private Integer Dexterity = 1;
@@ -132,6 +165,17 @@ public class Stats {
 	}
 	public void setDexterity(Integer dexterity) {
 		this.Dexterity = dexterity;
+	}
+	
+	/************************
+	 * LUCK
+	 ************************/
+	private Integer Luck = 1;
+	public Integer getLuck() {
+		return Luck;
+	}
+	public void setLuck(Integer luck) {
+		this.Luck = luck;
 	}
 	
 	/************************

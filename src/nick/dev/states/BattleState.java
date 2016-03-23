@@ -37,6 +37,16 @@ public class BattleState extends State {
 		
 	}
 	
+	@Override
+	public void onEnter() {
+		
+	}
+	
+	@Override
+	public void onExit() {
+		
+	}
+	
 }
 	
 	
