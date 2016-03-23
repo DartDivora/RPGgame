@@ -12,7 +12,9 @@
     "alexsanft" : {
             "name" : "Alex Sanft",
             "stats" : {
-            		"Strength" : 5000
+            		"Name" : "Shadow Alex Sanft",
+            		"Strength" : 5,
+            		"Defense" : 2
             		}
           	
         }

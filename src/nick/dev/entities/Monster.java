@@ -2,6 +2,7 @@ package nick.dev.entities;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Random;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -39,6 +40,12 @@ public class Monster {
 	// Get the stats of a given monster.
 	public static Stats getStats(String name) {
 		return monsterData.get(name).getStats();
+	}
+	
+	public static Stats getRandomStats() {
+		Random ran = new Random();
+		Object[] values = monsterData.values().toArray();
+		return ((Monster) values[ran.nextInt(values.length)]).getStats();
 	}
 
 	/*************************************************************/

@@ -81,7 +81,7 @@ public class BattleState extends State {
 		this.stats = stats;
 		
 		stats[0] = Player.getStats();
-		stats[1] = Monster.getStats("gnoll");
+		stats[1] = Monster.getRandomStats();
 		battleUI = new BattleUI(stats);
 		battleManager = new BattleManager(stats);
 	}
