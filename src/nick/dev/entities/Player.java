@@ -14,15 +14,16 @@ import nick.dev.maps.Map;
  * @version 1.1
  *****************************************************/
 public class Player extends Entity {
-	
+
 	/*****************************************************
 	 * Constructor. Sets position and initializes animations.
 	 *****************************************************/
 	public static Stats stats = new Stats();
+
 	public static Stats getStats() {
 		return Player.stats;
 	}
-	
+
 	private float moveSpeed = 3.5f;
 
 	/*****************************************************
@@ -30,39 +31,39 @@ public class Player extends Entity {
 	 *****************************************************/
 	public Player(float x, float y) {
 		super(x, y);
-		
+
 		this.name = "AlexSanft";
-		
+
 		// Initialize all of the animations.
 		this.animations[Direction.Up.getValue()] = new Animation(this.animSpeed, Assets.player_up);
 		this.animations[Direction.Right.getValue()] = new Animation(this.animSpeed, Assets.player_right);
 		this.animations[Direction.Down.getValue()] = new Animation(this.animSpeed, Assets.player_down);
 		this.animations[Direction.Left.getValue()] = new Animation(this.animSpeed, Assets.player_left);
-		
+
 		this.facingDirection = Direction.Down;
 	}
-	
+
 	/*****************************************************
-	 * Update called every frame. Handles movement and 
-	 * interaction with other entities.
+	 * Update called every frame. Handles movement and interaction with other
+	 * entities.
 	 *****************************************************/
 	@Override
 	public void update() {
 		super.update();
-		
+
 		this.doMovement();
 	}
-	
+
 	/*****************************************************
-	 * Handles the movement based on inputs for the player
-	 * character. Checks for collisions.
+	 * Handles the movement based on inputs for the player character. Checks for
+	 * collisions.
 	 *****************************************************/
 	private void doMovement() {
 		float newX = this.x;
 		float newY = this.y;
 		Integer xOffset = 0;
 		Integer yOffset = 0;
-		
+
 		// Get inputs and move based on them.
 		if (Handler.getKeyManager().keyIsDown(Keys.Up)) {
 			this.facingDirection = Direction.Up;
@@ -82,13 +83,12 @@ public class Player extends Entity {
 			this.facingDirection = Direction.Left;
 			newX -= this.moveSpeed;
 		}
-		
-		// Check if we are colliding. x and y offset are confusing, 
+
+		// Check if we are colliding. x and y offset are confusing,
 		// so I want to change it eventually.
 		if (!this.isColliding(newX, newY, xOffset, yOffset)) {
 			this.x = newX;
 			this.y = newY;
 		}
 	}
-	
 }
