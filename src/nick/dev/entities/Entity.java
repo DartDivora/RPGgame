@@ -47,8 +47,6 @@ public abstract class Entity {
 	protected Animation[] animations = new Animation[4];
 	protected Direction facingDirection;
 	
-	protected Stats stats;
-	
 	/*****************************************************
 	 * Default constructor
 	 *****************************************************/

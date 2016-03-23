@@ -1,6 +1,7 @@
 package nick.dev.entities;
 
 import nick.dev.base.Handler;
+import nick.dev.combat.Stats;
 import nick.dev.gfx.Animation;
 import nick.dev.gfx.Assets;
 import nick.dev.input.KeyManager.Keys;
@@ -13,6 +14,14 @@ import nick.dev.maps.Map;
  * @version 1.1
  *****************************************************/
 public class Player extends Entity {
+	
+	/*****************************************************
+	 * Constructor. Sets position and initializes animations.
+	 *****************************************************/
+	public static Stats stats = new Stats();
+	public static Stats getStats() {
+		return Player.stats;
+	}
 	
 	private float moveSpeed = 3.5f;
 

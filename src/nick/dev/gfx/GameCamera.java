@@ -27,7 +27,7 @@ public class GameCamera {
 	public void update() {
 		xOffset = this.target.getX() - Handler.getWidth() / 2 + Map.TileWidth / 2;
 		yOffset = this.target.getY() - Handler.getHeight() / 2 + Map.TileHeight / 2;
-		//checkBlankSpace();
+		checkBlankSpace();
 	}
 
 	public void checkBlankSpace() {

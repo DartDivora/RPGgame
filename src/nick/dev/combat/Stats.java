@@ -15,7 +15,9 @@ public class Stats {
 	public Stats(Stats copyFrom) {
 		this.level = copyFrom.level;
 		this.HP = copyFrom.HP;
+		this.currentHP = copyFrom.currentHP;
 		this.MP = copyFrom.MP;
+		this.currentMP = copyFrom.currentMP;
 		this.Strength = copyFrom.Strength;
 		this.Defense = copyFrom.Defense;
 		this.Intelligence = copyFrom.Intelligence;
@@ -56,6 +58,17 @@ public class Stats {
 	}
 	
 	/************************
+	 * CURRENT HP
+	 ************************/
+	private Integer currentHP = 10;
+	public Integer getCurrentHP() {
+		return this.currentHP;
+	}
+	public void setCurrentHP(Integer hp) {
+		this.currentHP = hp;
+	}
+	
+	/************************
 	 * MP
 	 ************************/
 	private Integer MP = 0;
@@ -64,6 +77,17 @@ public class Stats {
 	}
 	public void setMP(Integer mP) {
 		this.MP = mP;
+	}
+	
+	/************************
+	 * CURRENT MP
+	 ************************/
+	private Integer currentMP = 10;
+	public Integer getCurrentMP() {
+		return this.currentHP;
+	}
+	public void setCurrentMP(Integer mp) {
+		this.currentHP = mp;
 	}
 	
 	/************************

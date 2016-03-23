@@ -34,6 +34,11 @@ public class Monster {
 			entry.getValue().printStats();
 		}
 	}
+	
+	// Get the stats of a given monster.
+	public static Stats getStats(String name) {
+		return monsterData.get(name).getStats();
+	}
 	/*************************************************************/
 	
 	private String name;

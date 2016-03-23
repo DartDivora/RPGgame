@@ -106,7 +106,6 @@ public class EntityManager {
 				bottom = y + Map.TileHeight/2 > other.getY();
 				
 				if (left && right && top && bottom) {
-					System.out.println("collision");
 					return this.entityList.indexOf(other);
 				}
 			}
