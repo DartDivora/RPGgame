@@ -2,7 +2,12 @@ package nick.dev.states;
 
 import java.awt.Graphics;
 
+import nick.dev.base.Handler;
 import nick.dev.combat.BattleUI;
+import nick.dev.combat.Stats;
+import nick.dev.entities.Monster;
+import nick.dev.entities.Player;
+import nick.dev.input.KeyManager.Keys;
 
 /**
  * This class will handle the battle system. Extends the State class.
@@ -22,6 +27,10 @@ public class BattleState extends State {
 	@Override
 	public void update() {
 		battleUI.update();
+		
+		if (Handler.getKeyManager().keyIsPressed(Keys.Space)) {
+			this.stateManager.leaveState();
+		}
 	}
 	
 	@Override
@@ -31,7 +40,10 @@ public class BattleState extends State {
 	
 	@Override
 	public void onEnter() {
-		battleUI = new BattleUI();
+		Stats[] stats = new Stats[2];
+		stats[0] = Player.getStats();
+		stats[1] = Monster.getStats("gnoll");
+		battleUI = new BattleUI(stats);
 	}
 	
 	@Override
@@ -73,11 +85,6 @@ public class BattleState extends State {
 		
 		combatStats[0] = Player.getStats();
 		combatStats[1] = Monster.getStats("gnoll");
-		
-		actions = new HashMap<Integer, String>();
-		actions.put(0, "Attack");
-		actions.put(1, "Defend");
-		actions.put(2, "Spell");
 
 		f = new Font("arial", Font.BOLD, 25);
 		healthBarWidth = Integer.parseInt(Utilities.getPropValue("healthBarWidth"));
@@ -85,40 +92,15 @@ public class BattleState extends State {
 		creatureDisplayWidth = Integer.parseInt(Utilities.getPropValue("creatureDisplayWidth"));
 		creatureDisplayHeight = Integer.parseInt(Utilities.getPropValue("creatureDisplayHeight"));
 
-		this.optionList[0] = "Attack";
-		this.optionList[1] = "Defend";
-		this.optionList[2] = "Spell";
+		
 	}
 	
 	public void update() {
-		
-		playerAnim.update();
-		enemyAnim.update();
 		
 		playerAction = null;
 		this.defending[0] = false;
 		this.defending[1] = false;
 		
-		if (Handler.getKeyManager().keyIsPressed(Keys.ArrowDown)) {
-			this.currentChoice = Math.abs((this.currentChoice + 1) % this.optionList.length);
-			this.highlightLength = 0;
-			
-		} else if (Handler.getKeyManager().keyIsPressed(Keys.ArrowUp)) {
-			if (this.currentChoice - 1 != -1) {
-				this.currentChoice = Math.abs((this.currentChoice - 1) % this.optionList.length);
-			} else {
-				this.currentChoice = (optionList.length - 1);
-			}
-			this.highlightLength = 0;
-		}
-
-		if (Handler.getKeyManager().keyIsPressed(Keys.Talk)) {
-			playerAction = actions.get(this.currentChoice);
-		}
-
-		if (this.highlightLength <= this.highlightLengthMax) {
-			this.highlightLength = Math.min(this.highlightLength + 12, this.highlightLengthMax);
-		}
 
 		if (playerAction != null) {
 			if (combatStats[0].getCurrentHP() > 0 && combatStats[1].getCurrentHP() > 0) {
@@ -228,24 +210,7 @@ public class BattleState extends State {
 	
 	@Override
 	public void render(Graphics g) {
-		//g.setColor(Color.WHITE);
-		//g.fillRect(0, Handler.getHeight() / 4 - 5, Handler.getWidth(), Handler.getHeight() / 2 + 10);
-		
-		//g.setColor(Color.DARK_GRAY);
-		//g.fillRect(0, Handler.getHeight() / 4, Handler.getWidth(), Handler.getHeight() / 2);
-		
-		g.setFont(f);
-		
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, Handler.getWidth(), Handler.getHeight());
-		
-		playerAnim.render(g, 0, 0);
-		enemyAnim.render(g, 300, 100);
-		
-//		g.drawImage(Handler.getWorld().getEntityManager().getPlayer().getAnimDown().getCurrentFrame(),
-//				Handler.getWidth() / 6, Handler.getHeight() / 3, creatureDisplayWidth, creatureDisplayHeight, null);
-//		g.drawImage(creature.getAnimDown().getCurrentFrame(), Handler.getWidth() / 2, Handler.getHeight() / 3,
-//				creatureDisplayWidth, creatureDisplayHeight, null);
+	
 		g.drawString("This is a battle?", Handler.getWidth() / 3, (Handler.getHeight() / 6));
 		g.setColor(java.awt.Color.red);
 		g.fillRect(Handler.getWidth() / 6, Handler.getHeight() / 3 + 150, healthBarWidth, healthBarHeight);
