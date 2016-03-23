@@ -15,9 +15,21 @@ import nick.dev.input.KeyManager.Keys;
 public class Player extends Entity {
 
 	/*****************************************************
-	 * Constructor. Sets position and initializes animations.
+	 * Static stats object, used in battles, etc.
 	 *****************************************************/
 	public static Stats stats = new Stats();
+	static {
+		Player.stats.setName("Alex Sanft");
+		Player.stats.setMaxHP(20);
+		Player.stats.setCurrentHP(20);
+		Player.stats.setStrength(4);
+		Player.stats.setDefense(2);
+		Player.stats.setIntelligence(20);
+		Player.stats.setDexterity(2);
+		Player.stats.setLuck(10);
+		Player.stats.setWisdom(5);
+		Player.stats.setSpeed(100);
+	}
 
 	public static Stats getStats() {
 		return Player.stats;

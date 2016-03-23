@@ -46,12 +46,12 @@ public class AudioManager {
 		this.addRepeatingSFX(Tracks.TalkSFX, Utilities.getPropValue("talkSFX"));
 	}
 
-	/**
+	/*****************************************************************
 	 * Used by the constructor to add a track to the list of tracks.
 	 * 
 	 * @param track
 	 * @param path
-	 */
+	 *****************************************************************/
 	private void addTrack(Tracks track, String path) {
 		URL resource = getClass().getResource(path);
 		Media m = new Media(resource.toString());
@@ -59,26 +59,26 @@ public class AudioManager {
 		this.tracks.put(track, new MediaPlayer(m));
 	}
 	
-	/**
+	/*****************************************************************
 	 * Used by the constructor to add a SFX to the list of tracks.
 	 * 
 	 * @param track
 	 * @param path
-	 */
+	 *****************************************************************/
 	private void addSFX(Tracks track, String path) {
 		URL resource = getClass().getResource(path);
 		Media m = new Media(resource.toString());
 
 		this.tracks.put(track, new MediaPlayer(m));
 	}
-	/**
+	/*****************************************************************
 	 * Do not keep this!! Have to figure out how to either fix or replace
 	 * MediaPlayer before we can get rid of this. Starting and stopping a
 	 * MediaPlayer object is too slow.
 	 * 
 	 * @param track
 	 * @param path
-	 */
+	 *****************************************************************/
 	private void addRepeatingSFX(Tracks track, String path) {
 		URL resource = getClass().getResource(path);
 		Media m = new Media(resource.toString());
@@ -89,10 +89,10 @@ public class AudioManager {
 		this.tracks.put(track, mp);
 	}
 
-	/**
+	/*****************************************************************
 	 * This method is called every frame. Currently only checks to see if we try
 	 * to mute audio.
-	 */
+	 *****************************************************************/
 	public void update() {
 		if (Handler.getKeyManager().keyIsPressed(Keys.Mute)) {
 			if (this.isMuted) {
@@ -103,11 +103,11 @@ public class AudioManager {
 		}
 	}
 
-	/**
+	/*****************************************************************
 	 * Play specified track. Stops the currently playing track to play this one.
 	 * 
 	 * @param track
-	 */
+	 *****************************************************************/
 	public void playTrack(Tracks track) {
 		if (currentTrack != track) {
 			if (currentTrack != null) {
@@ -120,11 +120,11 @@ public class AudioManager {
 		}
 	}
 	
-	/**
+	/*****************************************************************
 	 * Play specified sfx. 
 	 * 
 	 * @param track
-	 */
+	 *****************************************************************/
 	public void playSFX(Tracks track) {
 		if (!this.isMuted) {
 			tracks.get(track).seek(Duration.ZERO);
@@ -132,7 +132,7 @@ public class AudioManager {
 		}
 	}
 
-	/**
+	/*****************************************************************
 	 * Play Sound Effect. Still a track, but it doesn't stop the current track.
 	 * This will repeat until stopRepeatingSFX is called on the track.
 	 * 
@@ -141,48 +141,48 @@ public class AudioManager {
 	 * game a lot.
 	 * 
 	 * @param track
-	 */
+	 *****************************************************************/
 	public void playRepeatingSFX(Tracks track) {
 		if (!this.isMuted && tracks.get(track).getStatus() != Status.PLAYING) {
 			tracks.get(track).play();
 		}
 	}
 
-	/**
+	/*****************************************************************
 	 * Stops a repeating SFX.
 	 * 
 	 * @param track
-	 */
+	 *****************************************************************/
 	public void stopRepeatingSFX(Tracks track) {
 		if (!this.isMuted && tracks.get(track).getStatus() == Status.PLAYING) {
 			tracks.get(track).stop();
 		}
 	}
 
-	/**
+	/*****************************************************************
 	 * Resumes playing the current track - starts from where it was paused or
 	 * from the beginning if it was stopped.
-	 */
+	 *****************************************************************/
 	public void resumeCurrentTrack() {
 		if (currentTrack != null && !this.isMuted) {
 			tracks.get(currentTrack).play();
 		}
 	}
 
-	/**
+	/*****************************************************************
 	 * Pauses the current track - when played again, it will start from where it
 	 * left off.
-	 */
+	 *****************************************************************/
 	public void pauseCurrentTrack() {
 		if (currentTrack != null) {
 			tracks.get(currentTrack).pause();
 		}
 	}
 
-	/**
+	/*****************************************************************
 	 * Stops the current track - when played again, it will start from the
 	 * beginning.
-	 */
+	 *****************************************************************/
 	public void stopCurrentTrack() {
 		if (currentTrack != null) {
 			tracks.get(currentTrack).stop();

@@ -13,6 +13,7 @@ public class Stats {
 	 * to create a new one. (may not need)
 	 *****************************************************/
 	public Stats(Stats copyFrom) {
+		this.Name = copyFrom.Name;
 		this.level = copyFrom.level;
 		this.MaxHP = copyFrom.MaxHP;
 		this.currentHP = copyFrom.currentHP;
@@ -33,6 +34,17 @@ public class Stats {
 		System.out.print(this.level + " " + this.MaxHP + " " + this.MaxMP + " ");
 		System.out.print(this.Strength + " " + this.Defense + " " + this.Intelligence + " ");
 		System.out.print(this.Dexterity + " " + this.Speed + "\n");
+	}
+	
+	/************************
+	 * NAME
+	 ************************/
+	private String Name = "RandomGuy";
+	public String getName() {
+		return this.Name;
+	}
+	public void setName(String name) {
+		this.Name = name;
 	}
 	
 	/************************

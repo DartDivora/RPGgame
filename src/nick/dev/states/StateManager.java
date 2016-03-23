@@ -24,6 +24,7 @@ public class StateManager {
 		states.put(State.Types.Battle, new BattleState(this));
 		states.put(State.Types.Dialog, new DialogState(this));
 		states.put(State.Types.Menu, new MenuState(this));
+		states.put(State.Types.GameOver, new GameOverState(this));
 
 		this.changeState(State.Types.Title);
 	}
@@ -63,6 +64,8 @@ public class StateManager {
 		if (!currentStateStack.isEmpty()) {
 			State state = currentStateStack.pop();
 			state.onExit();
+			
+			this.currentStateStack.peek().onEnter();
 			return true;
 		} else {
 			return false;

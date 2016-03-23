@@ -79,6 +79,11 @@ public class Utilities extends IOUtils {
 		}
 	}
 
+	// This kind of works - it returns the longest number of characters, 
+	// but what the highlight does is use the one with the longest pixel
+	// length in the current font. So in the battle menu, with Attack
+	// and Defend, it doesn't work since they're the same length but 
+	// "Defend" is more pixels wide than "Attack".
 	public static String getLongestString(String[] sa) {
 		Integer maxLength = 0;
 		String longest = null;

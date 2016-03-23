@@ -2,6 +2,7 @@
     "gnoll" : {
             "name" : "Gnoll",
             "stats" : {
+            		"Name" : "Gnoll",
             		"HP" : 10,
             		"Defense" : 0,
             		"Strength" : 3
