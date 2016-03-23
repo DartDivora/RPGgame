@@ -59,22 +59,50 @@ public class NPC extends Entity {
 	 *****************************************************/
 	private void doMovement() {
 
-		// Get inputs and move based on them.
-		if (Handler.getKeyManager().keyIsDown(Keys.Up)) {
-			this.facingDirection = Direction.Up;
-			this.y -= this.moveSpeed;
-		}
-		if (Handler.getKeyManager().keyIsDown(Keys.Right)) {
-			this.facingDirection = Direction.Right;
-			this.x += this.moveSpeed;
-		}
-		if (Handler.getKeyManager().keyIsDown(Keys.Down)) {
-			this.facingDirection = Direction.Down;
-			this.y += this.moveSpeed;
-		}
-		if (Handler.getKeyManager().keyIsDown(Keys.Left)) {
-			this.facingDirection = Direction.Left;
-			this.x -= this.moveSpeed;
+		boolean DebugCollision = false;
+
+		if (DebugCollision) {
+			// Get inputs and move based on them.
+			if (Handler.getKeyManager().keyIsDown(Keys.Up)) {
+				this.facingDirection = Direction.Up;
+				this.y -= this.moveSpeed;
+			}
+			if (Handler.getKeyManager().keyIsDown(Keys.Right)) {
+				this.facingDirection = Direction.Right;
+				this.x += this.moveSpeed;
+			}
+			if (Handler.getKeyManager().keyIsDown(Keys.Down)) {
+				this.facingDirection = Direction.Down;
+				this.y += this.moveSpeed;
+			}
+			if (Handler.getKeyManager().keyIsDown(Keys.Left)) {
+				this.facingDirection = Direction.Left;
+				this.x -= this.moveSpeed;
+			}
+		} else {
+			int randomY = Utilities.getRandomNumber(-1, 1);
+			int randomX = Utilities.getRandomNumber(-1, 1);
+
+			switch (Utilities.getRandomNumber(1, 4)) {
+			case 1:
+				this.facingDirection = Direction.Up;
+				break;
+			case 2:
+				this.facingDirection = Direction.Down;
+				break;
+			case 3:
+				this.facingDirection = Direction.Left;
+				break;
+			case 4:
+				this.facingDirection = Direction.Right;
+				break;
+			default:
+				this.facingDirection = Direction.Down;
+				break;
+			}
+
+			this.y += randomY;
+			this.x += randomX;
 		}
 
 		this.resolveEntityCollisions();
