@@ -31,7 +31,8 @@ public class NPC extends Entity {
 		Gson gson = new Gson();
 		String JSONString = Utilities.getStringFromFile(Utilities.getPropValue("npcJSON"));
 
-		npcData = gson.fromJson(JSONString, new TypeToken<HashMap<String, NPC>>() {}.getType());
+		npcData = gson.fromJson(JSONString, new TypeToken<HashMap<String, NPC>>() {
+		}.getType());
 
 		for (Entry<String, NPC> entry : npcData.entrySet()) {
 			entry.getValue().initialize();
@@ -62,17 +63,14 @@ public class NPC extends Entity {
 		if (Handler.getKeyManager().keyIsDown(Keys.Up)) {
 			this.facingDirection = Direction.Up;
 			this.y -= this.moveSpeed;
-
 		}
 		if (Handler.getKeyManager().keyIsDown(Keys.Right)) {
 			this.facingDirection = Direction.Right;
 			this.x += this.moveSpeed;
-
 		}
 		if (Handler.getKeyManager().keyIsDown(Keys.Down)) {
 			this.facingDirection = Direction.Down;
 			this.y += this.moveSpeed;
-
 		}
 		if (Handler.getKeyManager().keyIsDown(Keys.Left)) {
 			this.facingDirection = Direction.Left;
@@ -98,6 +96,7 @@ public class NPC extends Entity {
 		this.animations[Direction.Left.getValue()] = new Animation(this.animSpeed, Assets.DEFAULT_ANIM_LEFT);
 
 		this.facingDirection = Direction.Down;
+		this.moveSpeed = 3.5f;
 	}
 
 	/*****************************************************
