@@ -46,7 +46,7 @@ public class TitleState extends State {
 
 			this.currentChoice = Math.abs((this.currentChoice + 1) % this.optionList.length);
 			this.highlightLength = 0;
-//			Handler.getAudioManager().playSFX(Tracks.MenuChangeSFX);
+			// Handler.getAudioManager().playSFX(Tracks.MenuChangeSFX);
 
 		} else if (Handler.getKeyManager().keyIsPressed(Keys.ArrowUp)) {
 			if (this.currentChoice - 1 != -1) {
@@ -55,11 +55,12 @@ public class TitleState extends State {
 			} else {
 				this.currentChoice = (optionList.length - 1);
 			}
-			
-			// The audio stuff slows down the system way too much. Will have to figure out
+
+			// The audio stuff slows down the system way too much. Will have to
+			// figure out
 			// how to make that play nicer or use something else.
-//			Handler.getAudioManager().playSFX(Tracks.MenuChangeSFX);
-			
+			// Handler.getAudioManager().playSFX(Tracks.MenuChangeSFX);
+
 		}
 
 		if (Handler.getKeyManager().keyIsPressed(Keys.Talk)) {
@@ -94,7 +95,7 @@ public class TitleState extends State {
 
 				g.setColor(new Color(240, 240, 240));
 
-				this.highlightLengthMax = g.getFontMetrics().stringWidth(this.optionList[0]);
+				this.highlightLengthMax = g.getFontMetrics().stringWidth(Utilities.getLongestString(this.optionList));
 
 				g.fillRect(xPos - 5, fingerPosY, this.highlightLength + 10, 40);
 			}

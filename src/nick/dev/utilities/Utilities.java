@@ -77,6 +77,18 @@ public class Utilities extends IOUtils {
 		}
 	}
 
+	public static String getLongestString(String[] sa) {
+		Integer maxLength = 0;
+		String longest = null;
+		for (String s : sa) {
+			if (s.length() > maxLength) {
+				maxLength = s.length();
+				longest = s;
+			}
+		}
+		return longest;
+	}
+
 	public static String[] getFromJSONObject(String path, String[] keys) {
 		File f = new File(path);
 		String jsonTxt = null;
