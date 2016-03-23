@@ -2,8 +2,10 @@ package nick.dev.entities;
 
 import java.awt.Graphics;
 
+import nick.dev.base.Handler;
 import nick.dev.combat.Stats;
 import nick.dev.gfx.Animation;
+import nick.dev.maps.Map;
 
 /******************************************************
  * This abstract class is the base for any in-game entities 
@@ -77,6 +79,21 @@ public abstract class Entity {
 	 *****************************************************/
 	public void onInteract() {
 		
+	}
+	
+	/*****************************************************
+	 * Check to see if the player is colliding with the map
+	 * or with any other entities.
+	 *****************************************************/
+	protected boolean isColliding(float newX, float newY, Integer xOff, Integer yOff) {
+		// Check for collision with the map
+		Integer destTileX = (int) Math.floor(newX  / Map.TileWidth) + xOff;
+		Integer destTileY = (int) Math.floor(newY / Map.TileHeight) + yOff;
+		
+		boolean collidingWithMap = Handler.getWorld().tileIsSolid(destTileX, destTileY);
+		boolean collidingWithEntity = owner.isColliding(this, (int)newX, (int)newY);
+		
+		return collidingWithMap || collidingWithEntity;
 	}
 	
 	/*****************************************************

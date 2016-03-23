@@ -68,17 +68,17 @@ public class Player extends Entity {
 			this.facingDirection = Direction.Up;
 			newY -= this.moveSpeed;
 			
-		} else if (Handler.getKeyManager().keyIsDown(Keys.Right)) {
+		} if (Handler.getKeyManager().keyIsDown(Keys.Right)) {
 			this.facingDirection = Direction.Right;
 			newX += this.moveSpeed;
 			xOffset = 1;
 			
-		} else if (Handler.getKeyManager().keyIsDown(Keys.Down)) {
+		} if (Handler.getKeyManager().keyIsDown(Keys.Down)) {
 			this.facingDirection = Direction.Down;
 			newY += this.moveSpeed;
 			yOffset = 1;
 			
-		} else if (Handler.getKeyManager().keyIsDown(Keys.Left)) {
+		} if (Handler.getKeyManager().keyIsDown(Keys.Left)) {
 			this.facingDirection = Direction.Left;
 			newX -= this.moveSpeed;
 		}
@@ -90,18 +90,5 @@ public class Player extends Entity {
 			this.y = newY;
 		}
 	}
-	/*****************************************************
-	 * Check to see if the player is colliding with the map
-	 * or with any other entities.
-	 *****************************************************/
-	private boolean isColliding(float newX, float newY, Integer xOff, Integer yOff) {
-		// Check for collision with the map
-		Integer destTileX = (int) Math.floor(newX  / Map.TileWidth) + xOff;
-		Integer destTileY = (int) Math.floor(newY / Map.TileHeight) + yOff;
-		
-		boolean collidingWithMap = Handler.getWorld().tileIsSolid(destTileX, destTileY);
-		boolean collidingWithEntity = owner.isColliding(this, (int)newX, (int)newY);
-		
-		return collidingWithMap || collidingWithEntity;
-	}
+	
 }
