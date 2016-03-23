@@ -1,6 +1,7 @@
 package nick.dev.entities;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
@@ -68,25 +69,16 @@ public class EntityManager {
 	 * in the entityList. (x and y are the desired position,
 	 * not the current one.)
 	 *****************************************************/
-	public boolean isColliding(Entity e, Integer x, Integer y) {
-		boolean left = false;
-		boolean right = false;
-		boolean top = false;
-		boolean bottom = false;
+	public Rectangle isColliding(Entity e) {
 		
 		for (Entity other : this.entityList) {
 			if (!other.equals(e)) {
-				left = x < other.getX() + Map.TileWidth;
-				right = x + Map.TileWidth > other.getX();
-				top = y < other.getY() + Map.TileHeight;
-				bottom = y + Map.TileHeight > other.getY();
-				
-				if (left && right && top && bottom) {
-					return true;
+				if (e.getBoundingBox().intersects(other.getBoundingBox())) {
+					return e.getBoundingBox().intersection(other.getBoundingBox());
 				}
 			}
 		}
-		return false;
+		return null;
 	}
 	/*****************************************************
 	 * Checks if an entity e exists in the space given by

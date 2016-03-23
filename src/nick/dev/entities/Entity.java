@@ -1,6 +1,7 @@
 package nick.dev.entities;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import nick.dev.base.Handler;
 import nick.dev.combat.Stats;
@@ -85,15 +86,44 @@ public abstract class Entity {
 	 * Check to see if the player is colliding with the map
 	 * or with any other entities.
 	 *****************************************************/
-	protected boolean isColliding(float newX, float newY, Integer xOff, Integer yOff) {
+	protected boolean resolveCollisions(float newX, float newY, Integer xOff, Integer yOff) {
 		// Check for collision with the map
 		Integer destTileX = (int) Math.floor(newX  / Map.TileWidth) + xOff;
 		Integer destTileY = (int) Math.floor(newY / Map.TileHeight) + yOff;
 		
 		boolean collidingWithMap = Handler.getWorld().tileIsSolid(destTileX, destTileY);
-		boolean collidingWithEntity = owner.isColliding(this, (int)newX, (int)newY);
+		Rectangle collisionWithEntity = owner.isColliding(this);
 		
-		return collidingWithMap || collidingWithEntity;
+		if (collisionWithEntity != null) {
+			// if we collided on the left or right, not the top or bottom.
+			if (collisionWithEntity.getWidth() < collisionWithEntity.getHeight()) {
+				if ((int) this.x + Map.TileWidth == collisionWithEntity.getMaxX()) {
+					// Collision on the left;
+					this.x -= collisionWithEntity.getWidth();
+					this.x = (int)this.x;
+				} else {
+					// Collision on the right
+					this.x += collisionWithEntity.getWidth();
+					this.x = (int)this.x;
+				}
+			} else {
+				if ((int) this.y + Map.TileHeight == collisionWithEntity.getMaxY()) {
+					// Collision on the top;
+					this.y -= collisionWithEntity.getHeight();
+					this.y = (int)this.y;
+				} else {
+					// Collision on the bottom
+					this.y += collisionWithEntity.getHeight();
+					this.y = (int)this.y;
+				}
+			}
+		}
+		
+		return collidingWithMap || (collisionWithEntity != null);
+	}
+	
+	public Rectangle getBoundingBox() {
+		return new Rectangle((int)this.x, (int)this.y, Map.TileWidth, Map.TileHeight);
 	}
 	
 	/*****************************************************

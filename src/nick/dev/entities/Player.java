@@ -58,36 +58,31 @@ public class Player extends Entity {
 	 * collisions.
 	 *****************************************************/
 	private void doMovement() {
-		float newX = this.x;
-		float newY = this.y;
 		Integer xOffset = 0;
 		Integer yOffset = 0;
 
 		// Get inputs and move based on them.
 		if (Handler.getKeyManager().keyIsDown(Keys.Up)) {
 			this.facingDirection = Direction.Up;
-			newY -= this.moveSpeed;
+			this.y -= this.moveSpeed;
 			
 		} if (Handler.getKeyManager().keyIsDown(Keys.Right)) {
 			this.facingDirection = Direction.Right;
-			newX += this.moveSpeed;
+			this.x += this.moveSpeed;
 			xOffset = 1;
 			
 		} if (Handler.getKeyManager().keyIsDown(Keys.Down)) {
 			this.facingDirection = Direction.Down;
-			newY += this.moveSpeed;
+			this.y += this.moveSpeed;
 			yOffset = 1;
 			
 		} if (Handler.getKeyManager().keyIsDown(Keys.Left)) {
 			this.facingDirection = Direction.Left;
-			newX -= this.moveSpeed;
+			this.x -= this.moveSpeed;
 		}
 
 		// Check if we are colliding. x and y offset are confusing,
 		// so I want to change it eventually.
-		if (!this.isColliding(newX, newY, xOffset, yOffset)) {
-			this.x = newX;
-			this.y = newY;
-		}
+		this.resolveCollisions(this.x, this.y, xOffset, yOffset);
 	}
 }
