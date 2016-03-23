@@ -43,4 +43,8 @@ public class Animation {
 		g.drawImage(frames[index], xPos, yPos, Map.TileWidth, Map.TileHeight, null);
 	}
 
+	public void render(Graphics g, float x, float y, int width, int height) {
+		g.drawImage(frames[index], (int)x, (int)y, width, height, null);
+	}
+
 }

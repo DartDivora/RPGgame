@@ -19,8 +19,7 @@ import nick.dev.worlds.World;
 public abstract class Entity {
 	
 	/*****************************************************
-	 * The directions which an entity could be facing. 
-	 * Used to determine the animation that will be rendered.
+	 * The directions which an entity could be facing.
 	 *****************************************************/
 	public enum Direction {
 		Up(0), Right(1), Down(2), Left(3);

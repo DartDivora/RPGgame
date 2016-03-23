@@ -1,9 +1,8 @@
 package nick.dev.states;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
-import nick.dev.base.Handler;
+import nick.dev.combat.BattleUI;
 
 /**
  * This class will handle the battle system. Extends the State class.
@@ -12,41 +11,27 @@ import nick.dev.base.Handler;
  * @version 1.1
  */
 public class BattleState extends State {
-
+	
+	private BattleUI battleUI;
+//	private BattleManager battleManager;
+	
 	public BattleState(StateManager stateManager) {
 		super(stateManager);
 	}
 	
 	@Override
 	public void update() {
-		
+		battleUI.update();
 	}
 	
 	@Override
 	public void render(Graphics g) {
-		this.renderEnemyBox(g);
-		this.renderEnemyStats(g);
-	}
-	
-	private void renderEnemyBox(Graphics g) {
-		g.setColor(Color.WHITE);
-		g.fillRect(0, Handler.getHeight() / 4 - 5, Handler.getWidth(), Handler.getHeight() / 2 + 10);
-		
-		g.setColor(Color.DARK_GRAY);
-		g.fillRect(0, Handler.getHeight() / 4, Handler.getWidth(), Handler.getHeight() / 2);
-	}
-	
-	private void renderEnemyStats(Graphics g) {
-		g.setColor(Color.WHITE);
-		g.fillRect(Handler.getWidth() / 3, Handler.getHeight() * 3/4, Handler.getWidth() * 2/3, Handler.getHeight() / 4);
-		
-		g.setColor(Color.DARK_GRAY);
-		g.fillRect(Handler.getWidth() / 3, Handler.getHeight() * 3/4, Handler.getWidth() * 2/3, Handler.getHeight() / 4);
+		battleUI.render(g);
 	}
 	
 	@Override
 	public void onEnter() {
-		
+		battleUI = new BattleUI();
 	}
 	
 	@Override

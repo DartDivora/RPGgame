@@ -9,12 +9,12 @@ import nick.dev.base.Handler;
 import nick.dev.dialog.DialogManager;
 import nick.dev.input.KeyManager.Keys;
 
-/**
+/************************************************************
  * This class will display dialog in the game. Extends the State class.
  * 
  * @author nsanft,acharles
  * @version 1.1
- */
+ ***********************************************************/
 public class DialogState extends State {
 	
 	DialogManager dialogManager = new DialogManager();

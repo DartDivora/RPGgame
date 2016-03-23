@@ -58,24 +58,44 @@ public class Player extends Entity {
 	 * collisions.
 	 *****************************************************/
 	private void doMovement() {
+		
+		float moveChangeX = 0;
+		float moveChangeY = 0;
 
 		// Get inputs and move based on them.
+			
+		if (Handler.getKeyManager().keyIsDown(Keys.Right)) {
+			this.facingDirection = Direction.Right;
+			moveChangeX += this.moveSpeed;
+		}
+		if (Handler.getKeyManager().keyIsDown(Keys.Left)) {
+			this.facingDirection = Direction.Left;
+			moveChangeX -= this.moveSpeed;
+		}
 		if (Handler.getKeyManager().keyIsDown(Keys.Up)) {
 			this.facingDirection = Direction.Up;
-			this.y -= this.moveSpeed;
-			
-		} if (Handler.getKeyManager().keyIsDown(Keys.Right)) {
-			this.facingDirection = Direction.Right;
-			this.x += this.moveSpeed;
-			
-		} if (Handler.getKeyManager().keyIsDown(Keys.Down)) {
-			this.facingDirection = Direction.Down;
-			this.y += this.moveSpeed;
-			
-		} if (Handler.getKeyManager().keyIsDown(Keys.Left)) {
-			this.facingDirection = Direction.Left;
-			this.x -= this.moveSpeed;
+			moveChangeY -= this.moveSpeed;
 		}
+		if (Handler.getKeyManager().keyIsDown(Keys.Down)) {
+			this.facingDirection = Direction.Down;
+			moveChangeY += this.moveSpeed;
+		}
+		
+		// Pythagorean theorem to make sure diagonal movement is not
+		// greater than horizontal or vertical movement would be.
+		if (moveChangeX != 0 && moveChangeY != 0) {
+			
+			moveChangeX = (float) (moveChangeX / Math.sqrt(2.0));
+		
+			float ySign = Math.signum(moveChangeY);
+			moveChangeY = moveChangeX;
+			if (Math.signum(moveChangeY) != ySign) {
+				moveChangeY *= -1;
+			}
+		}
+		
+		this.x += moveChangeX;
+		this.y += moveChangeY;
 
 		this.resolveEntityCollisions();
 		this.resolveMapCollisions();
