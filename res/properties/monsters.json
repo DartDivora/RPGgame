@@ -4,7 +4,7 @@
             "stats" : {
             		"Name" : "Gnoll",
             		"HP" : 10,
-            		"Defense" : 0,
+            		"Defense" : 1,
             		"Strength" : 3
             		}
           	
