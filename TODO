@@ -6,3 +6,4 @@ Things to do:
 - Save/Load the entire game as a file (current world, X/Y, etc.)
 - Make a different Overworld map and inner map with a way to switch between the two.
 - Have the Spell option in the BattleState open a sub-menu with spells.
+- Complete/figure out full NPC pathing.
