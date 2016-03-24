@@ -21,7 +21,7 @@ import nick.dev.utilities.Utilities;
  */
 public class NPC extends Entity {
 
-	private float moveSpeed = 3.5f;
+	private float moveSpeed = 1.0f;
 	private Float originX, originY;
 	private Integer currentDirection;
 
@@ -107,44 +107,60 @@ public class NPC extends Entity {
 	}
 
 	private void basicPathing() {
+		// System.out.println("OriginX: " + originX);
+		// System.out.println("OriginY: " + originY);
 		if (currentDirection == null) {
 			currentDirection = Utilities.getRandomNumber(1, 4);
 		} else {
 			switch (currentDirection) {
 			case 1:
-				if (originX + Map.TileHeight <= x) {
-					this.facingDirection = Direction.Up;
-					x++;
+				if ((originX + (Map.TileWidth * 2)) <= x) {
+					this.facingDirection = Direction.Right;
+					this.x += this.moveSpeed;
 				} else {
-					currentDirection = 2;
+					System.out.println("Changing Direction, cannot go right!");
+					currentDirection = null;
+					// System.out.println((originX + "+" + (Map.TileWidth * 2))
+					// + "<=" + x);
 				}
 				break;
 			case 2:
-				if (originX - Map.TileHeight <= x) {
-					this.facingDirection = Direction.Down;
-					x--;
+				if ((originX - (Map.TileWidth * 2)) <= x) {
+					this.facingDirection = Direction.Left;
+					this.x -= this.moveSpeed;
 				} else {
-					currentDirection = 1;
+					System.out.println("Changing Direction, cannot go left!");
+					currentDirection = null;
+					// System.out.println((originX + "-" + (Map.TileWidth * 2))
+					// + "<=" + x);
 				}
 				break;
 			case 3:
-				if (originY + Map.TileWidth <= y) {
-					this.facingDirection = Direction.Left;
-					y++;
+				if ((originY + (Map.TileHeight * 2)) <= y) {
+					this.facingDirection = Direction.Down;
+					this.y += this.moveSpeed;
 				} else {
-					currentDirection = 4;
+					System.out.println("Changing Direction, cannot go down!");
+					currentDirection = null;
+					// System.out.println((originY + "+" + (Map.TileHeight * 2))
+					// + "<=" + y);
 				}
 				break;
 			case 4:
-				if (originY - Map.TileWidth <= y) {
-					this.facingDirection = Direction.Right;
-					y--;
+				if ((originY - (Map.TileHeight * 2)) <= y) {
+					this.facingDirection = Direction.Up;
+					this.y -= this.moveSpeed;
 				} else {
-					currentDirection = 3;
+					System.out.println("Changing Direction, cannot go up!");
+					currentDirection = null;
+					// System.out.println((originY + "-" + (Map.TileHeight * 2))
+					// + "<=" + y);
 				}
 				break;
 			default:
 				this.facingDirection = Direction.Down;
+				this.y = originY;
+				this.x = originX;
 				break;
 			}
 		}
@@ -153,9 +169,6 @@ public class NPC extends Entity {
 	private void doMovement() {
 		boolean moveWithPlayer = false;
 		boolean moveSpinning = false;
-
-		System.out.println("Origin X: " + originX + " Origin Y: " + originY);
-		System.out.println("Current X: " + x + " Current Y: " + y);
 
 		if (moveWithPlayer) {
 			this.moveWithPlayer();
@@ -186,7 +199,7 @@ public class NPC extends Entity {
 		this.animations[Direction.Left.getValue()] = new Animation(this.animSpeed, Assets.DEFAULT_ANIM_LEFT);
 
 		this.facingDirection = Direction.Down;
-		this.moveSpeed = 3.5f;
+		this.moveSpeed = 1.0f;
 	}
 
 	/*****************************************************
