@@ -10,6 +10,7 @@ import nick.dev.base.Handler;
 import nick.dev.gfx.Animation;
 import nick.dev.gfx.Assets;
 import nick.dev.input.KeyManager.Keys;
+import nick.dev.maps.Map;
 import nick.dev.utilities.Utilities;
 
 /**
@@ -21,6 +22,8 @@ import nick.dev.utilities.Utilities;
 public class NPC extends Entity {
 
 	private float moveSpeed = 3.5f;
+	private Float originX, originY;
+	private Integer currentDirection;
 
 	/**************************************************************
 	 * Stores the data for the NPCs in the game. Works the same as the Monster
@@ -57,52 +60,109 @@ public class NPC extends Entity {
 	/*****************************************************
 	 * Handles the movement for NPCs. Checks for collisions.
 	 *****************************************************/
-	private void doMovement() {
+	private void moveWithPlayer() {
+		// Get inputs and move based on them.
+		if (Handler.getKeyManager().keyIsDown(Keys.Up)) {
+			this.facingDirection = Direction.Up;
+			this.y -= this.moveSpeed;
+		}
+		if (Handler.getKeyManager().keyIsDown(Keys.Right)) {
+			this.facingDirection = Direction.Right;
+			this.x += this.moveSpeed;
+		}
+		if (Handler.getKeyManager().keyIsDown(Keys.Down)) {
+			this.facingDirection = Direction.Down;
+			this.y += this.moveSpeed;
+		}
+		if (Handler.getKeyManager().keyIsDown(Keys.Left)) {
+			this.facingDirection = Direction.Left;
+			this.x -= this.moveSpeed;
+		}
+	}
 
-		boolean DebugCollision = false;
+	private void moveSpinning() {
+		int randomY = Utilities.getRandomNumber(-1, 1);
+		int randomX = Utilities.getRandomNumber(-1, 1);
 
-		if (DebugCollision) {
-			// Get inputs and move based on them.
-			if (Handler.getKeyManager().keyIsDown(Keys.Up)) {
-				this.facingDirection = Direction.Up;
-				this.y -= this.moveSpeed;
-			}
-			if (Handler.getKeyManager().keyIsDown(Keys.Right)) {
-				this.facingDirection = Direction.Right;
-				this.x += this.moveSpeed;
-			}
-			if (Handler.getKeyManager().keyIsDown(Keys.Down)) {
-				this.facingDirection = Direction.Down;
-				this.y += this.moveSpeed;
-			}
-			if (Handler.getKeyManager().keyIsDown(Keys.Left)) {
-				this.facingDirection = Direction.Left;
-				this.x -= this.moveSpeed;
-			}
+		switch (Utilities.getRandomNumber(1, 4)) {
+		case 1:
+			this.facingDirection = Direction.Up;
+			break;
+		case 2:
+			this.facingDirection = Direction.Down;
+			break;
+		case 3:
+			this.facingDirection = Direction.Left;
+			break;
+		case 4:
+			this.facingDirection = Direction.Right;
+			break;
+		default:
+			this.facingDirection = Direction.Down;
+			break;
+		}
+
+		this.y += randomY;
+		this.x += randomX;
+	}
+
+	private void basicPathing() {
+		if (currentDirection == null) {
+			currentDirection = Utilities.getRandomNumber(1, 4);
 		} else {
-			int randomY = Utilities.getRandomNumber(-1, 1);
-			int randomX = Utilities.getRandomNumber(-1, 1);
-
-			switch (Utilities.getRandomNumber(1, 4)) {
+			switch (currentDirection) {
 			case 1:
-				this.facingDirection = Direction.Up;
+				if (originX + Map.TileHeight <= x) {
+					this.facingDirection = Direction.Up;
+					x++;
+				} else {
+					currentDirection = 2;
+				}
 				break;
 			case 2:
-				this.facingDirection = Direction.Down;
+				if (originX - Map.TileHeight <= x) {
+					this.facingDirection = Direction.Down;
+					x--;
+				} else {
+					currentDirection = 1;
+				}
 				break;
 			case 3:
-				this.facingDirection = Direction.Left;
+				if (originY + Map.TileWidth <= y) {
+					this.facingDirection = Direction.Left;
+					y++;
+				} else {
+					currentDirection = 4;
+				}
 				break;
 			case 4:
-				this.facingDirection = Direction.Right;
+				if (originY - Map.TileWidth <= y) {
+					this.facingDirection = Direction.Right;
+					y--;
+				} else {
+					currentDirection = 3;
+				}
 				break;
 			default:
 				this.facingDirection = Direction.Down;
 				break;
 			}
+		}
+	}
 
-			this.y += randomY;
-			this.x += randomX;
+	private void doMovement() {
+		boolean moveWithPlayer = false;
+		boolean moveSpinning = false;
+
+		System.out.println("Origin X: " + originX + " Origin Y: " + originY);
+		System.out.println("Current X: " + x + " Current Y: " + y);
+
+		if (moveWithPlayer) {
+			this.moveWithPlayer();
+		} else if (moveSpinning) {
+			this.moveSpinning();
+		} else {
+			this.basicPathing();
 		}
 
 		this.resolveEntityCollisions();
@@ -115,6 +175,8 @@ public class NPC extends Entity {
 	public void initialize() {
 
 		this.animSpeed = 30;
+		this.originX = this.x;
+		this.originY = this.y;
 
 		// Initialize all of the animations.
 		this.animations = new Animation[4];
