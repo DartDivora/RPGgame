@@ -1,18 +1,48 @@
 package nick.dev.combat.spell;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import nick.dev.combat.Stats;
 import nick.dev.gfx.Animation;
+import nick.dev.utilities.Utilities;
 
 public class Spell {
 
-	private static HashMap<Integer, Spell> spellMap;
+	private static HashMap<String, Spell> spellMap;
+	private String spellName;
 	private Integer damage;
 	private Boolean combatSpell, fieldSpell;
+
 	private Animation spellAnimation;
 
-	public static HashMap<Integer, Spell> getSpellMap() {
+	static {
+		Gson gson = new Gson();
+		String JSONString = Utilities.getStringFromFile(Utilities.getPropValue("spellJSON"));
+
+		spellMap = gson.fromJson(JSONString, new TypeToken<HashMap<String, Spell>>() {
+		}.getType());
+
+		for (Entry<String, Spell> entry : spellMap.entrySet()) {
+			entry.getValue().initialize();
+			System.out.println(entry.getValue().getSpellName());
+		}
+
+		System.out.println(spellMap.entrySet());
+	}
+
+	public Spell() {
+		spellMap = new HashMap<String, Spell>();
+	}
+
+	public void initialize() {
+
+	}
+
+	public static HashMap<String, Spell> getSpellMap() {
 		return spellMap;
 	}
 
@@ -20,16 +50,19 @@ public class Spell {
 		return spellAnimation;
 	}
 
-	public Spell() {
-		spellMap = new HashMap<Integer, Spell>();
+	public String getSpellName() {
+		return spellName;
 	}
 
-	public void combatAction(Stats source, Stats target) {
+	public Integer fireball(Stats source, Stats target) {
+		damage = damage + source.getIntelligence();
 
+		return damage;
 	}
 
-	public void fieldAction(Stats source) {
-
+	public Integer ice(Stats source, Stats target) {
+		damage = damage + source.getIntelligence();
+		return damage;
 	}
 
 }

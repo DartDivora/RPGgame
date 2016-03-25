@@ -1,0 +1,14 @@
+{
+    0 : {
+            "spellName" : "fireball",
+            "damage" : 4,
+            "combatSpell" : true,
+            "fieldSpell" : false
+        },
+    1 : {
+            "spellName" : "ice",
+            "damage" : 8,
+            "combatSpell" : true,
+            "fieldSpell" : false
+        }
+}
