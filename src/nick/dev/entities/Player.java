@@ -55,7 +55,7 @@ public class Player extends Entity {
 		this.animations[Direction.Left.getValue()] = new Animation(this.animSpeed, Assets.player_left);
 
 		this.facingDirection = Direction.Down;
-		spells = new Integer[Spell.spellMap.size()];
+		spells = new Integer[Spell.getSpellMap().size()];
 	}
 
 	/*****************************************************
