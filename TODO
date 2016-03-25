@@ -7,3 +7,5 @@ Things to do:
 - Make a different Overworld map and inner map with a way to switch between the two.
 - Have the Spell option in the BattleState open a sub-menu with spells.
 - Complete/figure out full NPC pathing.
+Things to discuss:
+- Talk about rendering with JavaFX: (http://gamedevelopment.tutsplus.com/tutorials/introduction-to-javafx-for-game-development--cms-23835)

@@ -40,7 +40,7 @@ public class DisplayJavaFX extends Application {
 			@Override
 			public void handle(MouseEvent event) {
 				Circle circle = new Circle(event.getSceneX(), event.getSceneY(), 30);
-				circle.setFill(Color.YELLOW);
+				circle.setFill(Color.BLUE);
 				g.getChildren().add(circle);
 			}
 		});
