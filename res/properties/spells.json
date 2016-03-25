@@ -2,13 +2,29 @@
     0 : {
             "spellName" : "fireball",
             "damage" : 4,
+            "healing" : 0,
             "combatSpell" : true,
             "fieldSpell" : false
         },
     1 : {
             "spellName" : "ice",
             "damage" : 8,
+            "healing" : 0,
             "combatSpell" : true,
             "fieldSpell" : false
-        }
+        },
+    2: {
+            "spellName" : "heal",
+            "damage" : 0,
+            "healing" : 5,
+            "combatSpell" : true,
+            "fieldSpell" : true
+        },   
+     3: {
+            "spellName" : "warp",
+            "damage" : 0,
+            "healing" : 0,
+            "combatSpell" : false,
+            "fieldSpell" : true
+        }             
 }

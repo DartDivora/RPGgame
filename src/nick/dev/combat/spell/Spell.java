@@ -15,6 +15,8 @@ public class Spell {
 	private static HashMap<String, Spell> spellMap;
 	private String spellName;
 	private Integer damage;
+	private Integer healing;
+	@SuppressWarnings("unused")
 	private Boolean combatSpell, fieldSpell;
 
 	private Animation spellAnimation;
@@ -63,6 +65,14 @@ public class Spell {
 	public Integer ice(Stats source, Stats target) {
 		damage = damage + source.getIntelligence();
 		return damage;
+	}
+
+	public Integer heal(Stats source, Stats target) {
+		this.healing = healing + source.getIntelligence();
+		return healing;
+	}
+
+	public void warp() {
 	}
 
 }
