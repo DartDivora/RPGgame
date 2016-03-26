@@ -5,6 +5,12 @@ import java.util.Map.Entry;
 
 import nick.dev.entities.Player;
 
+/**
+ * This class will handle the Inventory used by the player in the game.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class Inventory {
 
 	public HashMap<String, BagItem> bagItems = new HashMap<String, BagItem>();
@@ -15,7 +21,15 @@ public class Inventory {
 		}
 	}
 
-	class BagItem {
+	/**
+	 * This class allows multiple of the same Item in-game to be stored. This is
+	 * used in the bagItems HashMap of the Inventory class to keep track of how
+	 * many of a particular item the Player has.
+	 * 
+	 * @author acharles, nsanft
+	 *
+	 */
+	private class BagItem {
 		private Integer quantity;
 		private Item item;
 

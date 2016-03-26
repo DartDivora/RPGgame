@@ -8,6 +8,12 @@ import com.google.gson.reflect.TypeToken;
 
 import nick.dev.utilities.Utilities;
 
+/**
+ * This class represents a single item in the RPG.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class Item {
 
 	private String itemID;

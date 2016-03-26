@@ -10,6 +10,12 @@ import com.google.gson.reflect.TypeToken;
 import nick.dev.gfx.Animation;
 import nick.dev.utilities.Utilities;
 
+/**
+ * This class represents a single spell in the RPG.
+ * 
+ * @author nsanft,acharles
+ * @version 1.1
+ */
 public class Spell {
 
 	private static HashMap<String, Spell> spellMap = new HashMap<String, Spell>();

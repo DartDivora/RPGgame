@@ -12,16 +12,16 @@ import nick.dev.gfx.Assets;
 import nick.dev.input.KeyManager.Keys;
 
 public class BattleUI {
-	
+
 	// Stats
 	private Stats[] stats;
-	
+
 	private Font f = new Font("ariel", Font.BOLD, 25);
 	/*************************************
 	 * Main battle area variables
 	 *************************************/
 	private int menuPadding = 10;
-	
+
 	private int mainWindowX = menuPadding / 2;
 	private int mainWindowY = Handler.getHeight() / 8;
 	private int mainWindowWidth = Handler.getWidth() - menuPadding;
@@ -29,13 +29,13 @@ public class BattleUI {
 
 	private int spriteWidth = 128;
 	private int spriteHeight = 128;
-	
+
 	private int playerHealthBarX = mainWindowX + menuPadding;
 	private int enemyHealthBarX = mainWindowWidth - spriteHeight - menuPadding;
 	private int healthBarY = mainWindowY + spriteHeight + menuPadding;
 	private int healthBarWidth = 128;
 	private int healthBarHeight = 20;
-	
+
 	/*************************************
 	 * Menu variables (move to own class?)
 	 *************************************/
@@ -43,13 +43,13 @@ public class BattleUI {
 	private int menuY = mainWindowY + mainWindowHeight + menuPadding / 2;
 	private int menuWidth = 150;
 	private int menuHeight = Handler.getHeight() - mainWindowHeight - mainWindowY - menuPadding;
-	
-	private String[] optionList = new String[3];
+
+	private String[] optionList = new String[4];
 	private Integer currentChoice = 0;
 	private Integer highlightLength = 0;
 	private Integer highlightLengthMax = 200;
 	private HashMap<Integer, Action> actions = new HashMap<Integer, Action>();
-	
+
 	private boolean pressedSelect = false;
 
 	/*************************************
@@ -59,9 +59,9 @@ public class BattleUI {
 	private int logY = menuY;
 	private int logWidth = Handler.getWidth() - logX - menuPadding;
 	private int logHeight = menuHeight;
-	
+
 	String[] logMessages = new String[2];
-	
+
 	/*************************************
 	 * Animations
 	 *************************************/
@@ -73,22 +73,23 @@ public class BattleUI {
 	 *************************************/
 	public BattleUI(Stats[] stats) {
 		this.stats = stats;
-		
+
 		this.optionList[0] = "Attack";
 		this.optionList[1] = "Defend";
 		this.optionList[2] = "Spell";
-		
+		this.optionList[3] = "Item";
+
 		this.actions.put(0, Action.Attack);
 		this.actions.put(1, Action.Defend);
 		this.actions.put(2, Action.Spell);
+		this.actions.put(3, Action.Item);
 
 		this.logMessages[0] = "This is a battle??";
 		this.logMessages[1] = "A " + stats[1].getName() + " appears!";
 	}
-	
+
 	/*************************************
-	 * Used by Battle State to check if 
-	 * the user selected an action.
+	 * Used by Battle State to check if the user selected an action.
 	 *************************************/
 	public Action getAction() {
 		if (this.pressedSelect) {
@@ -97,7 +98,7 @@ public class BattleUI {
 			return null;
 		}
 	}
-	
+
 	/*************************************
 	 * Used to add strings to the log.
 	 *************************************/
@@ -106,17 +107,17 @@ public class BattleUI {
 			this.logMessages[i] = str[i];
 		}
 	}
-	
+
 	/*************************************
 	 * Update animations and check for input
 	 *************************************/
 	public void update() {
 		playerAnim.update();
 		enemyAnim.update();
-		
+
 		this.updateMenu();
 	}
-	
+
 	/*************************************
 	 * Updates the menu
 	 *************************************/
@@ -124,7 +125,7 @@ public class BattleUI {
 		if (Handler.getKeyManager().keyIsPressed(Keys.ArrowDown)) {
 			this.currentChoice = Math.abs((this.currentChoice + 1) % this.optionList.length);
 			this.highlightLength = 0;
-			
+
 		} else if (Handler.getKeyManager().keyIsPressed(Keys.ArrowUp)) {
 			if (this.currentChoice - 1 != -1) {
 				this.currentChoice = Math.abs((this.currentChoice - 1) % this.optionList.length);
@@ -133,7 +134,7 @@ public class BattleUI {
 			}
 			this.highlightLength = 0;
 		}
-		
+
 		// Update the variable that determines if we send
 		// an action back to the BattleState.
 		this.pressedSelect = false;
@@ -145,41 +146,42 @@ public class BattleUI {
 			this.highlightLength = Math.min(this.highlightLength + 12, this.highlightLengthMax);
 		}
 	}
-	
+
 	/*************************************
 	 * Render everything!
 	 *************************************/
 	public void render(Graphics g) {
 		g.setFont(f);
-		
+
 		// Draw main box
 		g.setColor(Color.WHITE);
-		g.fillRect(mainWindowX - menuPadding / 2, mainWindowY - menuPadding / 2, mainWindowWidth + menuPadding, mainWindowHeight + menuPadding);
+		g.fillRect(mainWindowX - menuPadding / 2, mainWindowY - menuPadding / 2, mainWindowWidth + menuPadding,
+				mainWindowHeight + menuPadding);
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(mainWindowX, mainWindowY, mainWindowWidth, mainWindowHeight);
-		
+
 		// Draw entities
 		playerAnim.render(g, mainWindowX + menuPadding, mainWindowY + menuPadding, spriteWidth, spriteHeight);
-		enemyAnim.render(g, mainWindowWidth - spriteWidth - menuPadding, mainWindowY + menuPadding, spriteWidth, spriteHeight);
-		
+		enemyAnim.render(g, mainWindowWidth - spriteWidth - menuPadding, mainWindowY + menuPadding, spriteWidth,
+				spriteHeight);
+
 		this.renderHealthBars(g);
 		this.renderMenu(g);
 		this.renderLog(g);
 	}
-	
+
 	/*************************************
-	 * Renders the health bars for the player
-	 * and the enemy.
+	 * Renders the health bars for the player and the enemy.
 	 *************************************/
 	private void renderHealthBars(Graphics g) {
 		// Draw player health bar.
 		g.setColor(Color.RED);
 		g.fillRect(playerHealthBarX, healthBarY, healthBarWidth, healthBarHeight);
-		
+
 		double filledPercent = (double) stats[0].getCurrentHP() / (double) stats[0].getMaxHP();
 		g.setColor(Color.GREEN);
 		g.fillRect(playerHealthBarX, healthBarY, (int) (healthBarWidth * filledPercent), healthBarHeight);
-		
+
 		// Draw enemy health bar.
 		g.setColor(Color.RED);
 		g.fillRect(enemyHealthBarX, healthBarY, healthBarWidth, healthBarHeight);
@@ -188,7 +190,7 @@ public class BattleUI {
 		g.setColor(Color.GREEN);
 		g.fillRect(enemyHealthBarX, healthBarY, (int) (healthBarWidth * filledPercent), healthBarHeight);
 	}
-	
+
 	/*************************************
 	 * Renders the menu
 	 *************************************/
@@ -197,7 +199,7 @@ public class BattleUI {
 		g.fillRect(menuX, menuY - menuPadding / 2, menuWidth + menuPadding, menuHeight + menuPadding);
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(menuX + menuPadding / 2, menuY, menuWidth, menuHeight);
-		
+
 		for (int i = 0; i < this.optionList.length; ++i) {
 
 			int xPos = menuX + menuWidth / 3;
@@ -218,7 +220,7 @@ public class BattleUI {
 			g.drawString(this.optionList[i], xPos, yPos);
 		}
 	}
-	
+
 	/*************************************
 	 * Renders the log (results, etc)
 	 *************************************/
@@ -228,12 +230,11 @@ public class BattleUI {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(logX + menuPadding / 2, logY, logWidth, logHeight);
 
-		
 		for (int i = 0; i < this.logMessages.length; ++i) {
 
 			int xPos = logX + menuPadding * 2;
 			int yPos = logY + menuPadding + (g.getFontMetrics().getHeight() + 10) * (i + 1);
-			
+
 			g.setColor(Color.WHITE);
 			g.drawString(this.logMessages[i], xPos, yPos);
 		}

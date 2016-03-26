@@ -79,7 +79,7 @@ public class MenuState extends State {
 				break;
 			case "Items":
 				System.out.println(Player.getInventory().consumeItem("0"));
-				Player.getInventory().printBagItems();
+				//Player.getInventory().printBagItems();
 				break;
 			case "Exit":
 				System.exit(0);
