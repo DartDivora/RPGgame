@@ -7,13 +7,13 @@ import java.util.Map.Entry;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import nick.dev.combat.Spell;
 import nick.dev.utilities.Utilities;
 
 public class Item {
 
 	private String itemID;
 	private String itemName;
+	private int healing;
 
 	private static HashMap<String, Item> itemMap = new HashMap<String, Item>();
 	private static HashMap<String, Method> itemAction;

@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="/SupportLibrary/org/json/java-json.jar"/>
 	<classpathentry kind="lib" path="/SupportLibrary/com/google/gson/gson-2.6.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/SupportLibrary/org/javatuples/javatuples-1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
