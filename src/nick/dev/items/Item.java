@@ -1,6 +1,5 @@
 package nick.dev.items;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -13,26 +12,17 @@ public class Item {
 
 	private String itemID;
 	private String itemName;
+	private String itemType;
 	private int healing;
 
 	private static HashMap<String, Item> itemMap = new HashMap<String, Item>();
-	private static HashMap<String, Method> itemAction;
 
 	static {
 		Gson gson = new Gson();
 		String JSONString = Utilities.getStringFromFile(Utilities.getPropValue("itemJSON"));
-		itemMap = gson.fromJson(JSONString, new TypeToken<HashMap<String, Item>>() {}.getType());
-		itemAction = new HashMap<String, Method>();
+		itemMap = gson.fromJson(JSONString, new TypeToken<HashMap<String, Item>>() {
+		}.getType());
 		for (Entry<String, Item> entry : itemMap.entrySet()) {
-			/*
-			 * try { Class[] params = new Class[2]; params[0] = Stats.class;
-			 * params[1] = Stats.class;
-			 * itemAction.put(entry.getValue().getItemName(),
-			 * Spell.class.getMethod(entry.getValue().getItemName(), params)); }
-			 * catch (NoSuchMethodException | SecurityException e) {
-			 * System.out.println("No method exists for: " +
-			 * entry.getValue().getItemName()); e.printStackTrace(); }
-			 */
 			entry.getValue().initialize();
 			System.out.println(entry.getValue().getItemName());
 		}
@@ -53,6 +43,14 @@ public class Item {
 
 	public String getItemName() {
 		return itemName;
+	}
+
+	public String getItemType() {
+		return itemType;
+	}
+
+	public int getHealing() {
+		return healing;
 	}
 
 }

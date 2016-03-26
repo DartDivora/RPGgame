@@ -1,18 +1,26 @@
 {
     0 : {
             "itemID" : 0,
-            "itemName" : "potion"
+            "itemName" : "potion",
+			"itemType" : "consumable",
+			"healing" : 10
         },
     1 : {
             "itemID" : 1,
-            "itemName" : "bronze dagger"
+            "itemName" : "bronze dagger",
+			"itemType" : "weapon",
+			"healing" : 0
         },
     2: {
             "itemID" : 2,
-            "itemName" : "something"
+            "itemName" : "super potion",
+			"itemType" : "consumable",
+			"healing" : 20
         },   
      3: {
             "itemID" : 3,
-            "itemName" : "wewlads"
+            "itemName" : "plate mail",
+			"itemType" : "armorh",
+			"healing" : 0
         }             
 }

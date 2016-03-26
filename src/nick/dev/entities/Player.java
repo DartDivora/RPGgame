@@ -6,7 +6,7 @@ import nick.dev.combat.Stats;
 import nick.dev.gfx.Animation;
 import nick.dev.gfx.Assets;
 import nick.dev.input.KeyManager.Keys;
-import nick.dev.items.Item;
+import nick.dev.items.Inventory;
 
 /******************************************************
  * Player class.
@@ -17,6 +17,7 @@ import nick.dev.items.Item;
 public class Player extends Entity {
 
 	Integer[] spells;
+	private static Inventory inventory;
 
 	/*****************************************************
 	 * Static stats object, used in battles, etc.
@@ -57,8 +58,12 @@ public class Player extends Entity {
 
 		this.facingDirection = Direction.Down;
 		spells = new Integer[Spell.getSpellMap().size()];
-		
-		Item.getItemMap(); //Debug code
+
+		inventory = new Inventory();
+	}
+
+	public static Inventory getInventory() {
+		return inventory;
 	}
 
 	/*****************************************************

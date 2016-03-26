@@ -118,7 +118,8 @@ public class NPC extends Entity {
 					this.facingDirection = Direction.Right;
 					this.x += this.moveSpeed;
 				} else {
-					System.out.println("Changing Direction, cannot go right!");
+					// System.out.println("Changing Direction, cannot go
+					// right!");
 					currentDirection = null;
 					// System.out.println((originX + "+" + (Map.TileWidth * 2))
 					// + "<=" + x);
@@ -129,7 +130,8 @@ public class NPC extends Entity {
 					this.facingDirection = Direction.Left;
 					this.x -= this.moveSpeed;
 				} else {
-					System.out.println("Changing Direction, cannot go left!");
+					// System.out.println("Changing Direction, cannot go
+					// left!");
 					currentDirection = null;
 					// System.out.println((originX + "-" + (Map.TileWidth * 2))
 					// + "<=" + x);
@@ -140,7 +142,8 @@ public class NPC extends Entity {
 					this.facingDirection = Direction.Down;
 					this.y += this.moveSpeed;
 				} else {
-					System.out.println("Changing Direction, cannot go down!");
+					// System.out.println("Changing Direction, cannot go
+					// down!");
 					currentDirection = null;
 					// System.out.println((originY + "+" + (Map.TileHeight * 2))
 					// + "<=" + y);
@@ -151,7 +154,7 @@ public class NPC extends Entity {
 					this.facingDirection = Direction.Up;
 					this.y -= this.moveSpeed;
 				} else {
-					System.out.println("Changing Direction, cannot go up!");
+					// System.out.println("Changing Direction, cannot go up!");
 					currentDirection = null;
 					// System.out.println((originY + "-" + (Map.TileHeight * 2))
 					// + "<=" + y);
