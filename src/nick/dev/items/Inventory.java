@@ -92,11 +92,9 @@ public class Inventory {
 		for (Entry<String, BagItem> entry : this.getBagItems().entrySet()) {
 
 			Item item = entry.getValue().getItem();
-			System.out.println("Item ID: " + entry.getKey());
-			System.out.println("Item Name: " + item.getItemName());
+			item.printItem();
 			System.out.println("Item Quantity: " + entry.getValue().getQuantity());
-			System.out.println("Item Healing: " + item.getHealing());
-			System.out.println("Item Type: " + item.getItemType());
+
 		}
 
 	}

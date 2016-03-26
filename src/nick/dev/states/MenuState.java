@@ -56,10 +56,8 @@ public class MenuState extends State {
 		this.menuBoxHeight = Handler.getHeight();
 
 		if (Handler.getKeyManager().keyIsPressed(Keys.ArrowDown)) {
-
 			this.currentChoice = Math.abs((this.currentChoice + 1) % this.optionList.length);
 			this.highlightLength = 0;
-
 		} else if (Handler.getKeyManager().keyIsPressed(Keys.ArrowUp)) {
 			if (this.currentChoice - 1 != -1) {
 				this.currentChoice = Math.abs((this.currentChoice - 1) % this.optionList.length);
@@ -67,7 +65,6 @@ public class MenuState extends State {
 			} else {
 				this.currentChoice = (optionList.length - 1);
 			}
-
 		}
 
 		if (Handler.getKeyManager().keyIsPressed(Keys.Talk)) {
@@ -79,7 +76,7 @@ public class MenuState extends State {
 				break;
 			case "Items":
 				System.out.println(Player.getInventory().consumeItem("0"));
-				//Player.getInventory().printBagItems();
+				Player.getInventory().printBagItems();
 				break;
 			case "Exit":
 				System.exit(0);

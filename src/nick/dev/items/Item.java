@@ -19,6 +19,8 @@ public class Item {
 	private String itemID;
 	private String itemName;
 	private String itemType;
+	private String itemDescription;
+
 	private int healing;
 
 	private static HashMap<String, Item> itemMap = new HashMap<String, Item>();
@@ -55,8 +57,20 @@ public class Item {
 		return itemType;
 	}
 
+	public String getItemDescription() {
+		return itemDescription;
+	}
+
 	public int getHealing() {
 		return healing;
+	}
+
+	public void printItem() {
+		System.out.println("Item ID: " + this.getItemID());
+		System.out.println("Item Name: " + this.getItemName());
+		System.out.println("Item Description: " + this.getItemDescription());
+		System.out.println("Item Healing: " + this.getHealing());
+		System.out.println("Item Type: " + this.getItemType());
 	}
 
 }

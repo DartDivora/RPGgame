@@ -3,24 +3,28 @@
             "itemID" : 0,
             "itemName" : "potion",
 			"itemType" : "consumable",
+			"itemDescription" : "A regular old potion.",
 			"healing" : 10
         },
     1 : {
             "itemID" : 1,
             "itemName" : "bronze dagger",
 			"itemType" : "weapon",
+			"itemDescription" : "A dull, bronze dagger.",
 			"healing" : 0
         },
     2: {
             "itemID" : 2,
             "itemName" : "super potion",
 			"itemType" : "consumable",
+			"itemDescription" : "A super old potion.",
 			"healing" : 20
         },   
      3: {
             "itemID" : 3,
-            "itemName" : "plate mail",
-			"itemType" : "armorh",
+            "itemName" : "bronze plate mail",
+			"itemType" : "armorp",
+			"itemDescription" : "bronze armor for your plates.",
 			"healing" : 0
         }             
 }
