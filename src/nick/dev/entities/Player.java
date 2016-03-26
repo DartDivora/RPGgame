@@ -1,8 +1,8 @@
 package nick.dev.entities;
 
 import nick.dev.base.Handler;
+import nick.dev.combat.Spell;
 import nick.dev.combat.Stats;
-import nick.dev.combat.spell.Spell;
 import nick.dev.gfx.Animation;
 import nick.dev.gfx.Assets;
 import nick.dev.input.KeyManager.Keys;
