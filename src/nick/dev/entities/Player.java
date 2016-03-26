@@ -6,6 +6,7 @@ import nick.dev.combat.Stats;
 import nick.dev.gfx.Animation;
 import nick.dev.gfx.Assets;
 import nick.dev.input.KeyManager.Keys;
+import nick.dev.items.Item;
 
 /******************************************************
  * Player class.
@@ -56,6 +57,8 @@ public class Player extends Entity {
 
 		this.facingDirection = Direction.Down;
 		spells = new Integer[Spell.getSpellMap().size()];
+		
+		Item.getItemMap(); //Debug code
 	}
 
 	/*****************************************************

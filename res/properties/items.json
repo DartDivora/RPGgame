@@ -1,0 +1,18 @@
+{
+    0 : {
+            "itemID" : 0,
+            "itemName" : "potion"
+        },
+    1 : {
+            "itemID" : 1,
+            "itemName" : "bronze dagger"
+        },
+    2: {
+            "itemID" : 2,
+            "itemName" : "something"
+        },   
+     3: {
+            "itemID" : 3,
+            "itemName" : "wewlads"
+        }             
+}
