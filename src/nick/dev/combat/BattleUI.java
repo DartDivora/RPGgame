@@ -62,7 +62,6 @@ public class BattleUI {
 	
 	String[] logMessages = new String[2];
 	
-	
 	/*************************************
 	 * Animations
 	 *************************************/

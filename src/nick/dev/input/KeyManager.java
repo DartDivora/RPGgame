@@ -30,7 +30,6 @@ public class KeyManager implements KeyListener {
 	 * Map of all the keybinds to their key codes. Used for easier checking
 	 * since we can change the names.
 	 */
-
 	private HashMap<Keys, Integer> keybinds;
 
 	/**
@@ -41,9 +40,9 @@ public class KeyManager implements KeyListener {
 	private boolean[] keys;
 	private boolean[] keysAlreadyPressed;
 
-	/**
+	/***************************************************************
 	 * Constructor. Initializes containers and registers the keybinds.
-	 */
+	 **************************************************************/
 	public KeyManager() {
 		keys = new boolean[256];
 		keysAlreadyPressed = new boolean[256];
@@ -63,20 +62,20 @@ public class KeyManager implements KeyListener {
 		keybinds.put(Keys.Menu, KeyEvent.VK_P);
 	}
 
-	/**
+	/***************************************************************
 	 * update is called every frame. Currently no need for this, but we'll keep
 	 * it just in case we need it later.
-	 */
+	 **************************************************************/
 	public void update() {
 	}
 
-	/**
+	/***************************************************************
 	 * keyIsPressed returns whether or not a key is pressed - only returns true
 	 * once, so do not use for repeating input.
 	 * 
 	 * @param key
 	 * @return
-	 */
+	 **************************************************************/
 	public boolean keyIsPressed(Keys key) {
 		int code = keybinds.get(key);
 		if (keys[code] && !keysAlreadyPressed[code]) {
@@ -86,12 +85,12 @@ public class KeyManager implements KeyListener {
 		return false;
 	}
 
-	/**
+	/***************************************************************
 	 * keyIsDown returns whether or not a key is currently being held down.
 	 * 
 	 * @param key
 	 * @return
-	 */
+	 **************************************************************/
 	public boolean keyIsDown(Keys key) {
 		int code = keybinds.get(key);
 		if (keys[code]) {
@@ -101,9 +100,9 @@ public class KeyManager implements KeyListener {
 		return false;
 	}
 
-	/**
+	/***************************************************************
 	 * This event is called when the mouse is pressed.
-	 */
+	 **************************************************************/
 	@Override
 	public void keyPressed(KeyEvent e) {
 		try {
@@ -116,9 +115,9 @@ public class KeyManager implements KeyListener {
 		Utilities.Debug("Pressed: " + e.getKeyChar());
 	}
 
-	/**
+	/***************************************************************
 	 * This event is called when the mouse is released.
-	 */
+	 **************************************************************/
 	@Override
 	public void keyReleased(KeyEvent e) {
 		try {

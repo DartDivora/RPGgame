@@ -14,16 +14,34 @@ import nick.dev.maps.Map;
  * @version 1.1
  */
 public class Animation {
+	
+	public enum LoopType {
+		REPEAT, PINGPONG, NONE
+	}
 
 	private int speed, index;
 	private int timer;
 	private BufferedImage[] frames;
+	private LoopType loopType;
+	
+	private boolean finished = false;
 
 	public Animation(int speed, BufferedImage[] frames) {
 		this.speed = speed;
 		this.frames = frames;
 		this.index = 0;
 		this.timer = 0;
+		
+		this.loopType = LoopType.REPEAT;
+	}
+	
+	public Animation(int speed, BufferedImage[] frames, LoopType loopType) {
+		this.speed = speed;
+		this.frames = frames;
+		this.index = 0;
+		this.timer = 0;
+		
+		this.loopType = loopType;
 	}
 
 	public void update() {
@@ -33,7 +51,16 @@ public class Animation {
 			index++;
 			timer = 0;
 			if (index >= frames.length)
-				index = 0;
+				
+				switch(this.loopType) {
+				case REPEAT:
+					index = 0;
+					break;
+				case PINGPONG:
+					break;
+				case NONE:
+					this.finished = true;
+				}
 		}
 	}
 
@@ -45,6 +72,10 @@ public class Animation {
 
 	public void render(Graphics g, float x, float y, int width, int height) {
 		g.drawImage(frames[index], (int)x, (int)y, width, height, null);
+	}
+	
+	public boolean isFinished() {
+		return this.finished;
 	}
 
 }
