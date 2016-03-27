@@ -90,11 +90,9 @@ public class Inventory {
 
 	public void printBagItems() {
 		for (Entry<String, BagItem> entry : this.getBagItems().entrySet()) {
-
 			Item item = entry.getValue().getItem();
 			item.printItem();
 			System.out.println("Item Quantity: " + entry.getValue().getQuantity());
-
 		}
 
 	}

@@ -11,6 +11,12 @@ import nick.dev.gfx.Animation;
 import nick.dev.gfx.Assets;
 import nick.dev.input.KeyManager.Keys;
 
+/**
+ * This class handles the UI for the BattleState.
+ * 
+ * @author acharles,nsanft
+ * @version 1.1
+ */
 public class BattleUI {
 
 	// Stats
