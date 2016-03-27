@@ -25,8 +25,8 @@ public class BattleManager {
 		private static final Random random = new Random();
 
 		public static Action getRandom() {
-			// size-1 so that it doesn't choose magic.
-			return values.get(random.nextInt(size - 1));
+			// size-2 now so that it doesn't choose Magic or Item.
+			return values.get(random.nextInt(size - 2));
 		}
 	};
 
