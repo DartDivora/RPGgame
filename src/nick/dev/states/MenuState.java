@@ -75,7 +75,7 @@ public class MenuState extends State {
 				Player.getStats().printStats();
 				break;
 			case "Items":
-				System.out.println(Player.getInventory().consumeItem("0"));
+				System.out.println(Player.getInventory().useConsumable("0"));
 				Player.getInventory().printBagItems();
 				break;
 			case "Exit":

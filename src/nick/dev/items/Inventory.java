@@ -51,11 +51,11 @@ public class Inventory {
 		}
 	}
 
-	public String consumeItem(String itemID) {
+	public String useConsumable(String itemID) {
 		String responseMessage = "";
 		Item item = Item.getItemMap().get(itemID);
-		if (item.getItemType().equals("consumable")) {
 
+		if (item.getItemType().equals("consumable")) {
 			if (Player.getStats().getCurrentHP() + item.getHealing() >= Player.getStats().getMaxHP()) {
 				responseMessage = "The " + item.getItemName() + " healed you for "
 						+ (Player.getStats().getMaxHP() - Player.getStats().getCurrentHP()) + "!";
@@ -64,13 +64,28 @@ public class Inventory {
 				Player.getStats().setCurrentHP(Player.getStats().getCurrentHP() + item.getHealing());
 				responseMessage = "The " + item.getItemName() + " healed you for " + item.getHealing();
 			}
-			bagItems.get(itemID).setQuantity(bagItems.get(itemID).getQuantity() - 1);
-
-			if (bagItems.get(itemID).getQuantity() == 0) {
-				bagItems.remove(itemID);
-			}
+			this.consumeItem(itemID);
 		} else {
 			responseMessage = "You cannot consume: " + item.getItemName() + "!";
+		}
+
+		return responseMessage;
+	}
+
+	public void consumeItem(String itemID) {
+		bagItems.get(itemID).setQuantity(bagItems.get(itemID).getQuantity() - 1);
+		if (bagItems.get(itemID).getQuantity() == 0) {
+			bagItems.remove(itemID);
+		}
+	}
+
+	public String equipItem(String itemID) {
+		String responseMessage = "";
+		Item item = Item.getItemMap().get(itemID);
+		if (item.getItemType().equals("weapon") || item.getItemType().equals("armor")) {
+			// something will definitely happen here.
+		} else {
+			responseMessage = item.getItemName() + " is not an equippable weapon, you dingus!";
 		}
 
 		return responseMessage;

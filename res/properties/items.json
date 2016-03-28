@@ -23,8 +23,9 @@
      3: {
             "itemID" : 3,
             "itemName" : "bronze plate mail",
-			"itemType" : "armorp",
+			"itemType" : "armor",
 			"itemDescription" : "bronze armor for your plates.",
-			"healing" : 0
+			"healing" : 0,
+			"slotType" : "body"
         }             
 }

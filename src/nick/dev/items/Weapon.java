@@ -13,5 +13,5 @@ public class Weapon extends Item {
 		// Might need this sometime...
 		super.initialize();
 	}
-
+	
 }
