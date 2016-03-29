@@ -1,6 +1,7 @@
 package nick.dev.combat;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -20,6 +21,7 @@ public class Spell {
 
 	private static HashMap<String, Spell> spellMap = new HashMap<String, Spell>();
 	private static HashMap<String, Method> spellAction;
+	public static String[] spellList;
 	private String spellName;
 	private Integer damage;
 	private Integer healing;
@@ -32,15 +34,21 @@ public class Spell {
 
 		Gson gson = new Gson();
 		String JSONString = Utilities.getStringFromFile(Utilities.getPropValue("spellJSON"));
-		spellMap = gson.fromJson(JSONString, new TypeToken<HashMap<String, Spell>>() {}.getType());
+		spellMap = gson.fromJson(JSONString, new TypeToken<HashMap<String, Spell>>() {
+		}.getType());
 		spellAction = new HashMap<String, Method>();
+		spellList = new String[spellMap.size()];
+		int i = 0;
 		for (Entry<String, Spell> entry : spellMap.entrySet()) {
+			spellList[i] = entry.getValue().getSpellName();
+			i++;
 			try {
 				@SuppressWarnings("rawtypes")
 				Class[] params = new Class[2];
 				params[0] = Stats.class;
 				params[1] = Stats.class;
-				spellAction.put(entry.getValue().getSpellName(),Spell.class.getMethod(entry.getValue().getSpellName(), params));
+				spellAction.put(entry.getValue().getSpellName(),
+						Spell.class.getMethod(entry.getValue().getSpellName(), params));
 			} catch (NoSuchMethodException | SecurityException e) {
 				System.out.println("No method exists for: " + entry.getValue().getSpellName());
 				e.printStackTrace();
@@ -48,7 +56,7 @@ public class Spell {
 			entry.getValue().initialize();
 			System.out.println(entry.getValue().getSpellName());
 		}
-
+		System.out.println(Arrays.toString(spellList));
 		System.out.println(spellMap.entrySet());
 	}
 

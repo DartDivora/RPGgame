@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import nick.dev.base.Handler;
+import nick.dev.combat.Spell;
 import nick.dev.entities.Player;
 import nick.dev.gfx.Assets;
 import nick.dev.input.KeyManager.Keys;
@@ -27,6 +28,7 @@ public class MenuState extends State {
 	// private Integer menuBoxInnerMargin = 10;
 	private String[] optionList = new String[6];
 	private Integer currentChoice = 0;
+	private String subMenu = null;
 
 	private Integer highlightLength = 0;
 	private Integer highlightLengthMax = 100;
@@ -47,6 +49,7 @@ public class MenuState extends State {
 	/**************************************************************
 	 * Update, called every frame.
 	 **************************************************************/
+
 	@Override
 	public void update() {
 
@@ -55,15 +58,29 @@ public class MenuState extends State {
 		this.menuBoxLength = Handler.getWidth();
 		this.menuBoxHeight = Handler.getHeight();
 
-		if (Handler.getKeyManager().keyIsPressed(Keys.ArrowDown)) {
-			this.currentChoice = Math.abs((this.currentChoice + 1) % this.optionList.length);
-			this.highlightLength = 0;
-		} else if (Handler.getKeyManager().keyIsPressed(Keys.ArrowUp)) {
-			if (this.currentChoice - 1 != -1) {
-				this.currentChoice = Math.abs((this.currentChoice - 1) % this.optionList.length);
+		if (this.subMenu == null) {
+			if (Handler.getKeyManager().keyIsPressed(Keys.ArrowDown)) {
+				this.currentChoice = Math.abs((this.currentChoice + 1) % this.optionList.length);
 				this.highlightLength = 0;
-			} else {
-				this.currentChoice = (optionList.length - 1);
+			} else if (Handler.getKeyManager().keyIsPressed(Keys.ArrowUp)) {
+				if (this.currentChoice - 1 != -1) {
+					this.currentChoice = Math.abs((this.currentChoice - 1) % this.optionList.length);
+					this.highlightLength = 0;
+				} else {
+					this.currentChoice = (optionList.length - 1);
+				}
+			}
+		} else if (subMenu.equals("Spells")) {
+			if (Handler.getKeyManager().keyIsPressed(Keys.ArrowDown)) {
+				this.currentChoice = Math.abs((this.currentChoice + 1) % Spell.spellList.length);
+				this.highlightLength = 0;
+			} else if (Handler.getKeyManager().keyIsPressed(Keys.ArrowUp)) {
+				if (this.currentChoice - 1 != -1) {
+					this.currentChoice = Math.abs((this.currentChoice - 1) % Spell.spellList.length);
+					this.highlightLength = 0;
+				} else {
+					this.currentChoice = (Spell.spellList.length - 1);
+				}
 			}
 		}
 
@@ -77,6 +94,10 @@ public class MenuState extends State {
 			case "Items":
 				System.out.println(Player.getInventory().useConsumable("0"));
 				Player.getInventory().printBagItems();
+				break;
+			case "Spells":
+				System.out.println("Spells!!!");
+				this.subMenu = "Spells";
 				break;
 			case "Exit":
 				System.exit(0);
@@ -109,30 +130,60 @@ public class MenuState extends State {
 		g.fillRect(this.menuStartX, this.menuStartY, this.menuBoxLength, this.menuBoxHeight);
 
 		g.setColor(Color.WHITE);
-		for (int i = 0; i < this.optionList.length; ++i) {
 
-			// xPos = middle of the screen, yPos = the middle and then in a
-			// list.
-			int xPos = Handler.getWidth() / 2 - g.getFontMetrics().stringWidth(this.optionList[0]) / 2;
-			int yPos = Handler.getHeight() / 2 + (g.getFontMetrics().getHeight() + 10) * i;
+		// Figure out how to refactor this into one line...
+		if (this.subMenu == null) {
+			for (int i = 0; i < this.optionList.length; ++i) {
 
-			if (this.currentChoice.equals(i)) {
-				int fingerPosX = xPos - 64;
-				int fingerPosY = yPos - 30;
-				g.drawImage(Assets.finger, fingerPosX, fingerPosY, 50, 50, null);
+				// xPos = middle of the screen, yPos = the middle and then in a
+				// list.
+				int xPos = Handler.getWidth() / 2 - g.getFontMetrics().stringWidth(this.optionList[0]) / 2;
+				int yPos = Handler.getHeight() / 2 + (g.getFontMetrics().getHeight() + 10) * i;
 
-				g.setColor(new Color(240, 240, 240));
+				if (this.currentChoice.equals(i)) {
+					int fingerPosX = xPos - 64;
+					int fingerPosY = yPos - 30;
+					g.drawImage(Assets.finger, fingerPosX, fingerPosY, 50, 50, null);
 
-				this.highlightLengthMax = g.getFontMetrics().stringWidth(Utilities.getLongestString(this.optionList));
+					g.setColor(new Color(240, 240, 240));
 
-				g.fillRect(xPos - 5, fingerPosY, this.highlightLength + 10, 40);
+					this.highlightLengthMax = g.getFontMetrics()
+							.stringWidth(Utilities.getLongestString(this.optionList));
+
+					g.fillRect(xPos - 5, fingerPosY, this.highlightLength + 10, 40);
+				}
+
+				g.setColor(Color.WHITE);
+				g.drawString(this.optionList[i], xPos, yPos);
 			}
+		} else if (this.subMenu.equals("Spells")) {
+			for (int i = 0; i < Spell.spellList.length; ++i) {
+				// xPos = middle of the screen, yPos = the middle and then in a
+				// list.
+				int xPos = Handler.getWidth() / 2 - g.getFontMetrics().stringWidth(Spell.spellList[0]) / 2;
+				int yPos = Handler.getHeight() / 2 + (g.getFontMetrics().getHeight() + 10) * i;
 
-			g.setColor(Color.WHITE);
-			g.drawString(this.optionList[i], xPos, yPos);
+				if (this.currentChoice.equals(i)) {
+					int fingerPosX = xPos - 64;
+					int fingerPosY = yPos - 30;
+					g.drawImage(Assets.finger, fingerPosX, fingerPosY, 50, 50, null);
+
+					g.setColor(new Color(240, 240, 240));
+
+					this.highlightLengthMax = g.getFontMetrics()
+							.stringWidth(Utilities.getLongestString(Spell.spellList));
+
+					g.fillRect(xPos - 5, fingerPosY, this.highlightLength + 10, 40);
+				}
+
+				g.setColor(Color.WHITE);
+				g.drawString(Spell.spellList[i], xPos, yPos);
+
+			}
 		}
-		// this.drawString
 	}
+
+	// this.drawString
 
 	/**************************************************************
 	 * Called when the state is entered with no arguments, but that doesn't make
