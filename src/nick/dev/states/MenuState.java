@@ -57,6 +57,7 @@ public class MenuState extends State {
 		this.menuStartY = 1;
 		this.menuBoxLength = Handler.getWidth();
 		this.menuBoxHeight = Handler.getHeight();
+		Boolean talk = Handler.getKeyManager().keyIsPressed(Keys.Talk);
 
 		if (this.subMenu == null) {
 			if (Handler.getKeyManager().keyIsPressed(Keys.ArrowDown)) {
@@ -84,8 +85,7 @@ public class MenuState extends State {
 			}
 		}
 
-		if (Handler.getKeyManager().keyIsPressed(Keys.Talk)) {
-
+		if (talk && this.subMenu == null) {
 			// We may want to improve how this is created later...
 			switch (optionList[currentChoice]) {
 			case "Stats":
@@ -104,6 +104,25 @@ public class MenuState extends State {
 				break;
 			default:
 				System.out.println(optionList[currentChoice] + "!!!");
+			}
+		} else if (talk && this.subMenu.equals("Spells")) {
+			System.out.println(Spell.getSpellMap().entrySet());
+			switch (Spell.spellList[currentChoice]) {
+			case "heal":
+				Spell.getSpellMap().get("2").heal(Player.getStats(), Player.getStats());
+				this.subMenu = null;
+				this.currentChoice = 0;
+				break;
+			case "warp":
+				Spell.getSpellMap().get("3").warp(Player.getStats(), Player.getStats());
+				System.out.println("This will warp!");
+				this.subMenu = null;
+				this.currentChoice = 0;
+				break;
+			default:
+				System.out.println(optionList[currentChoice] + " is not a field spell!!!");
+				this.subMenu = null;
+				this.currentChoice = 0;
 			}
 		}
 
