@@ -52,7 +52,6 @@ public class BattleManager {
 		for (int i = 0; i < defending.length; ++i) {
 			defending[i] = false;
 		}
-
 		// Right now, this just checks to see if someone is defending
 		// and makes them go first. Later, maybe turn order is decided by
 		// speed and defend just buffs their defense the next time they get hit.
@@ -64,7 +63,6 @@ public class BattleManager {
 			results[playerIndex] = this.executeAction(playerChoice, playerIndex, targetIndex);
 			results[targetIndex] = this.executeAction(targetAction, targetIndex, playerIndex);
 		}
-
 		return results;
 	}
 
