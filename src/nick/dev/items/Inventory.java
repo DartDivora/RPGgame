@@ -14,10 +14,14 @@ import nick.dev.entities.Player;
 public class Inventory {
 
 	public HashMap<String, BagItem> bagItems = new HashMap<String, BagItem>();
+	public HashMap<String, Item> slotItems = new HashMap<String, Item>();
 
 	public Inventory() {
 		for (Entry<String, Item> entry : Item.getItemMap().entrySet()) {
 			bagItems.put(entry.getKey(), new BagItem(Item.getItemMap().get(entry.getKey()), 10));
+			if (entry.getValue().getItemType().equals("armor") || entry.getValue().getItemType().equals("weapon")) {
+				slotItems.put(entry.getValue().getItemType(), entry.getValue());
+			}
 		}
 	}
 
@@ -83,7 +87,10 @@ public class Inventory {
 		String responseMessage = "";
 		Item item = Item.getItemMap().get(itemID);
 		if (item.getItemType().equals("weapon") || item.getItemType().equals("armor")) {
-			// something will definitely happen here.
+			if (slotItems.get(item.getItemType()) != null) {
+				addItem(item.getItemID());
+			}
+			slotItems.put(item.getItemID(), item);
 		} else {
 			responseMessage = item.getItemName() + " is not an equippable weapon, you dingus!";
 		}
