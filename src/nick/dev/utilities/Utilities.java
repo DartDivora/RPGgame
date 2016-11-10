@@ -26,7 +26,7 @@ import nick.dev.maps.Map;
  */
 public class Utilities extends IOUtils {
 
-	private static boolean Debug = false;
+	private static boolean Debug = true;
 	private static String propFile = "res/properties/rpg.properties";
 
 	public static void Debug(String message) {

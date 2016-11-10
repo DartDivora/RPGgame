@@ -50,7 +50,7 @@ public class Game implements Runnable {
 
 		// TODO: Make this not gross, init above and then setting display.
 		Handler.setDisplay(display);
-		
+
 		// Initialize all of the assets for the game.
 		Assets.init();
 

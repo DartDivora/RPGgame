@@ -17,5 +17,14 @@
             		"Defense" : 2
             		}
           	
+        },
+    "new" : {
+            "name" : "Test Guy",
+            "stats" : {
+            		"Name" : "Test Guy",
+            		"Strength" : 5,
+            		"Defense" : 2
+            		}
+          	
         }
 }

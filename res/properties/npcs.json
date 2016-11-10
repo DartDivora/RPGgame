@@ -10,5 +10,11 @@
             "dialogueID" : 1,
             "x" : 64,
             "y" : 200
-        }
+        },
+    2 : {
+            "name" : "Alex Sanft",
+            "dialogueID" : 2,
+            "x" : 96,
+            "y" : 200
+        }        
 }
